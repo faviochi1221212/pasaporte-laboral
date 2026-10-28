@@ -1,7 +1,10 @@
 // e2e-01 a e2e-09 (docs/historias.md) en 360, 1280 y 1920 px, contra el backend en modo respaldo.
 import { expect, type Page, test } from "../../web/node_modules/@playwright/test";
+import competencias from "../../data/competencias.json";
 import demanda from "../../data/demanda.json";
+import ocupaciones from "../../data/ocupaciones.json";
 import {
+  BLANCO,
   capturar,
   contraste,
   conversarComoMaria,
@@ -19,6 +22,8 @@ const [RESPUESTA_1, RESPUESTA_2] = RELATO_MARIA.respuestas.map((r) => r.texto ??
 const PLANTILLA_RESUMEN = "Experiencia práctica en:";
 const REACCIONES_RESPALDO = ["Gracias.", "Entendido.", "Anotado.", "Perfecto, sigamos."];
 const ROJO_PERU = "rgb(217, 16, 35)";
+const [CODIGO_MAS_AVISOS, MAS_AVISOS] = Object.entries(demanda.perfiles).sort((a, b) => b[1].avisos - a[1].avisos)[0]!;
+const NOMBRE_MAS_AVISOS = ocupaciones.find((o) => o.codigo === CODIGO_MAS_AVISOS)!.nombre;
 const MESES = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "set", "oct", "nov", "dic"];
 const [ANIO, MES, DIA] = demanda.tomado.slice(0, 10).split("-").map(Number);
 const FECHA_FOTO = `${DIA} ${MESES[(MES ?? 1) - 1]} ${ANIO}`;
@@ -48,26 +53,66 @@ async function irSinRecargar(page: Page, ruta: string): Promise<void> {
 
 test("e2e-01: inicio → elegir Caja → primera pregunta", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByText("Prototipo · no es un sitio oficial")).toBeVisible();
+  // Sin banda ni franja arriba; arriba solo queda la marca de modo sin conexión (estamos en respaldo).
+  await expect(page.getByText("Prototipo · no es un sitio oficial")).toHaveCount(0);
+  await expect(page.locator(".franja-peru")).toHaveCount(0);
   await expect(page.getByText("modo sin conexión")).toBeVisible();
   await expect(page.getByText("gob.pe")).toHaveCount(0);
-  // Acento Perú: franja fina roja y blanca debajo de la banda "Prototipo".
-  const franja = page.locator(".franja-peru");
-  await expect(franja).toBeVisible();
-  expect(await franja.evaluate((e) => getComputedStyle(e).backgroundImage)).toContain(ROJO_PERU);
-  // Cómo funciona: 3 pasos en orden, debajo de "¿No está tu trabajo?".
+  // Bloque superior rojo a todo el ancho, con título y subtítulo en blanco y 3 o 4 personajes.
+  const portada = page.locator(".inicio-portada");
+  const [fondo, ancho] = await portada.evaluate((e) => [
+    getComputedStyle(e).backgroundColor,
+    e.getBoundingClientRect().width,
+  ]);
+  expect(fondo).toBe(ROJO_PERU);
+  expect(ancho).toBe(page.viewportSize()!.width);
+  for (const texto of [portada.locator("h1"), portada.locator(".subtitulo")]) {
+    const color = await texto.evaluate((e) => getComputedStyle(e).color);
+    expect(color).toBe(BLANCO);
+    expect(contraste(color, fondo as string)).toBeGreaterThanOrEqual(4.5);
+  }
+  const personajes = portada.locator(".inicio-personajes svg");
+  expect(await personajes.count()).toBeGreaterThanOrEqual(3);
+  expect(await personajes.count()).toBeLessThanOrEqual(4);
+  const titulo = (await portada.locator("h1").boundingBox())!;
+  const personaje = (await personajes.first().boundingBox())!;
+  if (test.info().project.name === "360") {
+    // En celular, los personajes van debajo y más chicos.
+    expect(personaje.y).toBeGreaterThan(titulo.y + titulo.height);
+    expect(personaje.width).toBeLessThan(80);
+  } else {
+    expect(personaje.x).toBeGreaterThan(titulo.x + titulo.width);
+  }
+  // Cómo funciona: 3 pasos en orden con su frase, debajo de "¿No está tu trabajo?".
   const pasos = page.locator(".como-funciona li");
-  await expect(pasos).toHaveText(["Cuentas lo que haces", "Ganas sellos", "Ves a qué trabajos puedes llegar"]);
+  await expect(pasos.locator("strong")).toHaveText([
+    "Cuentas lo que haces",
+    "Ganas sellos",
+    "Ves a qué trabajos puedes llegar",
+  ]);
+  await expect(pasos.locator("p")).toHaveText([
+    "Respondes 6 preguntas en un chat, escribiendo o hablando.",
+    "Cada tarea que contaste se convierte en un sello del catálogo oficial del MTPE.",
+    "Te mostramos 3 trabajos, lo que te falta, cursos gratis y avisos reales.",
+  ]);
   await expect(pasos.locator(".sello")).toHaveCount(3);
   const otro = await page.getByText("¿No está tu trabajo?").boundingBox();
   const como = await page.locator(".como-funciona").boundingBox();
   expect(como!.y).toBeGreaterThan(otro!.y);
+  // Cifras, todas sacadas de data/, debajo de "Cómo funciona".
+  await expect(page.locator(".inicio-cifras li")).toHaveText([
+    `${ocupaciones.length} trabajos del catálogo del MTPE`,
+    `${competencias.length} tareas que pueden ser sellos`,
+    `${MAS_AVISOS.avisos} avisos de ${NOMBRE_MAS_AVISOS} en Lima al ${FECHA_FOTO}`,
+  ]);
+  const cifras = await page.locator(".inicio-cifras").boundingBox();
+  expect(cifras!.y).toBeGreaterThan(como!.y);
   // Fuentes, con la fecha de la foto de data/demanda.json.
   await expect(page.locator(".inicio-fuentes")).toHaveText(
     "Hecho con datos oficiales del Perú: Catálogo Nacional de Perfiles Ocupacionales del MTPE · " +
       `Cursos gratuitos CAPACITA-T · Avisos de Empleos Perú al ${FECHA_FOTO}`,
   );
-  await expect(page.locator(".inicio-fuentes img, .como-funciona img")).toHaveCount(0);
+  await expect(page.locator(".inicio img")).toHaveCount(0);
   if (test.info().project.name === "360") {
     // En celular, los pasos van en una columna.
     const cajas = await Promise.all((await pasos.all()).map((p) => p.boundingBox()));
@@ -101,13 +146,12 @@ test("e2e-02b: reacciones del modelo grabadas y contador de sellos", async ({ pa
   expect(pregunta).toBe("¿Qué haces en un día normal?");
   await responder(page, RESPUESTA_2);
   await expect(page.getByText(/\d+ sellos? ganados?/)).toBeVisible({ timeout: 15_000 });
-  // El rojo Perú es el acento de la barra y cumple contraste AA (4,5:1) sobre su fondo.
-  const marca = page.locator(".chat-sellos-marca");
-  const [color, fondo] = await marca.evaluate((e) => [
-    getComputedStyle(e).color,
-    getComputedStyle(e.parentElement!).backgroundColor,
-  ]);
-  expect(color).toBe(ROJO_PERU);
+  // La barra de sellos va en rojo Perú con texto blanco, con contraste AA (4,5:1).
+  const [color, fondo] = await page
+    .locator(".chat-sellos")
+    .evaluate((e) => [getComputedStyle(e).color, getComputedStyle(e).backgroundColor]);
+  expect(fondo).toBe(ROJO_PERU);
+  expect(color).toBe(BLANCO);
   expect(contraste(color, fondo)).toBeGreaterThanOrEqual(4.5);
 });
 
@@ -260,7 +304,7 @@ test("e2e-07: CV con nombre escrito en el navegador y sin enviarlo", async ({ pa
   }
 
   await page.emulateMedia({ media: "print" });
-  await expect(page.getByText("Prototipo · no es un sitio oficial")).toBeHidden();
+  await expect(page.locator(".pie")).toBeHidden();
   await expect(imprimir).toBeHidden();
   expect(await page.locator(".cv-hoja").evaluate((e) => getComputedStyle(e).fontFamily)).toContain("Times New Roman");
   await sinPalabrasProhibidas(page);

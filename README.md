@@ -34,7 +34,7 @@ Si QVAC falla en modo real (no responde, o responde sin la tool o fuera del esqu
 | `cursos.json` | CAPACITA-T del MTPE (temario de cada curso) | 27 oct 2026 |
 | `avisos.json`, `demanda.json` | Empleos Perú (MTPE), avisos de Lima | 27 oct 2026, 19:58 |
 
-La fecha de las fuentes que se ve en el Inicio se lee de `data/demanda.json` al compilar las pantallas: **después de actualizar `data/avisos.json` y `data/demanda.json`, vuelve a correr `npm run build`** (en `web/`).
+Las cifras y la fecha de las fuentes que se ven en el Inicio se leen de `data/` (`ocupaciones.json`, `competencias.json` y `demanda.json`) al compilar las pantallas: **después de actualizar `data/avisos.json` y `data/demanda.json` (o el catálogo), vuelve a correr `npm run build`** (en `web/`).
 
 ## Empezar (Windows, VS Code)
 

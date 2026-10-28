@@ -22,8 +22,10 @@ Falta en el mockup y se agrega en la app: pantalla de Intereses (3 botones) y pa
 ```css
 :root {
   --rojo-gob: #C8102E;      /* logo gob.pe, acentos */
-  --rojo-peru: #D91023;     /* acento Perú (solo en la app): franja roja y blanca bajo la banda y barra "N sellos ganados"; 5,2:1 sobre blanco y 4,7:1 sobre --fondo (AA) */
-  --azul: #1C5FA8;          /* botones y enlaces */
+  --rojo-peru: #D91023;     /* color principal (solo en la app): botones principales, títulos destacados, barra de sellos y bloque superior del Inicio; blanco encima 5,2:1, sobre --fondo 4,7:1 (AA) */
+  --rojo-peru-oscuro: #A50D1B; /* hover de los botones; blanco encima 7,9:1 */
+  --rojo-peru-claro: #FDF0F1;  /* fondo de chips y hover de botones secundarios; rojo encima 4,6:1 */
+  --azul: #1C5FA8;          /* solo enlaces (en la app los botones van en --rojo-peru) */
   --azul-oscuro: #123F73;   /* hover */
   --fondo: #F2F5F9;
   --blanco: #FFFFFF;
@@ -42,9 +44,9 @@ Falta en el mockup y se agrega en la app: pantalla de Intereses (3 botones) y pa
   --granate: #7A1F2B;       /* cabecera del pasaporte */
   --papel: #FBF8F1;         /* hoja del pasaporte */
   --dorado: #F3E3B8;        /* texto sobre granate */
-  --aviso-fondo: #FFF4E5;   /* banda "Prototipo" */
+  --aviso-fondo: #FFF4E5;   /* marca "modo sin conexión" */
   --aviso-texto: #7A4300;
 }
 ```
 
-Tipografía: Roboto (400, 500, 700, 900). Texto base 16 a 18 px. Botones de al menos 48 px de alto. Banda superior fija: "Prototipo · no es un sitio oficial". Sin logos ni escudo oficiales.
+Tipografía: Roboto (400, 500, 700, 900). Texto base 16 a 18 px. Botones de al menos 48 px de alto. **Cambio en la app:** no hay banda superior; un pie pequeño en todas las pantallas dice "Prototipo para la Innovathon ULima x Tether 2026 · No es un servicio oficial del MTPE", y arriba solo aparece la marca "modo sin conexión" en modo respaldo. Sin logos, escudo ni la palabra "gob.pe", y sin copiar la cabecera de gob.pe ni de Empleos Perú.

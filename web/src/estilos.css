@@ -1,7 +1,11 @@
 /* Estilos propios, primero celular (spec 2). Colores de docs/mockup/LEEME.md. */
 :root {
   --rojo-gob: #c8102e;
-  --rojo-peru: #d91023; /* acento Perú: franja y barra de sellos; 5,2:1 sobre blanco y 4,7:1 sobre --fondo (AA) */
+  /* Color principal: botones, títulos destacados y barra de sellos. Blanco sobre rojo 5,2:1 y
+     rojo sobre --fondo 4,7:1 (AA). El azul queda solo para enlaces. */
+  --rojo-peru: #d91023;
+  --rojo-peru-oscuro: #a50d1b; /* hover: blanco encima 7,9:1 */
+  --rojo-peru-claro: #fdf0f1; /* fondo de chips; rojo encima 4,6:1 */
   --azul: #1c5fa8;
   --azul-oscuro: #123f73;
   --fondo: #f2f5f9;
@@ -63,7 +67,7 @@ p {
   margin: 0 0 0.75em;
 }
 
-/* --- Marco: banda arriba y la pantalla debajo. El chat ocupa justo el alto visible. */
+/* --- Marco: la pantalla y el pie debajo. El chat ocupa justo el alto visible. */
 
 .marco {
   display: flex;
@@ -75,36 +79,29 @@ p {
   height: 100dvh;
 }
 
-/* --- Banda "Prototipo", franja roja y blanca, y marca de modo sin conexión */
+/* --- Marca de modo sin conexión (solo en respaldo) y pie "Prototipo" */
 
-.cabecera-fija {
+.marca-arriba {
   position: sticky;
   top: 0;
   z-index: 10;
-}
-
-.banda {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  align-items: center;
   justify-content: center;
-  padding: 0.4rem 1rem;
+  padding: 0.3rem 1rem;
   background: var(--aviso-fondo);
   color: var(--aviso-texto);
-  font-size: 0.85rem;
   font-weight: 500;
-  text-align: center;
 }
 
-.franja-peru {
-  height: 4px;
-  background: linear-gradient(
-    to right,
-    var(--rojo-peru) 0 33.33%,
-    var(--blanco) 33.33% 66.67%,
-    var(--rojo-peru) 66.67% 100%
-  );
+.pie {
+  flex: none;
+  margin-top: auto; /* abajo de la ventana aunque la pantalla sea corta */
+  padding: 0.6rem 1rem;
+  border-top: 1px solid var(--borde);
+  background: var(--blanco);
+  color: var(--texto-3);
+  font-size: 0.8rem;
+  text-align: center;
 }
 
 .marca-sin-conexion {
@@ -165,9 +162,9 @@ p {
   gap: 0.5rem;
   min-height: 48px;
   padding: 0.6rem 1.2rem;
-  border: 2px solid var(--azul);
+  border: 2px solid var(--rojo-peru);
   border-radius: 10px;
-  background: var(--azul);
+  background: var(--rojo-peru);
   color: var(--blanco);
   font: inherit;
   font-weight: 700;
@@ -176,8 +173,8 @@ p {
 }
 
 .boton:hover {
-  background: var(--azul-oscuro);
-  border-color: var(--azul-oscuro);
+  background: var(--rojo-peru-oscuro);
+  border-color: var(--rojo-peru-oscuro);
   color: var(--blanco);
 }
 
@@ -188,12 +185,12 @@ p {
 
 .boton-secundario {
   background: var(--blanco);
-  color: var(--azul);
+  color: var(--rojo-peru);
 }
 
 .boton-secundario:hover {
-  background: var(--fondo);
-  color: var(--azul-oscuro);
+  background: var(--rojo-peru-claro);
+  color: var(--rojo-peru-oscuro);
 }
 
 .boton-ancho {
@@ -201,7 +198,7 @@ p {
 }
 
 :focus-visible {
-  outline: 3px solid var(--azul);
+  outline: 3px solid var(--texto);
   outline-offset: 2px;
 }
 
@@ -255,6 +252,7 @@ p {
   font-size: 2rem;
   font-weight: 900;
   line-height: 1.08;
+  color: var(--rojo-peru);
 }
 
 .subtitulo {
@@ -305,8 +303,20 @@ p {
 /* --- Inicio */
 
 .inicio-portada {
+  background: var(--rojo-peru);
+  color: var(--blanco);
+}
+
+.inicio-portada-contenido {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
   align-items: center;
-  padding: 0.5rem 0 1rem;
+}
+
+.inicio-portada .titulo-grande,
+.inicio-portada .subtitulo {
+  color: var(--blanco);
 }
 
 .inicio-datos {
@@ -316,17 +326,21 @@ p {
   margin: 0;
   padding: 0;
   list-style: none;
-  color: var(--texto-2);
   font-size: 0.95rem;
 }
 
 .inicio-datos li::before {
   content: "● ";
-  color: var(--morado);
 }
 
-.inicio-sellos {
-  display: none;
+.inicio-personajes {
+  display: flex;
+  gap: 8px;
+}
+
+.inicio-personajes svg {
+  width: 64px;
+  height: 64px;
 }
 
 .tarjetas {
@@ -353,7 +367,7 @@ p {
 }
 
 .tarjeta-trabajo:hover {
-  border-color: var(--azul);
+  border-color: var(--rojo-peru);
 }
 
 .inicio-otro {
@@ -383,14 +397,20 @@ p {
 }
 
 @media (min-width: 1024px) {
-  .inicio-sellos {
-    display: flex;
-    justify-content: center;
-    gap: 0;
+  .inicio-portada-contenido {
+    padding: 2.5rem 2rem;
   }
 
-  .inicio-sellos > :nth-child(2) {
-    margin: 50px -20px 0;
+  .inicio-personajes {
+    display: grid;
+    grid-template-columns: repeat(2, 120px);
+    gap: 16px;
+    justify-content: center;
+  }
+
+  .inicio-personajes svg {
+    width: 120px;
+    height: 120px;
   }
 
   .tarjetas {
@@ -426,7 +446,33 @@ p {
   border: 1px solid var(--borde);
   border-radius: 12px;
   background: var(--blanco);
-  font-weight: 700;
+}
+
+.como-funciona li p {
+  margin: 0.15rem 0 0;
+  color: var(--texto-2);
+  font-size: 0.95rem;
+}
+
+.inicio-cifras {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  margin: 1.5rem 0 0;
+  padding: 1rem;
+  border-radius: 12px;
+  background: var(--blanco);
+  border: 1px solid var(--borde);
+  list-style: none;
+  color: var(--texto-2);
+}
+
+.inicio-cifras strong {
+  display: block;
+  color: var(--rojo-peru);
+  font-size: 2rem;
+  font-weight: 900;
+  line-height: 1.1;
 }
 
 .inicio-fuentes {
@@ -445,8 +491,18 @@ p {
   }
 
   .como-funciona li {
+    align-items: flex-start;
     padding: 1rem 1.25rem;
+  }
+
+  .como-funciona li strong {
     font-size: 1.05rem;
+  }
+
+  .inicio-cifras {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    padding: 1.25rem 1.5rem;
   }
 }
 
@@ -485,7 +541,7 @@ p {
 }
 
 .barra-progreso span.lleno {
-  background: var(--azul);
+  background: var(--rojo-peru);
 }
 
 .chat-mensajes {
@@ -515,7 +571,7 @@ p {
 
 .burbuja-persona {
   align-self: flex-end;
-  background: var(--azul);
+  background: var(--rojo-peru);
   color: var(--blanco);
   border-bottom-right-radius: 4px;
 }
@@ -541,10 +597,10 @@ p {
 .ejemplo {
   min-height: 48px;
   padding: 8px 16px;
-  border: 2px solid var(--azul);
+  border: 2px solid var(--rojo-peru);
   border-radius: 22px;
-  background: #eaf1fa;
-  color: var(--azul);
+  background: var(--rojo-peru-claro);
+  color: var(--rojo-peru);
   font: inherit;
   font-weight: 700;
   cursor: pointer;
@@ -564,9 +620,9 @@ p {
   align-items: center;
   gap: 0.75rem;
   padding: 0.5rem 0.75rem;
-  border-left: 4px solid var(--rojo-peru);
   border-radius: 12px;
-  background: var(--fondo);
+  background: var(--rojo-peru);
+  color: var(--blanco);
 }
 
 .chat-sellos-marca {
@@ -576,9 +632,9 @@ p {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 3px solid var(--rojo-peru);
+  border: 3px solid var(--blanco);
   border-radius: 50%;
-  color: var(--rojo-peru);
+  color: var(--blanco);
   font-weight: 900;
   transform: rotate(-8deg);
 }
@@ -788,7 +844,7 @@ p {
   gap: 2px;
   min-height: 64px;
   padding: 0.9rem 1.1rem;
-  border: 2px solid var(--azul);
+  border: 2px solid var(--rojo-peru);
   border-radius: 12px;
   background: var(--blanco);
   color: var(--texto);
@@ -799,7 +855,7 @@ p {
 
 .interes strong {
   font-size: 1.15rem;
-  color: var(--azul);
+  color: var(--rojo-peru);
 }
 
 .interes span {
@@ -807,7 +863,7 @@ p {
 }
 
 .interes:hover {
-  background: #eaf1fa;
+  background: var(--rojo-peru-claro);
 }
 
 /* --- Ruta */
@@ -1149,7 +1205,8 @@ p {
     background: #fff;
   }
 
-  .cabecera-fija,
+  .marca-arriba,
+  .pie,
   .no-imprimir {
     display: none !important;
   }

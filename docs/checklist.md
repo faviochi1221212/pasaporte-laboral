@@ -96,6 +96,8 @@ Hecho cuando: A10 y A11 pasan y las capturas se revisaron a ojo en los dos tama�
 - [x] Acento Perú: `--rojo-peru` (AA) en una franja roja y blanca bajo la banda "Prototipo" y en la barra "N sellos ganados"
 - [x] 1920 px: capturas en 360, 1280 y 1920; en 1920 se revisa que el contenido vaya centrado (Intereses quedaba a la izquierda)
 - [x] Modo real con respaldo grabado (spec 7): si al final de los reintentos no hay respuesta válida y existe el fixture, se usa
+- [x] Diseño (spec 2): sin banda ni franja arriba; pie "Prototipo para la Innovathon…" en todas las pantallas; `--rojo-peru` como color principal (botones, títulos, barra de sellos) y azul solo para enlaces
+- [x] Inicio: bloque rojo con personajes, frases de "Cómo funciona" y franja de cifras sacadas de `data/`
 
 ## M7 · Demo y pitch
 

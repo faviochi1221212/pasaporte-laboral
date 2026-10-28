@@ -2,7 +2,7 @@
 // tests/test_web.py revisa que no tengan palabras prohibidas (regla 5 de CLAUDE.md).
 
 export const TEXTOS = {
-  banda: "Prototipo · no es un sitio oficial",
+  pie: "Prototipo para la Innovathon ULima x Tether 2026 · No es un servicio oficial del MTPE",
   sinConexion: "modo sin conexión",
   atras: "Atrás",
   errorRed: "No pudimos conectarnos. Inténtalo de nuevo.",
@@ -24,9 +24,17 @@ export const TEXTOS = {
     otroContinuar: "Continuar con mi trabajo",
     minutos: "5 minutos",
     puedesHablar: "Puedes hablar",
-    sellosDecorativos: ["Cuadra la caja", "Atiende reclamos", "Ordena mercadería"],
     comoFunciona: "Cómo funciona",
-    pasos: ["Cuentas lo que haces", "Ganas sellos", "Ves a qué trabajos puedes llegar"],
+    pasos: [
+      ["Cuentas lo que haces", "Respondes 6 preguntas en un chat, escribiendo o hablando."],
+      ["Ganas sellos", "Cada tarea que contaste se convierte en un sello del catálogo oficial del MTPE."],
+      ["Ves a qué trabajos puedes llegar", "Te mostramos 3 trabajos, lo que te falta, cursos gratis y avisos reales."],
+    ] as [string, string][],
+    cifras: {
+      trabajos: "trabajos del catálogo del MTPE",
+      tareas: "tareas que pueden ser sellos",
+      avisos: (nombre: string, fecha: string) => `avisos de ${nombre} en Lima al ${fecha}`,
+    },
     fuentes: (fecha: string) =>
       "Hecho con datos oficiales del Perú: Catálogo Nacional de Perfiles Ocupacionales del MTPE · " +
       `Cursos gratuitos CAPACITA-T · Avisos de Empleos Perú al ${fecha}`,

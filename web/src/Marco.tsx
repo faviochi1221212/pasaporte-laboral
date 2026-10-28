@@ -7,10 +7,7 @@ interface Modo {
   sinConexion: boolean;
 }
 
-/**
- * Banda "Prototipo" fija arriba, con la franja roja y blanca debajo, y marca pequeña cuando QVAC
- * corre en modo respaldo (HU-15).
- */
+/** Pie "Prototipo…" en todas las pantallas y, solo en modo respaldo, la marca pequeña arriba (HU-15). */
 export function Marco() {
   const [sinConexion, setSinConexion] = useState(false);
 
@@ -23,14 +20,13 @@ export function Marco() {
 
   return (
     <div className="marco">
-      <div className="cabecera-fija">
-        <div className="banda" role="note">
-          <span>{TEXTOS.banda}</span>
-          {sinConexion && <span className="marca-sin-conexion">{TEXTOS.sinConexion}</span>}
+      {sinConexion && (
+        <div className="marca-arriba" role="note">
+          <span className="marca-sin-conexion">{TEXTOS.sinConexion}</span>
         </div>
-        <div className="franja-peru" aria-hidden="true" />
-      </div>
+      )}
       <Outlet context={{ sinConexion } satisfies Modo} />
+      <footer className="pie">{TEXTOS.pie}</footer>
     </div>
   );
 }

@@ -67,6 +67,38 @@ async function centradoEnPantallaAncha(pagina: Page): Promise<void> {
   expect(Math.abs(izquierda - derecha), `contenido descentrado en ${pagina.url()}`).toBeLessThanOrEqual(48);
 }
 
+export const BLANCO = "rgb(255, 255, 255)";
+const ROJO_PERU = "rgb(217, 16, 35)";
+const ROJO_PERU_OSCURO = "rgb(165, 13, 27)"; // hover: el mouse puede quedar encima después de un clic
+const AZUL = "rgb(28, 95, 168)";
+const PIE = "Prototipo para la Innovathon ULima x Tether 2026 · No es un servicio oficial del MTPE";
+
+/** Pie de página pequeño y visible en todas las pantallas. */
+async function conPie(pagina: Page): Promise<void> {
+  await expect(pagina.locator(".pie"), `pie en ${pagina.url()}`).toHaveText(PIE);
+  await expect(pagina.locator(".pie")).toBeVisible();
+}
+
+/** Color principal: los botones principales van en rojo con texto blanco (AA) y ningún botón usa el azul. */
+async function botonesEnRojo(pagina: Page): Promise<void> {
+  const estilos = await pagina.locator("button, a.boton").evaluateAll((elementos) =>
+    elementos
+      .filter((e) => (e as HTMLElement).offsetParent !== null)
+      .map((e) => {
+        const s = getComputedStyle(e);
+        const principal = e.classList.contains("boton") && !e.classList.contains("boton-secundario");
+        const nombre = `${e.tagName} "${(e.textContent || e.getAttribute("aria-label") || "").trim().slice(0, 30)}"`;
+        return { nombre, principal, fondo: s.backgroundColor, texto: s.color, borde: s.borderTopColor };
+      }),
+  );
+  for (const b of estilos) {
+    expect([b.fondo, b.texto, b.borde], `${b.nombre} usa el azul en ${pagina.url()}`).not.toContain(AZUL);
+    if (!b.principal) continue;
+    expect([ROJO_PERU, ROJO_PERU_OSCURO], `${b.nombre} en ${pagina.url()}`).toContain(b.fondo);
+    expect(contraste(b.texto, b.fondo), `${b.nombre} en ${pagina.url()}`).toBeGreaterThanOrEqual(4.5);
+  }
+}
+
 /** Luminancia relativa de WCAG de un color "rgb(r, g, b)". */
 function luminancia(rgb: string): number {
   const [r, g, b] = (rgb.match(/\d+/g) ?? []).slice(0, 3).map((v) => {
@@ -82,12 +114,14 @@ export function contraste(a: string, b: string): number {
   return ((claro ?? 0) + 0.05) / ((oscuro ?? 0) + 0.05);
 }
 
-/** Revisa la pantalla (regla 5, A10, A11, 1920) y guarda una captura completa en tests/e2e/capturas/. */
+/** Revisa la pantalla (regla 5, A10, A11, 1920, pie y color principal) y guarda una captura completa en tests/e2e/capturas/. */
 export async function capturar(pagina: Page, nombre: string): Promise<void> {
   await sinPalabrasProhibidas(pagina);
   await usableEnCelular(pagina);
   await dosColumnasEnComputadora(pagina);
   await centradoEnPantallaAncha(pagina);
+  await conPie(pagina);
+  await botonesEnRojo(pagina);
   await guardarCaptura(pagina, nombre);
 }
 

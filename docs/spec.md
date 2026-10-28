@@ -16,7 +16,12 @@ Esta pestaña dice cómo se construye el MVP, sin espacio para inventar. Regla: 
 ## 2. Stack y estructura
 
 - Python 3.10, FastAPI, SQLite con el módulo sqlite3 (sin ORM), httpx para llamar a QVAC y pytest para las pruebas. Sin otras dependencias.
-- Frontend: React + TypeScript con Vite, CSS propio "primero celular" (una columna en 360 px, dos columnas desde 1024 px) con los colores del mockup v3. Cada pantalla del mockup es una ruta y Sello, Trabajador y Pasaporte son componentes reutilizables. El build lo sirve el mismo FastAPI. Pruebas de pantalla con Playwright en 360 y 1280 px. Orden de construcción: primero todo el backend probado por su API (M0 a M5) y después las pantallas (M6).
+- Frontend: React + TypeScript con Vite, CSS propio "primero celular" (una columna en 360 px, dos columnas desde 1024 px) con los colores del mockup v3. Cada pantalla del mockup es una ruta y Sello, Trabajador y Pasaporte son componentes reutilizables. El build lo sirve el mismo FastAPI. Pruebas de pantalla con Playwright en 360, 1280 y 1920 px. Orden de construcción: primero todo el backend probado por su API (M0 a M5) y después las pantallas (M6).
+- Diseño de todas las pantallas (ajustes del 28 oct sobre el mockup v3):
+  - Sin banda superior. Un pie pequeño y visible en todas las pantallas dice "Prototipo para la Innovathon ULima x Tether 2026 · No es un servicio oficial del MTPE". Arriba solo queda la marca "modo sin conexión", y solo en modo respaldo.
+  - Color principal --rojo-peru (#D91023) en botones principales, títulos destacados y la barra de sellos, con texto blanco sobre rojo (contraste AA). El azul queda solo para enlaces. Los colores de los sellos no cambian.
+  - Inicio: bloque superior rojo a todo el ancho con el título y el subtítulo en blanco y 4 personajes del componente Trabajador (a la derecha en computadora; debajo y más chicos en celular). Debajo de "¿No está tu trabajo?": "Cómo funciona" en 3 pasos con su frase, una franja de cifras sacadas de data/ (trabajos del catálogo, tareas y el perfil con más avisos en Lima con su número y la fecha de la foto) y las fuentes. Las cifras y la fecha se leen de data/ al compilar.
+  - Sin escudo, logo ni la palabra "gob.pe", y sin copiar la cabecera de gob.pe ni de Empleos Perú.
 - Un solo proceso y un solo repositorio:
 
 ```
