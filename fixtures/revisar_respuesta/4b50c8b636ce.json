@@ -1,0 +1,48 @@
+{
+  "choices": [
+    {
+      "finish_reason": "tool_calls",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+          {
+            "type": "function",
+            "function": {
+              "name": "revisar_respuesta",
+              "arguments": "{\"reaccion\":\"Qué bonito que ayudes a tu tío en el mercado.\",\"suficiente\":true,\"menciona_actividad\":true,\"repregunta\":\"\"}"
+            },
+            "id": "qREN6sH7vwTsZa8DZADUXVID9td4nyq4"
+          }
+        ]
+      }
+    }
+  ],
+  "created": 1793190408,
+  "model": "qwen-38-27b",
+  "system_fingerprint": "b9242-17810f33a",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 80,
+    "prompt_tokens": 531,
+    "total_tokens": 611,
+    "prompt_tokens_details": {
+      "cached_tokens": 488
+    }
+  },
+  "id": "chatcmpl-bjiWNrK4C82AkBTYuAKuhZoyHVr9yo2P",
+  "timings": {
+    "cache_n": 488,
+    "prompt_n": 43,
+    "prompt_ms": 111.512,
+    "prompt_per_token_ms": 2.593302325581395,
+    "prompt_per_second": 385.60872372480094,
+    "predicted_n": 80,
+    "predicted_ms": 449.007,
+    "predicted_per_token_ms": 5.683632911392405,
+    "predicted_per_second": 175.9438048850018,
+    "draft_n": 80,
+    "draft_n_accepted": 64
+  }
+}

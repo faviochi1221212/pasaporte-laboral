@@ -1,0 +1,48 @@
+{
+  "choices": [
+    {
+      "finish_reason": "tool_calls",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "La persona menciona una actividad concreta (tejer), así que es suficiente.\n\n",
+        "tool_calls": [
+          {
+            "type": "function",
+            "function": {
+              "name": "revisar_respuesta",
+              "arguments": "{\"reaccion\":\"Tejer es una actividad muy bonita y tranquila.\",\"suficiente\":true,\"menciona_actividad\":true,\"repregunta\":\"\"}"
+            },
+            "id": "j9dA4c5MAM6XnB6cbsq1ZBzN7wZMy7xB"
+          }
+        ]
+      }
+    }
+  ],
+  "created": 1793190417,
+  "model": "qwen-38-27b",
+  "system_fingerprint": "b9242-17810f33a",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 94,
+    "prompt_tokens": 522,
+    "total_tokens": 616,
+    "prompt_tokens_details": {
+      "cached_tokens": 488
+    }
+  },
+  "id": "chatcmpl-mSk9F47W8YAC7Cz9GyP7G4mtZE0lruhH",
+  "timings": {
+    "cache_n": 488,
+    "prompt_n": 34,
+    "prompt_ms": 108.546,
+    "prompt_per_token_ms": 3.1925294117647063,
+    "prompt_per_second": 313.2312567943544,
+    "predicted_n": 94,
+    "predicted_ms": 581.472,
+    "predicted_per_token_ms": 6.252387096774194,
+    "predicted_per_second": 159.9389136536239,
+    "draft_n": 100,
+    "draft_n_accepted": 73
+  }
+}

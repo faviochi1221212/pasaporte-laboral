@@ -25,7 +25,7 @@ Demo Day: 30 de octubre de 2026. Prioridad: que el recorrido central funcione y 
 2. **El modelo conversa, extrae y redacta; el código calcula.** Ningún número, ocupación, curso ni aviso que ve el usuario sale del modelo: sale de `data/` o de `app/calculo.py`.
 3. **Un sello solo se da con evidencia textual** (spec sección 4). Si el código no existe o la frase no está en lo que escribió la persona, se descarta.
 4. **El asistente es amable pero no finge ser humano:** se presenta como asistente del Ministerio, sin nombre de persona ni foto (spec 5b).
-5. **Nunca** escribas "certificado", "eres competente", "no sirves", "brecha" ni "competencia" en textos que ve el usuario. Usa "lo que contaste que haces", "competencias declaradas" (solo en el CV), "lo que te falta".
+5. **Nunca** escribas en textos que ve el usuario palabras que empiecen con "certific" o "competen" (certificado, certificada, certificación, competente, competencia…), ni "brecha" ni "no sirves", sin importar mayúsculas ni tildes. La única excepción es "competencias declaradas", solo en el CV. Usa "lo que contaste que haces" y "lo que te falta".
 6. **Datos personales:** no se piden DNI, teléfono, correo, edad, género, discapacidad ni nivel educativo. El nombre del CV vive solo en el navegador.
 7. **Secretos:** el token de QVAC solo en `.env`. Nunca en código, pruebas, fixtures, logs ni commits. Antes de cada commit, revisa que no se cuele.
 8. **Prompts de Tether no son privados:** en pruebas y fixtures solo relatos inventados (`tests/relatos/`).

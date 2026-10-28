@@ -1,0 +1,48 @@
+{
+  "choices": [
+    {
+      "finish_reason": "tool_calls",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+          {
+            "type": "function",
+            "function": {
+              "name": "revisar_respuesta",
+              "arguments": "{\"reaccion\":\"Me gusta cómo cuidas cada detalle de tu trabajo.\",\"suficiente\":true,\"menciona_actividad\":true,\"repregunta\":\"\"}"
+            },
+            "id": "9W8RS1eIrmJnUfuCKT6yXpY1XXYmuBYw"
+          }
+        ]
+      }
+    }
+  ],
+  "created": 1793190412,
+  "model": "qwen-38-27b",
+  "system_fingerprint": "b9242-17810f33a",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 78,
+    "prompt_tokens": 583,
+    "total_tokens": 661,
+    "prompt_tokens_details": {
+      "cached_tokens": 488
+    }
+  },
+  "id": "chatcmpl-menljv7MNhFdLzlGnAIJDJe31uDCiJuL",
+  "timings": {
+    "cache_n": 488,
+    "prompt_n": 95,
+    "prompt_ms": 128.42,
+    "prompt_per_token_ms": 1.3517894736842104,
+    "prompt_per_second": 739.7601619685408,
+    "predicted_n": 78,
+    "predicted_ms": 525.944,
+    "predicted_per_token_ms": 6.830441558441558,
+    "predicted_per_second": 146.40341937544682,
+    "draft_n": 95,
+    "draft_n_accepted": 58
+  }
+}

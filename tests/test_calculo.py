@@ -91,6 +91,30 @@ def test_a5_evidencia_vacia_no_vale() -> None:
     assert not calculo.evidencia_valida(" ¡! ", RESPUESTAS)
 
 
+# --- palabras prohibidas (regla 5 de CLAUDE.md, spec 5)
+
+
+@pytest.mark.parametrize(
+    "texto",
+    [
+        "Cajera certificada",
+        "Tiene certificación",
+        "Eres muy COMPETENTE",
+        "Sus competencias",
+        "Tu brecha",
+        "Tú no sirves para eso",
+        "Tu NO SÍRVES",
+    ],
+)
+def test_regla5_bloquea_por_raiz_sin_mayusculas_ni_tildes(texto: str) -> None:
+    assert calculo.tiene_palabra_prohibida(texto)
+
+
+@pytest.mark.parametrize("texto", ["Te gusta competir", "Recertifica no", "Cobra y da vuelto"])
+def test_regla5_no_bloquea_palabras_que_no_empiezan_con_la_raiz(texto: str) -> None:
+    assert not calculo.tiene_palabra_prohibida(texto)
+
+
 # --- otorgar_sellos (spec 4)
 
 

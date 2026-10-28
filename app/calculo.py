@@ -21,6 +21,12 @@ def normalizar(texto: str) -> str:
     return " ".join(re.sub(r"[^\w\s]|_", " ", sin_tildes).split())
 
 
+def tiene_palabra_prohibida(texto: str) -> bool:
+    """Alguna palabra del texto empieza con una raíz de PALABRAS_PROHIBIDAS (sin mayúsculas ni tildes)."""
+    normal = f" {normalizar(texto)}"
+    return any(f" {raiz}" in normal for raiz in config.PALABRAS_PROHIBIDAS)
+
+
 def evidencia_valida(frase: str, respuestas: Iterable[str]) -> bool:
     """La frase aparece tal cual, con palabras completas, en alguna respuesta (spec 4, condición 2)."""
     buscada = normalizar(frase)

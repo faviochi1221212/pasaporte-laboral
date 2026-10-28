@@ -1,0 +1,48 @@
+{
+  "choices": [
+    {
+      "finish_reason": "tool_calls",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+          {
+            "type": "function",
+            "function": {
+              "name": "revisar_respuesta",
+              "arguments": "{\"reaccion\":\"El vóley con amigos suena muy divertido.\",\"suficiente\":true,\"menciona_actividad\":true,\"repregunta\":\"\"}"
+            },
+            "id": "Or6mO4jfAyqlMejrAX1aV921dim0QHPS"
+          }
+        ]
+      }
+    }
+  ],
+  "created": 1793190409,
+  "model": "qwen-38-27b",
+  "system_fingerprint": "b9242-17810f33a",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 78,
+    "prompt_tokens": 525,
+    "total_tokens": 603,
+    "prompt_tokens_details": {
+      "cached_tokens": 488
+    }
+  },
+  "id": "chatcmpl-QCxdrmSRRdNf9q2s0a5Zz3yP7FmhxovK",
+  "timings": {
+    "cache_n": 488,
+    "prompt_n": 37,
+    "prompt_ms": 110.541,
+    "prompt_per_token_ms": 2.9875945945945945,
+    "prompt_per_second": 334.71743515980495,
+    "predicted_n": 78,
+    "predicted_ms": 429.756,
+    "predicted_per_token_ms": 5.581246753246753,
+    "predicted_per_second": 179.17143681530916,
+    "draft_n": 75,
+    "draft_n_accepted": 62
+  }
+}

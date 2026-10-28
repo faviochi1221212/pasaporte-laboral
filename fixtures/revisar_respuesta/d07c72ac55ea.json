@@ -1,0 +1,48 @@
+{
+  "choices": [
+    {
+      "finish_reason": "tool_calls",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+          {
+            "type": "function",
+            "function": {
+              "name": "revisar_respuesta",
+              "arguments": "{\"reaccion\":\"Qué bonito que cocines para tu familia.\",\"suficiente\":true,\"menciona_actividad\":true,\"repregunta\":\"\"}"
+            },
+            "id": "1rIOmfqn8YVD4W1gsGW6dVTz1jcDCNlL"
+          }
+        ]
+      }
+    }
+  ],
+  "created": 1793190402,
+  "model": "qwen-38-27b",
+  "system_fingerprint": "b9242-17810f33a",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 76,
+    "prompt_tokens": 525,
+    "total_tokens": 601,
+    "prompt_tokens_details": {
+      "cached_tokens": 488
+    }
+  },
+  "id": "chatcmpl-0lbpAHLHaAGz5CqcnNMP8psHuRIN1aSl",
+  "timings": {
+    "cache_n": 488,
+    "prompt_n": 37,
+    "prompt_ms": 109.471,
+    "prompt_per_token_ms": 2.958675675675676,
+    "prompt_per_second": 337.98905646244214,
+    "predicted_n": 76,
+    "predicted_ms": 444.738,
+    "predicted_per_token_ms": 5.9298399999999996,
+    "predicted_per_second": 168.638614195324,
+    "draft_n": 80,
+    "draft_n_accepted": 59
+  }
+}

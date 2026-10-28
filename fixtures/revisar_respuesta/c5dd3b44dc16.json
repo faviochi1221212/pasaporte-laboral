@@ -1,0 +1,48 @@
+{
+  "choices": [
+    {
+      "finish_reason": "tool_calls",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+          {
+            "type": "function",
+            "function": {
+              "name": "revisar_respuesta",
+              "arguments": "{\"reaccion\":\"Organizar partidos de fulbito suena muy divertido.\",\"suficiente\":true,\"menciona_actividad\":true,\"repregunta\":\"\"}"
+            },
+            "id": "KKJJpcbFdpglzKVreHyJY1idJh6wkDyJ"
+          }
+        ]
+      }
+    }
+  ],
+  "created": 1793190400,
+  "model": "qwen-38-27b",
+  "system_fingerprint": "b9242-17810f33a",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 78,
+    "prompt_tokens": 532,
+    "total_tokens": 610,
+    "prompt_tokens_details": {
+      "cached_tokens": 488
+    }
+  },
+  "id": "chatcmpl-l3qCclmeeLIo0IqjqfDCZURx4649XyUG",
+  "timings": {
+    "cache_n": 488,
+    "prompt_n": 44,
+    "prompt_ms": 111.733,
+    "prompt_per_token_ms": 2.5393863636363636,
+    "prompt_per_second": 393.79592421218445,
+    "predicted_n": 78,
+    "predicted_ms": 401.073,
+    "predicted_per_token_ms": 5.208740259740259,
+    "predicted_per_second": 191.9850002368646,
+    "draft_n": 70,
+    "draft_n_accepted": 63
+  }
+}

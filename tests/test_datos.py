@@ -8,7 +8,7 @@ from typing import Any
 
 import pytest
 
-from app import config
+from app import calculo, config
 
 RAIZ = Path(__file__).resolve().parent.parent
 DATA = RAIZ / "data"
@@ -127,8 +127,7 @@ def test_regla5_textos_visibles_sin_palabras_prohibidas() -> None:
     textos += [c["sello"]["etiqueta"] for c in competencias]
     textos += [t for o in ocupaciones for t in o["que_harias"]]
     for texto in textos:
-        for palabra in config.PALABRAS_PROHIBIDAS:
-            assert palabra not in texto.lower(), texto
+        assert not calculo.tiene_palabra_prohibida(texto), texto
 
 
 def test_hu08_cursos_cubren_lo_que_dice_la_spec() -> None:

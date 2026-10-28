@@ -48,17 +48,22 @@ Hecho cuando: `pytest -q` pasa sin conexión y cada prueba nombra su criterio.
 
 Hecho cuando: las pruebas pasan sin red y una llamada real (`pytest -m qvac`) devuelve una tool call en menos de 8 s.
 
+✅ Cumplido el 28 oct 2026: 68 pruebas pasan sin red y la llamada real con hotspot devolvió la tool call en 2,25 s.
+
 ## M4 · Las 3 tareas del modelo: `app/ia.py` (spec 5) — HU-02, 04, 10
 
-- [ ] `revisar_respuesta`: tool con reaccion, suficiente, menciona_actividad y repregunta; validación de la reacción (12 palabras, sin palabras prohibidas) y respaldos (spec 5)
-- [ ] `extraer_perfil`: lista cerrada de 26 elementos con `texto_simple` y `criterios_clave`, tool, validación y un reintento; versión parcial con las respuestas 1 a 3
-- [ ] Las fortalezas también pasan por `evidencia_valida`
-- [ ] A `otorgar_sellos` se le pasan solo las respuestas 1 a 3 (con sus repreguntas)
-- [ ] `redactar_resumen`: 2 frases y plantilla de respaldo
-- [ ] Pruebas A1 a A4 y A12 contra QVAC real con `tests/relatos/` (marcador `qvac`); sus respuestas se graban en `fixtures/`
-- [ ] Las mismas pruebas pasan en modo respaldo leyendo esos fixtures
+- [x] `revisar_respuesta`: tool con reaccion, suficiente, menciona_actividad y repregunta; validación de la reacción (12 palabras, sin palabras prohibidas) y respaldos (spec 5)
+- [x] `extraer_perfil`: lista cerrada de 26 elementos con `texto_simple` y `criterios_clave`, tool, validación y un reintento; versión parcial con las respuestas 1 a 3
+- [x] Las fortalezas también pasan por `evidencia_valida`
+- [x] A `otorgar_sellos` se le pasan solo las respuestas 1 a 3 (con sus repreguntas)
+- [x] `redactar_resumen`: 2 frases y plantilla de respaldo
+- [x] Pruebas A1 a A4 y A12 contra QVAC real con `tests/relatos/` (marcador `qvac`); sus respuestas se graban en `fixtures/`
+- [x] Las mismas pruebas pasan en modo respaldo leyendo esos fixtures
 
 Hecho cuando: A1 a A4 pasan dos veces seguidas contra QVAC con el mismo resultado, y en modo respaldo sin red.
+
+✅ Cumplido el 28 oct 2026: pasada 1 grabando, 7 passed (36 s); pasada 2 sin grabar, 7 passed (40 s); `pytest -q` en respaldo, 125 passed.
+⚠️ El servidor de QVAC a veces no responde: en un primer intento de la pasada 2 hubo 2 fallas de red en unas 25 llamadas (ErrorQvac). Esa vez se usó el respaldo sin romper nada, y al repetir la pasada todo pasó. Para la demo, tener listo `QVAC_MODO=respaldo`.
 
 ## M5 · Backend: `app/db.py` y `app/main.py` (spec 6 y 9b) — HU-01, 02, 04, 05, 06, 13, 15
 

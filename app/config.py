@@ -51,9 +51,12 @@ MAX_DESTINOS = 3
 MAX_AVISOS = 3
 MIN_PALABRAS = 6
 MAX_PALABRAS_REACCION = 12
+MAX_PALABRAS_REPREGUNTA = 15
+MAX_SELLOS_RESUMEN = 3
 
-# Palabras que nunca aparecen en textos del asistente (spec 5).
-PALABRAS_PROHIBIDAS = ("certificado", "competente", "competencia", "brecha", "no sirves")
+# Inicios prohibidos en textos que ve el usuario (spec 5): bloquean toda palabra que empiece así,
+# comparando sin mayúsculas ni tildes (certificada, certificación, competente, competencia…).
+PALABRAS_PROHIBIDAS = ("certific", "competen", "brecha", "no sirves")
 
 # Textos fijos que ve el usuario (spec 5, 5b, 6b y 7).
 TEXTO_SALUDO = (
@@ -70,3 +73,4 @@ TEXTO_SIN_AVISOS = "Hoy no hay avisos en Lima para esto"
 TEXTO_SELLOS_GANADOS = "{n} sellos ganados · Sigue contándonos"
 TEXTO_SEMANAS_CURSO = "unas {n} semanas con tu tiempo"
 TEXTO_MODO_SIN_CONEXION = "modo sin conexión"
+TEXTO_RESUMEN_PLANTILLA = "Experiencia práctica en: {tareas}."

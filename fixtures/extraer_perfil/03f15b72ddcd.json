@@ -1,0 +1,48 @@
+{
+  "choices": [
+    {
+      "finish_reason": "tool_calls",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+          {
+            "type": "function",
+            "function": {
+              "name": "extraer_perfil",
+              "arguments": "{\"competencias\":[{\"codigo\": \"G2347002-1.E1\", \"evidencia\": \"Abro mi caja, cuento el sencillo que me dan y reviso que la impresora funcione.\"}, {\"codigo\": \"G2347002-1.E2\", \"evidencia\": \"Cobro en efectivo, con tarjeta y con Yape, y doy el vuelto.\"}, {\"codigo\": \"G2347002-1.E2\", \"evidencia\": \"Cuando un cliente se pica por un precio mal marcado, lo calmo y lo ayudo con su reclamo.\"}, {\"codigo\": \"G2347002-1.E3\", \"evidencia\": \"Al final del día cuadro la caja y entrego el dinero a mi supervisora.\"}],\"fortalezas\":[{\"texto\": \"Enseñar a las nuevas cajeras a usar la caja\", \"evidencia\": \"A las chicas nuevas les enseño a usar la caja.\"}, {\"texto\": \"Ayudar a ordenar la mercadería y revisar precios\", \"evidencia\": \"A veces ayudo a ordenar la mercadería y reviso los precios.\"}, {\"texto\": \"Organizar partidos de fulbito del barrio\", \"evidencia\": \"Armo los equipos, reservo la cancha y cobro la cuota a cada uno.\"}, {\"texto\": \"Cocinar para la familia\", \"evidencia\": \"Me gusta cocinar para mi familia.\"}]}"
+            },
+            "id": "rRZcpPIxhHliy88r50YEZL87dtDQ0fCi"
+          }
+        ]
+      }
+    }
+  ],
+  "created": 1793190386,
+  "model": "qwen-38-27b",
+  "system_fingerprint": "b9242-17810f33a",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 361,
+    "prompt_tokens": 2000,
+    "total_tokens": 2361,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    }
+  },
+  "id": "chatcmpl-rmpDQHTlmR66aoK5qlQWmNh3RupHqxeg",
+  "timings": {
+    "cache_n": 0,
+    "prompt_n": 2000,
+    "prompt_ms": 1111.929,
+    "prompt_per_token_ms": 0.5559645000000001,
+    "prompt_per_second": 1798.6759946003745,
+    "predicted_n": 361,
+    "predicted_ms": 1854.85,
+    "predicted_per_token_ms": 5.1523611111111105,
+    "predicted_per_second": 194.08577513006443,
+    "draft_n": 325,
+    "draft_n_accepted": 295
+  }
+}

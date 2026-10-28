@@ -1,0 +1,48 @@
+{
+  "choices": [
+    {
+      "finish_reason": "tool_calls",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "La respuesta es suficiente: la persona menciona una actividad concreta (hacer el inventario) y una razón por la que la hace bien (ser ordenado y no equivocarse en el conteo).\n\n",
+        "tool_calls": [
+          {
+            "type": "function",
+            "function": {
+              "name": "revisar_respuesta",
+              "arguments": "{\"reaccion\":\"Me alegra saber que tu orden te hace destacar en el conteo.\",\"suficiente\":true,\"menciona_actividad\":true,\"repregunta\":\"\"}"
+            },
+            "id": "pBWViW42JNfnyl6fk3XYR3qhLl6XhnLm"
+          }
+        ]
+      }
+    }
+  ],
+  "created": 1793190407,
+  "model": "qwen-38-27b",
+  "system_fingerprint": "b9242-17810f33a",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 124,
+    "prompt_tokens": 545,
+    "total_tokens": 669,
+    "prompt_tokens_details": {
+      "cached_tokens": 488
+    }
+  },
+  "id": "chatcmpl-fuJzPyFK4VaZ2N8VHMxuO73Uo1YEjEqE",
+  "timings": {
+    "cache_n": 488,
+    "prompt_n": 57,
+    "prompt_ms": 116.49,
+    "prompt_per_token_ms": 2.0436842105263158,
+    "prompt_per_second": 489.31238732938453,
+    "predicted_n": 124,
+    "predicted_ms": 846.302,
+    "predicted_per_token_ms": 6.88050406504065,
+    "predicted_per_second": 145.33818896800435,
+    "draft_n": 155,
+    "draft_n_accepted": 92
+  }
+}

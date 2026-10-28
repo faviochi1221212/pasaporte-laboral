@@ -1,0 +1,48 @@
+{
+  "choices": [
+    {
+      "finish_reason": "tool_calls",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+          {
+            "type": "function",
+            "function": {
+              "name": "revisar_respuesta",
+              "arguments": "{\"reaccion\":\"Preparar la sala para visitas importantes es un trabajo muy valioso.\",\"suficiente\":true,\"menciona_actividad\":true,\"repregunta\":\"\"}"
+            },
+            "id": "LeZB2b6Gibm6dHhZl0SzXUcZCY0wY6K2"
+          }
+        ]
+      }
+    }
+  ],
+  "created": 1793190414,
+  "model": "qwen-38-27b",
+  "system_fingerprint": "b9242-17810f33a",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 82,
+    "prompt_tokens": 539,
+    "total_tokens": 621,
+    "prompt_tokens_details": {
+      "cached_tokens": 488
+    }
+  },
+  "id": "chatcmpl-OkGv8pWNyCeuyyZKNb3dY4PfmzUZkOLu",
+  "timings": {
+    "cache_n": 488,
+    "prompt_n": 51,
+    "prompt_ms": 112.811,
+    "prompt_per_token_ms": 2.211980392156863,
+    "prompt_per_second": 452.0835734103943,
+    "predicted_n": 82,
+    "predicted_ms": 476.345,
+    "predicted_per_token_ms": 5.880802469135803,
+    "predicted_per_second": 170.0448204557621,
+    "draft_n": 85,
+    "draft_n_accepted": 64
+  }
+}

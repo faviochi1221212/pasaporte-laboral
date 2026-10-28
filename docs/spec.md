@@ -74,25 +74,26 @@ Un sello es un elemento de competencia de competencias.json, es decir, una tarea
 2. La evidencia es una frase que aparece tal cual en lo que escribió la persona (comparando sin mayúsculas, tildes, signos ni espacios dobles).
 3. La persona no la quitó en la pantalla del pasaporte.
 
-Si falla 1 o 2, la propuesta se descarta en silencio y queda en el log. Una unidad da un solo sello, aunque tenga varias evidencias. Si un código gana su sello, también lo ganan los demás códigos con la misma etiqueta, con la misma frase de evidencia (por ejemplo, Cuadra la caja: G2347002-1.E3 e I2555001-2.E4). Lo que viene de fuera del trabajo (preguntas 4 y 5) va a "otras fortalezas": se muestra y va al CV, pero no da sellos ni cuenta para la afinidad.
+Si falla 1 o 2, la propuesta se descarta en silencio y queda en el log. Una unidad da un solo sello, aunque tenga varias evidencias. Si un código gana su sello, también lo ganan los demás códigos con la misma etiqueta, con la misma frase de evidencia (por ejemplo, Cuadra la caja: G2347002-1.E3 e I2555001-2.E4). Lo que viene de fuera del trabajo (preguntas 4 y 5), y lo que hace en su trabajo que no está en la lista, va a "otras fortalezas": se muestra y va al CV, pero no da sellos ni cuenta para la afinidad. La evidencia de un sello se busca solo en las respuestas 1 a 3 (con sus repreguntas); la de una fortaleza, en todas las respuestas 1 a 5 (con sus repreguntas), y la fortaleza se descarta si su frase es idéntica a la evidencia de un sello.
 
 ## 5. Lo que hace el modelo
 
-Siempre con el modo pensar apagado (chat_template_kwargs.enable_thinking = false), temperatura 0, salida por tool call validada contra el esquema y un solo reintento. Si el reintento falla, se usa la regla de respaldo indicada.
+Siempre con el modo pensar apagado (chat_template_kwargs.enable_thinking = false), temperatura 0, salida por tool call validada contra el esquema y un solo reintento. Si el reintento falla, se usa la regla de respaldo indicada. Si QVAC no responde después de sus 3 intentos de red, se pasa directo al respaldo, sin reintento.
 
 | Tarea | Cuándo | Entrada | Salida (tool) | Respaldo |
 |---|---|---|---|---|
-| revisar_respuesta | Después de cada respuesta a las preguntas 1 a 5 | pregunta y respuesta | reaccion (máx. 12 palabras, sobre lo que dijo la persona), suficiente (sí/no), menciona_actividad (sí/no), repregunta (máx. 15 palabras) | Reacción fija "Gracias por contarme."; repregunta fija "¿Me das un ejemplo de algo que hiciste esta semana?" en las preguntas 2 a 5 si la respuesta tiene menos de 6 palabras |
+| revisar_respuesta | Después de cada respuesta a las preguntas 1 a 5 | pregunta y respuesta | reaccion (máx. 12 palabras, sobre lo que dijo la persona), suficiente (sí/no), menciona_actividad (sí/no), repregunta (máx. 15 palabras) | Reacción fija "Gracias por contarme."; repregunta fija si la respuesta tiene menos de 6 palabras: "¿Me das un ejemplo de algo que hiciste esta semana?" en las preguntas 2 y 3, y "¿Y qué haces tú ahí?" en la 4 y la 5 |
 | extraer_perfil (parcial) | En segundo plano, después de cerrar las preguntas 2 y 3 | respuestas de las preguntas 1 a 3 + lista cerrada | igual que la completa | Si falla, el contador no cambia y la conversación sigue |
 | extraer_perfil (completa) | Al terminar la pregunta 6 | todas las respuestas + lista cerrada de competencias (código, texto_simple y criterios_clave) | competencias: código y evidencia; fortalezas: texto y evidencia | Pantalla "No pudimos leer tu relato, inténtalo de nuevo" |
-| redactar_resumen | Al pedir el CV | sellos confirmados y años de experiencia | 2 frases de perfil para el CV | Plantilla fija con los sellos |
+| redactar_resumen | Al pedir el CV | sellos confirmados y la respuesta 1 (de ahí salen los años); usa solo eso, sin inventar ni usar palabras prohibidas | 2 frases de perfil para el CV | Plantilla fija, sin años: "Experiencia práctica en: {texto_simple 1}; {texto_simple 2}; {texto_simple 3}." con hasta 3 sellos agrupados en el orden del pasaporte y la primera letra de cada texto_simple en minúscula |
 
 Reglas de la conversación, en código y no en el modelo:
 
 - Las 6 preguntas son fijas, en el orden de la pantalla "Guion".
-- Máximo una repregunta por pregunta.
+- Máximo una repregunta por pregunta. A la respuesta de una repregunta también se le da reacción.
+- En las preguntas 1 a 3, si revisar_respuesta dice que no es suficiente, se usa su repregunta si tiene máximo 15 palabras y no tiene palabras prohibidas; si no, la repregunta fija en las preguntas 2 y 3, y ninguna en la 1.
 - En las preguntas 4 y 5 la repregunta es siempre "¿Y qué haces tú ahí?", si revisar_respuesta dice que mencionó una actividad.
-- La reacción se valida en código: máximo 12 palabras y sin las palabras prohibidas ("certificado", "competente", "competencia", "brecha", "no sirves"). Si no pasa, se usa la reacción fija. A la pregunta 6 se responde siempre con el texto fijo de cierre.
+- La reacción se valida en código: máximo 12 palabras y sin palabras prohibidas: ninguna palabra que empiece con "certific" o "competen" (certificado, certificada, certificación, competente, competencia…), ni "brecha" ni "no sirves", comparando sin mayúsculas ni tildes. Si no pasa, se usa la reacción fija. A la pregunta 6 se responde siempre con el texto fijo de cierre.
 - Los sellos parciales solo sirven para el contador del chat; el pasaporte usa siempre la extracción completa.
 
 ### 5b. Experiencia de conversación
@@ -109,7 +110,7 @@ Para que se sienta como hablar con alguien (pedido en la mentoría con Tether, 2
 
 Prompt de sistema de extraer_perfil, al que se le pega la lista de competencias:
 
-> Eres un asistente del Ministerio de Trabajo del Perú. Lee lo que contó la persona y llama a extraer_perfil. Usa solo códigos de la lista. Para cada competencia, copia como evidencia la frase exacta que la persona escribió; si no hay frase exacta, no la incluyas. Lo que hace fuera de su trabajo va en fortalezas, nunca en competencias. No inventes nada.
+> Eres un asistente del Ministerio de Trabajo del Perú. Lee lo que contó la persona y llama a extraer_perfil. Usa solo códigos de la lista. Para cada competencia, copia como evidencia la frase exacta que la persona escribió; si no hay frase exacta, no la incluyas. Lo que hace fuera de su trabajo, y lo que hace en su trabajo que no está en la lista, va en fortalezas, nunca en competencias. No inventes nada.
 
 ## 6. Endpoints
 
