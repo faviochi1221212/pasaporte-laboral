@@ -47,6 +47,7 @@ export function Conversacion() {
   const iniciado = useRef(false);
   const reconocedor = useRef<Reconocedor | null>(null);
   const fondo = useRef<HTMLDivElement>(null);
+  const campoRef = useRef<HTMLTextAreaElement>(null);
   const reducido = movimientoReducido();
 
   /** El asistente dice cada texto en orden: "escribiendo…" ~700 ms y luego el texto de a poco. */
@@ -79,9 +80,7 @@ export function Conversacion() {
   if (!sesion) return <Navigate to="/" replace />;
   const id = sesion.id;
 
-  async function enviar(evento: FormEvent) {
-    evento.preventDefault();
-    const texto = campo.trim();
+  async function enviarTexto(texto: string) {
     if (!abierta || !texto) return;
     const pregunta = abierta;
     setAbierta(null);
@@ -121,6 +120,11 @@ export function Conversacion() {
     setAbierta(siguiente);
   }
 
+  function enviar(evento: FormEvent) {
+    evento.preventDefault();
+    void enviarTexto(campo.trim());
+  }
+
   /** Atrás: vuelve a abrir la pregunta anterior; al responderla, la API borra esa respuesta y las siguientes. */
   function atras() {
     if (!abierta) return;
@@ -138,7 +142,28 @@ export function Conversacion() {
   }
 
   function agregar(texto: string) {
-    setCampo((actual) => (actual.trim() ? `${actual.trim()}, ${texto}` : texto));
+    if (!abierta) return;
+    const n = abierta.n;
+    if (n === 1 || n === 6) {
+      void enviarTexto(texto);
+      return;
+    }
+    setCampo((actual) => {
+      const limpio = actual.trim();
+      if (!limpio || abierta.ejemplos.includes(limpio)) {
+        return texto;
+      }
+      if (actual.includes(texto)) {
+        return actual;
+      }
+      return `${texto}. ${actual}`;
+    });
+    campoRef.current?.focus();
+  }
+
+  function ponerDictado(texto: string) {
+    setCampo((actual) => (actual.trim() ? `${actual} ${texto}` : texto));
+    campoRef.current?.focus();
   }
 
   function hablar() {
@@ -146,7 +171,7 @@ export function Conversacion() {
       reconocedor.current?.stop();
       return;
     }
-    reconocedor.current = dictar(agregar, () => setEscuchando(false));
+    reconocedor.current = dictar(ponerDictado, () => setEscuchando(false));
     setEscuchando(reconocedor.current !== null);
   }
 
@@ -212,6 +237,7 @@ export function Conversacion() {
         )}
         <form className="chat-redactar" onSubmit={enviar} data-pregunta-abierta={abierta?.n}>
           <textarea
+            ref={campoRef}
             aria-label={T.campo}
             placeholder={escuchando ? T.escuchando : T.campoEjemplo}
             value={campo}
