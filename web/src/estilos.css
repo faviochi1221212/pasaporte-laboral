@@ -1118,3 +1118,7 @@ p {
     font-size: 8.5pt;
   }
 }
+
+.usar-ejemplo {
+  align-self: flex-start;
+}

@@ -4,6 +4,8 @@ import { api, type Pregunta, type SellosParciales } from "../api";
 import { BarraProgreso } from "../componentes/BarraProgreso";
 import { Burbuja, Escribiendo, movimientoReducido } from "../componentes/Burbuja";
 import { dictar, hayDictado, type Reconocedor } from "../dictado";
+import { respuestaDeEjemplo } from "../ejemplo";
+import { useSinConexion } from "../Marco";
 import { useSesion } from "../sesion";
 import { TEXTOS } from "../textos";
 
@@ -33,6 +35,8 @@ export function Conversacion() {
   const [mensajes, setMensajes] = useState<Mensaje[]>([]);
   const [escribiendo, setEscribiendo] = useState(false);
   const [abierta, setAbierta] = useState<Pregunta | null>(null);
+  const [enRepregunta, setEnRepregunta] = useState(false);
+  const sinConexion = useSinConexion();
   const [campo, setCampo] = useState("");
   const [sellos, setSellos] = useState<SellosParciales | null>(null);
   const [error, setError] = useState(false);
@@ -110,7 +114,10 @@ export function Conversacion() {
     }
     const siguiente = turno.pregunta;
     if (turno.tipo === "siguiente") preguntas.current.set(siguiente.n, siguiente);
-    await decir([...(turno.reaccion ? [{ texto: turno.reaccion }] : []), { texto: siguiente.texto, n: siguiente.n }]);
+    // Una sola burbuja: la reacción en la primera línea y la pregunta debajo (spec 5b).
+    const burbuja = turno.reaccion ? `${turno.reaccion}\n${siguiente.texto}` : siguiente.texto;
+    await decir([{ texto: burbuja, n: siguiente.n }]);
+    setEnRepregunta(turno.tipo === "repregunta");
     setAbierta(siguiente);
   }
 
@@ -126,6 +133,7 @@ export function Conversacion() {
       const corte = m.findIndex((x) => x.de === "persona" && x.n === anterior.n);
       return corte < 0 ? m : m.slice(0, corte);
     });
+    setEnRepregunta(false);
     setAbierta(anterior);
   }
 
@@ -142,6 +150,8 @@ export function Conversacion() {
     setEscuchando(reconocedor.current !== null);
   }
 
+  // Solo en modo respaldo: la respuesta de María a esta pregunta o a su repregunta (spec 7).
+  const ejemplo = abierta ? respuestaDeEjemplo(abierta.n, enRepregunta) : undefined;
   const actual = abierta?.n ?? Math.max(1, ...mensajes.filter((m) => m.n).map((m) => m.n ?? 1));
 
   return (
@@ -175,6 +185,11 @@ export function Conversacion() {
               </button>
             ))}
           </div>
+        )}
+        {sinConexion && ejemplo && (
+          <button type="button" className="boton boton-secundario usar-ejemplo" onClick={() => setCampo(ejemplo)}>
+            {T.usarEjemplo}
+          </button>
         )}
         {error && (
           <p role="alert" className="error">

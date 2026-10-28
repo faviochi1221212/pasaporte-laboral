@@ -72,6 +72,6 @@ def comprobar_a12(nombre: str) -> None:
         if n > 5:
             continue
         reaccion = ia.revisar_respuesta(n, PREGUNTAS[n], respuesta["texto"], ya_repregunto=False)["reaccion"]
-        assert reaccion != config.TEXTO_REACCION_FIJA, (n, reaccion)
+        assert reaccion not in config.REACCIONES_RESPALDO, (n, reaccion)
         assert len(reaccion.split()) <= config.MAX_PALABRAS_REACCION, reaccion
         assert not calculo.tiene_palabra_prohibida(reaccion), reaccion

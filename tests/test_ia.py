@@ -4,7 +4,7 @@ from typing import Any
 import pytest
 
 import casos_ia
-from app import config, datos, ia, qvac
+from app import calculo, config, datos, ia, qvac
 
 
 class ModeloFalso:
@@ -73,9 +73,30 @@ def test_a12_reaccion_valida_se_usa(modelo: Any) -> None:
         "",
     ],
 )
-def test_a12_reaccion_larga_o_con_palabra_prohibida_usa_la_fija(modelo: Any, reaccion: str) -> None:
+def test_a12_reaccion_larga_o_con_palabra_prohibida_usa_la_de_respaldo(modelo: Any, reaccion: str) -> None:
     modelo(revision(reaccion=reaccion))
-    assert ia.revisar_respuesta(2, P2, LARGA, False)["reaccion"] == config.TEXTO_REACCION_FIJA
+    assert ia.revisar_respuesta(2, P2, LARGA, False)["reaccion"] == "Entendido."
+
+
+def test_a12_reacciones_de_respaldo_rotan_segun_la_pregunta(modelo: Any) -> None:
+    modelo(*[qvac.ErrorQvac("x")] * 5)
+    reacciones = [ia.revisar_respuesta(n, casos_ia.PREGUNTAS[n], LARGA, False)["reaccion"] for n in range(1, 6)]
+    assert reacciones == ["Gracias.", "Entendido.", "Anotado.", "Perfecto, sigamos.", "Gracias."]
+    assert list(config.REACCIONES_RESPALDO) == reacciones[:4]
+
+
+def test_regla5_reacciones_y_repreguntas_fijas_sin_palabras_prohibidas() -> None:
+    for texto in [*config.REACCIONES_RESPALDO, *config.REPREGUNTAS_FIJAS.values()]:
+        assert not calculo.tiene_palabra_prohibida(texto), texto
+    assert all(len(r.split()) <= config.MAX_PALABRAS_REPREGUNTA for r in config.REPREGUNTAS_FIJAS.values())
+
+
+def test_hu02_repreguntas_fijas_distintas_por_pregunta() -> None:
+    assert config.REPREGUNTAS_FIJAS == {
+        2: "¿Me das un ejemplo de algo que hiciste esta semana?",
+        3: "¿Qué tarea te encargan a ti y no a tus compañeros?",
+        4: "¿Y qué haces tú ahí?",
+    }
 
 
 # --- revisar_respuesta: repregunta (spec 5, reglas de la conversación)
@@ -95,11 +116,11 @@ def test_a4_insuficiente_usa_la_repregunta_del_modelo(modelo: Any) -> None:
     "repregunta",
     ["", "¿Me puedes contar con mucho más detalle qué cosas haces tú en un día normal de trabajo?"],
 )
-def test_a4_repregunta_invalida_usa_la_fija_en_2_y_3(modelo: Any, repregunta: str) -> None:
+@pytest.mark.parametrize("n", [2, 3])
+def test_a4_repregunta_invalida_usa_la_fija_de_su_pregunta(modelo: Any, repregunta: str, n: int) -> None:
     modelo(revision(suficiente=False, repregunta=repregunta))
-    assert ia.revisar_respuesta(3, casos_ia.PREGUNTAS[3], "todo", False)["repregunta"] == (
-        config.TEXTO_REPREGUNTA_FIJA
-    )
+    resultado = ia.revisar_respuesta(n, casos_ia.PREGUNTAS[n], "todo", False)
+    assert resultado["repregunta"] == config.REPREGUNTAS_FIJAS[n]
 
 
 def test_a4_repregunta_invalida_en_la_1_no_repregunta(modelo: Any) -> None:
@@ -113,11 +134,17 @@ def test_a4_nunca_una_segunda_repregunta(modelo: Any) -> None:
 
 
 @pytest.mark.parametrize(("menciona", "esperada"), [(True, "¿Y qué haces tú ahí?"), (False, None)])
-def test_hu02_en_4_y_5_la_repregunta_es_y_que_haces_tu_ahi(
+def test_hu02_en_la_4_la_repregunta_es_y_que_haces_tu_ahi(
     modelo: Any, menciona: bool, esperada: str | None
 ) -> None:
     modelo(revision(suficiente=False, menciona_actividad=menciona, repregunta="¿Otra cosa?"))
     assert ia.revisar_respuesta(4, P4, "Ayudo a mi tío en el mercado.", False)["repregunta"] == esperada
+
+
+@pytest.mark.parametrize("suficiente", [True, False])
+def test_hu02_la_5_nunca_lleva_repregunta(modelo: Any, suficiente: bool) -> None:
+    modelo(revision(suficiente=suficiente, menciona_actividad=True, repregunta="¿Qué más?"))
+    assert ia.revisar_respuesta(5, casos_ia.PREGUNTAS[5], "Juego vóley.", False)["repregunta"] is None
 
 
 # --- revisar_respuesta: reintento y respaldo (spec 5)
@@ -132,7 +159,7 @@ def test_m4_salida_invalida_se_reintenta_una_vez(modelo: Any) -> None:
 def test_m4_sin_tool_dos_veces_usa_el_respaldo(modelo: Any) -> None:
     falso = modelo(qvac.ErrorSinTool("x"), qvac.ErrorSinTool("x"))
     resultado = ia.revisar_respuesta(2, P2, LARGA, False)
-    assert resultado == {"reaccion": config.TEXTO_REACCION_FIJA, "repregunta": None}
+    assert resultado == {"reaccion": "Entendido.", "repregunta": None}
     assert len(falso.llamadas) == 2
 
 
@@ -145,9 +172,10 @@ def test_m4_qvac_sin_respuesta_va_directo_al_respaldo(modelo: Any) -> None:
 @pytest.mark.parametrize(
     ("n", "texto", "esperada"),
     [
-        (2, "de todo un poco", config.TEXTO_REPREGUNTA_FIJA),
-        (3, "cuadrar la caja", config.TEXTO_REPREGUNTA_FIJA),
-        (4, "un negocio", config.TEXTO_REPREGUNTA_FUERA_DEL_TRABAJO),
+        (2, "de todo un poco", "¿Me das un ejemplo de algo que hiciste esta semana?"),
+        (3, "cuadrar la caja", "¿Qué tarea te encargan a ti y no a tus compañeros?"),
+        (4, "un negocio", "¿Y qué haces tú ahí?"),
+        (5, "fútbol", None),
         (2, LARGA, None),
         (1, "6 años", None),
     ],
@@ -157,7 +185,8 @@ def test_m4_respaldo_repregunta_fija_si_hay_menos_de_6_palabras(
 ) -> None:
     modelo(qvac.ErrorQvac("x"))
     resultado = ia.revisar_respuesta(n, casos_ia.PREGUNTAS[n], texto, False)
-    assert resultado == {"reaccion": config.TEXTO_REACCION_FIJA, "repregunta": esperada}
+    assert resultado["repregunta"] == esperada
+    assert resultado["reaccion"] in config.REACCIONES_RESPALDO
 
 
 def test_m4_respaldo_respeta_una_sola_repregunta(modelo: Any) -> None:

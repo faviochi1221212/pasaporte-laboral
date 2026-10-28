@@ -82,7 +82,7 @@ Siempre con el modo pensar apagado (chat_template_kwargs.enable_thinking = false
 
 | Tarea | Cuándo | Entrada | Salida (tool) | Respaldo |
 |---|---|---|---|---|
-| revisar_respuesta | Después de cada respuesta a las preguntas 1 a 5 | pregunta y respuesta | reaccion (máx. 12 palabras, sobre lo que dijo la persona), suficiente (sí/no), menciona_actividad (sí/no), repregunta (máx. 15 palabras) | Reacción fija "Gracias por contarme."; repregunta fija si la respuesta tiene menos de 6 palabras: "¿Me das un ejemplo de algo que hiciste esta semana?" en las preguntas 2 y 3, y "¿Y qué haces tú ahí?" en la 4 y la 5 |
+| revisar_respuesta | Después de cada respuesta a las preguntas 1 a 5 | pregunta y respuesta | reaccion (máx. 12 palabras, sobre lo que dijo la persona), suficiente (sí/no), menciona_actividad (sí/no), repregunta (máx. 15 palabras) | Reacción de respaldo que rota según la pregunta: "Gracias.", "Entendido.", "Anotado.", "Perfecto, sigamos." (pregunta 1 → la primera, 5 → otra vez la primera); repregunta fija si la respuesta tiene menos de 6 palabras: "¿Me das un ejemplo de algo que hiciste esta semana?" en la 2, "¿Qué tarea te encargan a ti y no a tus compañeros?" en la 3 y "¿Y qué haces tú ahí?" en la 4; la 1 y la 5 no tienen |
 | extraer_perfil (parcial) | En segundo plano, después de cerrar las preguntas 2 y 3 | respuestas de las preguntas 1 a 3 + lista cerrada | igual que la completa | Si falla, el contador no cambia y la conversación sigue |
 | extraer_perfil (completa) | Al terminar la pregunta 6 | todas las respuestas + lista cerrada de competencias (código, texto_simple y criterios_clave), agrupada por ocupación con el título "Trabajo: {nombre} ({codigo})" de ocupaciones.json | competencias: código y evidencia; fortalezas: texto y evidencia | Pantalla "No pudimos leer tu relato, inténtalo de nuevo" |
 | redactar_resumen | Al pedir el CV | sellos confirmados y la respuesta 1 (de ahí salen los años); usa solo eso, sin inventar ni usar palabras prohibidas | 2 frases de perfil para el CV y anios: texto corto como "6 años", que solo se usa si pasa evidencia_valida contra la respuesta 1 (si no, null) | Plantilla fija, sin años (anios = null): "Experiencia práctica en: {texto_simple 1}; {texto_simple 2}; {texto_simple 3}." con hasta 3 sellos agrupados en el orden del pasaporte y la primera letra de cada texto_simple en minúscula |
@@ -91,9 +91,9 @@ Reglas de la conversación, en código y no en el modelo:
 
 - Las 6 preguntas son fijas, en el orden de la pantalla "Guion".
 - Máximo una repregunta por pregunta. A la respuesta de una repregunta también se le da reacción.
-- En las preguntas 1 a 3, si revisar_respuesta dice que no es suficiente, se usa su repregunta si tiene máximo 15 palabras y no tiene palabras prohibidas; si no, la repregunta fija en las preguntas 2 y 3, y ninguna en la 1.
-- En las preguntas 4 y 5 la repregunta es siempre "¿Y qué haces tú ahí?", si revisar_respuesta dice que mencionó una actividad.
-- La reacción se valida en código: máximo 12 palabras y sin palabras prohibidas: ninguna palabra que empiece con "certific" o "competen" (certificado, certificada, certificación, competente, competencia…), ni "brecha" ni "no sirves", comparando sin mayúsculas ni tildes. Si no pasa, se usa la reacción fija. A la pregunta 6 se responde siempre con el texto fijo de cierre.
+- En las preguntas 1 a 3, si revisar_respuesta dice que no es suficiente, se usa su repregunta si tiene máximo 15 palabras y no tiene palabras prohibidas; si no, la repregunta fija de esa pregunta (la 2 y la 3 tienen la suya), y ninguna en la 1.
+- En la pregunta 4 la repregunta es siempre "¿Y qué haces tú ahí?", si revisar_respuesta dice que mencionó una actividad. La pregunta 5 (tiempo libre) nunca lleva repregunta.
+- La reacción se valida en código: máximo 12 palabras y sin palabras prohibidas: ninguna palabra que empiece con "certific" o "competen" (certificado, certificada, certificación, competente, competencia…), ni "brecha" ni "no sirves", comparando sin mayúsculas ni tildes. Si no pasa, se usa la reacción de respaldo de esa pregunta. A la pregunta 6 se responde siempre con el texto fijo de cierre.
 - Los sellos parciales solo sirven para el contador del chat; el pasaporte usa siempre la extracción completa.
 - Una sola fortaleza por respuesta: si dos fortalezas tienen su evidencia en la misma respuesta (la respuesta y su repregunta cuentan como una), se queda solo la primera.
 
@@ -104,7 +104,7 @@ Para que se sienta como hablar con alguien (pedido en la mentoría con Tether, 2
 - **Formato chat:** burbujas del asistente a la izquierda y de la persona a la derecha; el historial queda visible arriba y siempre hay una sola pregunta abierta. Los ejemplos tocables y el campo de texto van debajo de la última pregunta.
 - **Ritmo:** antes de cada burbuja del asistente se ve "escribiendo…" unos 700 ms y el texto aparece de a poco (máximo 1,5 s por burbuja). Tocar la burbuja la muestra completa. Con `prefers-reduced-motion` todo aparece de inmediato.
 - **Saludo fijo, igual para todos:** "¡Hola! 👋 Soy el asistente de empleo del Ministerio de Trabajo. Te haré 6 preguntas cortas sobre lo que haces. No hay respuestas buenas ni malas." Luego va la pregunta 1.
-- **Reacción:** después de cada respuesta, la burbuja de reacción del modelo (por ejemplo "¡6 años es harta experiencia!") y luego la siguiente pregunta o la repregunta.
+- **Reacción:** después de cada respuesta, una sola burbuja con la reacción del modelo en la primera línea (por ejemplo "¡6 años es harta experiencia!") y debajo la siguiente pregunta o la repregunta.
 - **Cierre fijo:** "¡Gracias! Con lo que me contaste estoy armando tu pasaporte…" y se pasa a la pantalla de espera.
 - **Sellos mientras conversa:** una barra fija abajo dice "N sellos ganados · Sigue contándonos", alimentada por la extracción parcial. Nunca bloquea el chat.
 - **Honestidad:** el asistente se presenta como asistente y no tiene nombre de persona ni foto. No finge ser humano.
@@ -204,7 +204,7 @@ Etiquetas de los sellos (revisadas: acción que se puede ver, sin palabras del c
 |---|---|
 | El modelo Qwen de QVAC conversando y extrayendo | Los avisos y cursos son una foto del 27 oct, no se consultan en vivo |
 | Los códigos y textos del catálogo del MTPE | María Quispe y su relato son inventados; nunca se usan datos reales porque Tether ve los prompts |
-| Los cálculos de afinidad | Si QVAC no responde, QVAC_MODO=respaldo usa respuestas grabadas de una corrida real y la pantalla lo indica con una marca pequeña |
+| Los cálculos de afinidad | Si QVAC no responde, QVAC_MODO=respaldo usa respuestas grabadas de una corrida real y la pantalla lo indica con una marca pequeña. Solo en respaldo, cada pregunta tiene el botón "Usar respuesta de ejemplo", que pone en el campo la respuesta de María (tests/relatos/maria_cajera.json; en una repregunta, la de su repregunta si el relato la trae), y si no se puede leer el relato la pantalla dice "Sin conexión solo funciona el ejemplo" con el botón "Empezar con el ejemplo". En modo real no aparece nada de esto |
 
 ## 8. Fuera del MVP
 
@@ -234,7 +234,7 @@ El MVP está listo cuando pasa todo esto, no cuando "parece funcionar".
 | A9 | Tiempos | Cada respuesta del modelo en menos de 8 s (hoy mide 2 a 4 s) |
 | A10 | Celular | Todo el recorrido se hace en 360 px de ancho y solo tocando |
 | A11 | Computadora | Todo el recorrido funciona en 1280 px con el diseño de 2 columnas del mockup de escritorio; Playwright guarda capturas de cada pantalla en 360 y 1280 px |
-| A12 | Reacción del asistente | Con una salida falsa de más de 12 palabras o con una palabra prohibida, se usa la reacción fija; con QVAC real, las reacciones de los relatos A1 a A3 cumplen el límite |
+| A12 | Reacción del asistente | Con una salida falsa de más de 12 palabras o con una palabra prohibida, se usa la reacción de respaldo; con QVAC real, las reacciones de los relatos A1 a A3 cumplen el límite |
 | A13 | Sellos parciales | Si la extracción parcial falla o tarda, el chat sigue sin esperar y el pasaporte final no depende de ella |
 
 Las pruebas A1 a A3 se corren contra QVAC real y sus respuestas se guardan en fixtures/ (de ahí sale el modo respaldo). A5 a A8 son automáticas y no llaman a QVAC.

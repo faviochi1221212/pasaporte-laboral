@@ -37,12 +37,15 @@ export const TEXTOS = {
     escuchando: "Te escucho…",
     sellosGanados: (n: number) => (n === 1 ? "1 sello ganado" : `${n} sellos ganados`),
     sigueContando: "Sigue contándonos",
+    usarEjemplo: "Usar respuesta de ejemplo",
   },
 
   espera: {
     titulo: "Armando tu pasaporte…",
     detalle: "Estamos buscando en lo que contaste las tareas del catálogo de perfiles del MTPE.",
     reintentar: "Volver a intentar",
+    soloEjemplo: "Sin conexión solo funciona el ejemplo",
+    empezarEjemplo: "Empezar con el ejemplo",
   },
 
   pasaporte: {

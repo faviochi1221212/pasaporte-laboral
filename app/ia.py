@@ -170,28 +170,21 @@ def revisar_respuesta(n: int, pregunta: str, respuesta: str, ya_repregunto: bool
         {"role": "user", "content": f"Pregunta: {pregunta}\nRespuesta: {respuesta}"},
     ]
     args = _llamar("revisar_respuesta", mensajes, TOOL_REVISAR, _revision_valida)
-    fuera_del_trabajo = n in (4, 5)
+    fija = config.REPREGUNTAS_FIJAS.get(n)
+    respaldo = config.REACCIONES_RESPALDO[(n - 1) % len(config.REACCIONES_RESPALDO)]
     if args is None:
-        reaccion = config.TEXTO_REACCION_FIJA
-        corta = n >= 2 and len(respuesta.split()) < config.MIN_PALABRAS
-        if not corta:
-            repregunta = None
-        elif fuera_del_trabajo:
-            repregunta = config.TEXTO_REPREGUNTA_FUERA_DEL_TRABAJO
-        else:
-            repregunta = config.TEXTO_REPREGUNTA_FIJA
+        reaccion = respaldo
+        repregunta = fija if len(respuesta.split()) < config.MIN_PALABRAS else None
     else:
-        reaccion = args["reaccion"]
-        if not _texto_valido(reaccion, config.MAX_PALABRAS_REACCION):
-            reaccion = config.TEXTO_REACCION_FIJA
-        if fuera_del_trabajo:
-            repregunta = config.TEXTO_REPREGUNTA_FUERA_DEL_TRABAJO if args["menciona_actividad"] else None
-        elif args["suficiente"]:
+        reaccion = args["reaccion"] if _texto_valido(args["reaccion"], config.MAX_PALABRAS_REACCION) else respaldo
+        if n == 4:
+            repregunta = fija if args["menciona_actividad"] else None
+        elif n == 5 or args["suficiente"]:
             repregunta = None
         elif _texto_valido(args["repregunta"], config.MAX_PALABRAS_REPREGUNTA):
             repregunta = args["repregunta"]
         else:
-            repregunta = config.TEXTO_REPREGUNTA_FIJA if n >= 2 else None
+            repregunta = fija
     return {"reaccion": reaccion, "repregunta": None if ya_repregunto else repregunta}
 
 

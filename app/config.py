@@ -70,9 +70,14 @@ TEXTO_SALUDO = (
     "¡Hola! 👋 Soy el asistente de empleo del Ministerio de Trabajo. "
     "Te haré 6 preguntas cortas sobre lo que haces. No hay respuestas buenas ni malas."
 )
-TEXTO_REACCION_FIJA = "Gracias por contarme."
-TEXTO_REPREGUNTA_FIJA = "¿Me das un ejemplo de algo que hiciste esta semana?"
-TEXTO_REPREGUNTA_FUERA_DEL_TRABAJO = "¿Y qué haces tú ahí?"
+# Reacciones de respaldo (spec 5): rotan según el número de pregunta.
+REACCIONES_RESPALDO = ("Gracias.", "Entendido.", "Anotado.", "Perfecto, sigamos.")
+# Repreguntas fijas por pregunta (spec 5). La 1 y la 5 no tienen; la 5 nunca lleva repregunta.
+REPREGUNTAS_FIJAS: dict[int, str] = {
+    2: "¿Me das un ejemplo de algo que hiciste esta semana?",
+    3: "¿Qué tarea te encargan a ti y no a tus compañeros?",
+    4: "¿Y qué haces tú ahí?",
+}
 TEXTO_CIERRE = "¡Gracias! Con lo que me contaste estoy armando tu pasaporte…"
 TEXTO_ERROR_EXTRACCION = "No pudimos leer tu relato, inténtalo de nuevo"
 TEXTO_SIN_CURSO = "No encontramos un curso gratuito del MTPE que cubra esto"

@@ -10,8 +10,6 @@ from fastapi.testclient import TestClient
 import casos_ia
 from app import config
 
-# Si el modelo repregunta donde el relato no trae respuesta, se contesta con esta frase inventada.
-RESPUESTA_A_REPREGUNTA_SIN_RELATO = "Preparo el almuerzo del domingo."
 # Spec 6b y línea "Cambio en el mockup" de la spec 3: para la cajera se espera Recepción, Mozo/a y Almacén.
 DESTINOS_DE_MARIA = {"I2555001", "I2556002", "H2452001"}
 
@@ -31,7 +29,8 @@ def recorrer_maria(cliente: TestClient) -> dict[str, Any]:
         turno = cliente.post(f"{base}/respuestas", json={"n": n, "texto": respuesta["texto"]}).json()
         resultado["turnos"].append(turno)
         if turno["tipo"] == "repregunta":
-            texto = respuesta.get("repregunta") or RESPUESTA_A_REPREGUNTA_SIN_RELATO
+            texto = respuesta.get("repregunta")
+            assert texto, f"el modelo repreguntó en la {n} y el relato de María no trae respuesta"
             turno = cliente.post(f"{base}/respuestas", json={"n": n, "texto": texto}).json()
             resultado["turnos"].append(turno)
         assert turno["tipo"] in ("siguiente", "fin"), turno
@@ -76,7 +75,7 @@ def comprobar_a8(resultado: dict[str, Any]) -> None:
     turnos = resultado["turnos"]
     assert turnos[-1]["tipo"] == "fin"
     assert turnos[-1]["cierre"] == config.TEXTO_CIERRE
-    assert any(t["reaccion"] not in (None, config.TEXTO_REACCION_FIJA) for t in turnos)
+    assert any(t["reaccion"] not in (None, *config.REACCIONES_RESPALDO) for t in turnos)
     assert [p.status_code for p in resultado["parciales"]] == [200, 200]
 
     codigos = {s["codigo"] for s in resultado["pasaporte"]["sellos"]}

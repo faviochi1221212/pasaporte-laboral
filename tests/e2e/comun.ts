@@ -4,8 +4,6 @@ import maria from "../relatos/maria_cajera.json";
 
 export const RELATO_MARIA = maria;
 
-// Igual que tests/casos_api.py, para que los mensajes calcen con los fixtures grabados.
-export const RESPUESTA_A_REPREGUNTA_SIN_RELATO = "Preparo el almuerzo del domingo.";
 
 const RAICES = ["certific", "competen", "brecha", "no sirves"];
 const FRASE_CV = /competencias declaradas/gi;
@@ -49,9 +47,9 @@ async function usableEnCelular(pagina: Page): Promise<void> {
   expect(bajos, `menos de 48 px en ${pagina.url()}`).toEqual([]);
 }
 
-/** A11: en computadora, las pantallas con columnas muestran 2. */
+/** A11: en computadora (1280 y 1920), las pantallas con columnas muestran 2. */
 async function dosColumnasEnComputadora(pagina: Page): Promise<void> {
-  if (test.info().project.name !== "1280") return;
+  if (test.info().project.name === "360") return;
   for (const columnas of await pagina.locator(".columnas").all()) {
     const pistas = await columnas.evaluate((e) => getComputedStyle(e).gridTemplateColumns.split(" ").length);
     expect(pistas, `columnas en ${pagina.url()}`).toBe(2);
@@ -76,6 +74,12 @@ export async function guardarCaptura(pagina: Page, nombre: string): Promise<void
  * Con `capturas`, guarda la conversación y la espera.
  */
 export async function conversarComoMaria(pagina: Page, capturas = false): Promise<void> {
+  await conversarHastaElFin(pagina, capturas);
+  await expect(pagina).toHaveURL(/\/pasaporte$/, { timeout: 30_000 });
+}
+
+/** Responde las 6 preguntas de María; la pantalla queda en la Espera (o en lo que siga). */
+export async function conversarHastaElFin(pagina: Page, capturas = false): Promise<void> {
   if (capturas) {
     // Demora el pasaporte para alcanzar a capturar la pantalla de Espera.
     await pagina.route("**/pasaporte", async (ruta) => {
@@ -88,7 +92,9 @@ export async function conversarComoMaria(pagina: Page, capturas = false): Promis
   for (const respuesta of maria.respuestas) {
     await responder(pagina, respuesta.texto);
     if (await esRepregunta(pagina, respuesta.n)) {
-      await responder(pagina, ("repregunta" in respuesta && respuesta.repregunta) || RESPUESTA_A_REPREGUNTA_SIN_RELATO);
+      const repregunta = "repregunta" in respuesta ? respuesta.repregunta : undefined;
+      expect(repregunta, `el modelo repreguntó en la ${respuesta.n} y el relato de María no trae respuesta`).toBeTruthy();
+      await responder(pagina, repregunta ?? "");
     }
     if (respuesta.n === 3 && capturas) await capturar(pagina, "02-conversacion");
   }
@@ -96,7 +102,6 @@ export async function conversarComoMaria(pagina: Page, capturas = false): Promis
     await expect(pagina.getByText("Armando tu pasaporte…")).toBeVisible({ timeout: 15_000 });
     await capturar(pagina, "03-espera");
   }
-  await expect(pagina).toHaveURL(/\/pasaporte$/, { timeout: 30_000 });
 }
 
 /** Como A8: quita el primer sello del pasaporte y lo deshace, para que la ruta use el pasaporte completo. */

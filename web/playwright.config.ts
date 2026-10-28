@@ -14,6 +14,7 @@ export default defineConfig({
   projects: [
     { name: "360", use: { viewport: { width: 360, height: 780 }, hasTouch: true, isMobile: true } },
     { name: "1280", use: { viewport: { width: 1280, height: 860 } } },
+    { name: "1920", use: { viewport: { width: 1920, height: 1080 } } },
   ],
   webServer: {
     command: `"${PYTHON}" -m uvicorn app.main:app --port 8020`,

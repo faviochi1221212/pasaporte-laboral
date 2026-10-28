@@ -3,6 +3,7 @@ import { expect, type Page, test } from "../../web/node_modules/@playwright/test
 import {
   capturar,
   conversarComoMaria,
+  conversarHastaElFin,
   guardarCaptura,
   hastaLaRuta,
   quitarYDeshacerElPrimerSello,
@@ -14,6 +15,22 @@ import {
 
 const [RESPUESTA_1, RESPUESTA_2] = RELATO_MARIA.respuestas.map((r) => r.texto ?? "");
 const PLANTILLA_RESUMEN = "Experiencia práctica en:";
+const REACCIONES_RESPALDO = ["Gracias.", "Entendido.", "Anotado.", "Perfecto, sigamos."];
+
+/** Simula que el backend corre con QVAC real (para lo que solo se ve en respaldo). */
+async function modoReal(page: Page): Promise<void> {
+  await page.route("**/api/salud", (ruta) => ruta.fulfill({ json: { ok: true, modo: "real" } }));
+}
+
+/** El relato de María no se puede leer: la API responde como lo hace con un relato propio en respaldo. */
+async function relatoNoLeido(page: Page): Promise<void> {
+  await page.route("**/pasaporte", (ruta) =>
+    ruta.fulfill({
+      status: 502,
+      json: { error: { codigo: "relato_no_leido", mensaje: "No pudimos leer tu relato, inténtalo de nuevo" } },
+    }),
+  );
+}
 
 /** Cambia de pantalla sin recargar, para no perder la sesión que vive en memoria. */
 async function irSinRecargar(page: Page, ruta: string): Promise<void> {
@@ -48,7 +65,12 @@ test("e2e-02b: reacciones del modelo grabadas y contador de sellos", async ({ pa
   await page.goto("/");
   await tocar(page.getByRole("button", { name: "Caja" }));
   await responder(page, RESPUESTA_1);
-  await expect(page.locator(".burbuja-asistente").nth(2)).not.toHaveText("Gracias por contarme.", { timeout: 15_000 });
+  // La reacción y la pregunta 2 van en la misma burbuja: la reacción en la primera línea, del modelo grabado.
+  const burbuja = page.locator(".burbuja-asistente").filter({ hasText: "¿Qué haces en un día normal?" });
+  await expect(burbuja).toHaveCount(1, { timeout: 15_000 });
+  const [reaccion, pregunta] = (await burbuja.innerText()).split("\n");
+  expect(REACCIONES_RESPALDO).not.toContain(reaccion);
+  expect(pregunta).toBe("¿Qué haces en un día normal?");
   await responder(page, RESPUESTA_2);
   await expect(page.getByText(/\d+ sellos? ganados?/)).toBeVisible({ timeout: 15_000 });
 });
@@ -210,4 +232,49 @@ test("e2e-07: CV con nombre escrito en el navegador y sin enviarlo", async ({ pa
   if (test.info().project.name === "1280") {
     await page.pdf({ path: "../tests/e2e/capturas/cv-maria.pdf", format: "A4", printBackground: true });
   }
+});
+
+test("e2e-08: en respaldo, cada pregunta ofrece la respuesta de ejemplo de María", async ({ page }) => {
+  await page.goto("/");
+  await tocar(page.getByRole("button", { name: "Caja" }));
+  const campo = page.getByLabel("Tu respuesta");
+  await expect(campo).toBeEnabled({ timeout: 15_000 });
+  await tocar(page.getByRole("button", { name: "Usar respuesta de ejemplo" }));
+  await expect(campo).toHaveValue(RESPUESTA_1);
+  await capturar(page, "08-ejemplo");
+  await tocar(page.getByRole("button", { name: "Enviar" }));
+  await expect(campo).toBeEnabled({ timeout: 15_000 });
+  await tocar(page.getByRole("button", { name: "Usar respuesta de ejemplo" }));
+  await expect(campo).toHaveValue(RESPUESTA_2);
+});
+
+test("e2e-08b: en modo real no aparece el botón de ejemplo", async ({ page }) => {
+  await modoReal(page);
+  await page.goto("/");
+  await expect(page.getByText("modo sin conexión")).toHaveCount(0);
+  await tocar(page.getByRole("button", { name: "Caja" }));
+  await expect(page.getByLabel("Tu respuesta")).toBeEnabled({ timeout: 15_000 });
+  await expect(page.getByRole("button", { name: "Usar respuesta de ejemplo" })).toHaveCount(0);
+});
+
+test("e2e-09: en respaldo, si no se puede leer el relato, se ofrece empezar con el ejemplo", async ({ page }) => {
+  await relatoNoLeido(page);
+  await conversarHastaElFin(page);
+  await expect(page.getByText("Sin conexión solo funciona el ejemplo")).toBeVisible({ timeout: 15_000 });
+  await expect(page.getByRole("button", { name: "Volver a intentar" })).toHaveCount(0);
+  await capturar(page, "09-solo-ejemplo");
+  await tocar(page.getByRole("button", { name: "Empezar con el ejemplo" }));
+  await expect(page).toHaveURL(/\/conversacion$/);
+  await expect(page.getByText("¿Cuánto tiempo llevas en esto?")).toBeVisible({ timeout: 15_000 });
+  await expect(page.getByRole("button", { name: "Usar respuesta de ejemplo" })).toBeVisible();
+});
+
+test("e2e-09b: en modo real, si no se puede leer el relato, se puede volver a intentar", async ({ page }) => {
+  await modoReal(page);
+  await relatoNoLeido(page);
+  await conversarHastaElFin(page);
+  await expect(page.getByText("No pudimos leer tu relato, inténtalo de nuevo")).toBeVisible({ timeout: 15_000 });
+  await expect(page.getByRole("button", { name: "Volver a intentar" })).toBeVisible();
+  await expect(page.getByText("Sin conexión solo funciona el ejemplo")).toHaveCount(0);
+  await expect(page.getByRole("button", { name: "Empezar con el ejemplo" })).toHaveCount(0);
 });
