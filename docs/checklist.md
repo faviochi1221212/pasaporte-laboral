@@ -53,6 +53,7 @@ Hecho cuando: las pruebas pasan sin red y una llamada real (`pytest -m qvac`) de
 - [ ] `revisar_respuesta`: tool con reaccion, suficiente, menciona_actividad y repregunta; validación de la reacción (12 palabras, sin palabras prohibidas) y respaldos (spec 5)
 - [ ] `extraer_perfil`: lista cerrada de 26 elementos con `texto_simple` y `criterios_clave`, tool, validación y un reintento; versión parcial con las respuestas 1 a 3
 - [ ] Las fortalezas también pasan por `evidencia_valida`
+- [ ] A `otorgar_sellos` se le pasan solo las respuestas 1 a 3 (con sus repreguntas)
 - [ ] `redactar_resumen`: 2 frases y plantilla de respaldo
 - [ ] Pruebas A1 a A4 y A12 contra QVAC real con `tests/relatos/` (marcador `qvac`); sus respuestas se graban en `fixtures/`
 - [ ] Las mismas pruebas pasan en modo respaldo leyendo esos fixtures
@@ -64,6 +65,7 @@ Hecho cuando: A1 a A4 pasan dos veces seguidas contra QVAC con el mismo resultad
 - [ ] SQLite con 4 tablas: sesion, respuesta, sello, fortaleza (id anónimo, sin datos personales)
 - [ ] Los 9 endpoints de la spec 6 con modelos Pydantic iguales a la spec (incluye saludo, reacción, cierre y sellos-parciales)
 - [ ] Guion fijo de 6 preguntas con máximo una repregunta y la regla de las preguntas 4 y 5
+- [ ] A `otorgar_sellos` se le pasan solo las respuestas 1 a 3 (con sus repreguntas)
 - [ ] Formato único de errores
 - [ ] `scripts/borrar_sesiones.py` para después de la demo
 - [ ] Prueba de recorrido completo de María por la API en modo respaldo (A8), y prueba de que una falla en sellos-parciales no rompe el recorrido (A13)

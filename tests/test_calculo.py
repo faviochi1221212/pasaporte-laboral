@@ -1,5 +1,7 @@
 """Pruebas de M2: cálculos sin IA de app/calculo.py (spec 4, 6 y 6b)."""
+import json
 import logging
+from pathlib import Path
 from typing import Any
 
 import pytest
@@ -148,6 +150,26 @@ def test_hu04_sello_quitado_no_se_otorga() -> None:
     quitados = {"G2347002-1.E3", "I2555001-2.E4"}
     sellos = calculo.otorgar_sellos(propuestas, RESPUESTAS, datos.COMPETENCIAS, quitados)
     assert [s["codigo"] for s in sellos] == ["G2347002-1.E1"]
+
+
+def test_hu04_quitar_un_codigo_quita_los_de_su_misma_etiqueta() -> None:
+    propuestas = [{"codigo": "G2347002-1.E3", "evidencia": "cuadro la caja"}]
+    sellos = calculo.otorgar_sellos(propuestas, RESPUESTAS, datos.COMPETENCIAS, {"G2347002-1.E3"})
+    assert sellos == []
+
+
+def test_a2_frase_de_la_pregunta_4_no_da_sello() -> None:
+    relato = json.loads(
+        (Path(__file__).parent / "relatos" / "jorge_almacen.json").read_text(encoding="utf-8")
+    )
+    todas = [t for r in relato["respuestas"] for t in (r["texto"], r.get("repregunta", ""))]
+    de_1_a_3 = [
+        t for r in relato["respuestas"] if r["n"] <= 3 for t in (r["texto"], r.get("repregunta", ""))
+    ]
+    propuestas = [{"codigo": "G2347002-1.E2", "evidencia": "les cobro y les doy el vuelto"}]
+    # Con todas las respuestas la frase sí aparece; por eso solo se pasan las de 1 a 3.
+    assert calculo.evidencia_valida("les cobro y les doy el vuelto", todas)
+    assert calculo.otorgar_sellos(propuestas, de_1_a_3, datos.COMPETENCIAS, set()) == []
 
 
 def test_hu04_agrupa_sellos_con_la_misma_etiqueta() -> None:

@@ -34,9 +34,12 @@ def otorgar_sellos(
 ) -> Datos:
     """Da un sello por código con las 3 condiciones de la spec 4.
 
-    Un código que gana su sello lo pasa, con la misma frase, a los códigos con su misma etiqueta.
+    respuestas = solo preguntas 1 a 3 (con sus repreguntas); las 4 y 5 solo dan fortalezas.
+    Un código que gana su sello lo pasa, con la misma frase, a los códigos con su misma etiqueta,
+    y quitar un código quita también los de su misma etiqueta.
     """
     por_codigo = {c["codigo"]: c for c in competencias}
+    etiquetas_quitadas = {por_codigo[q]["sello"]["etiqueta"] for q in quitados if q in por_codigo}
     evidencias: dict[str, str] = {}
     for propuesta in propuestas:
         codigo, frase = propuesta["codigo"], propuesta["evidencia"]
@@ -58,7 +61,7 @@ def otorgar_sellos(
             "evidencia": evidencias[c["codigo"]],
         }
         for c in competencias
-        if c["codigo"] in evidencias and c["codigo"] not in quitados
+        if c["codigo"] in evidencias and c["sello"]["etiqueta"] not in etiquetas_quitadas
     ]
 
 
