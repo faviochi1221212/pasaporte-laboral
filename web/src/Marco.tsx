@@ -7,7 +7,10 @@ interface Modo {
   sinConexion: boolean;
 }
 
-/** Banda "Prototipo" fija arriba y marca pequeña cuando QVAC corre en modo respaldo (HU-15). */
+/**
+ * Banda "Prototipo" fija arriba, con la franja roja y blanca debajo, y marca pequeña cuando QVAC
+ * corre en modo respaldo (HU-15).
+ */
 export function Marco() {
   const [sinConexion, setSinConexion] = useState(false);
 
@@ -20,9 +23,12 @@ export function Marco() {
 
   return (
     <div className="marco">
-      <div className="banda" role="note">
-        <span>{TEXTOS.banda}</span>
-        {sinConexion && <span className="marca-sin-conexion">{TEXTOS.sinConexion}</span>}
+      <div className="cabecera-fija">
+        <div className="banda" role="note">
+          <span>{TEXTOS.banda}</span>
+          {sinConexion && <span className="marca-sin-conexion">{TEXTOS.sinConexion}</span>}
+        </div>
+        <div className="franja-peru" aria-hidden="true" />
       </div>
       <Outlet context={{ sinConexion } satisfies Modo} />
     </div>

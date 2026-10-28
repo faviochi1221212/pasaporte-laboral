@@ -18,6 +18,8 @@ Persona ──6 preguntas──▶ Backend (FastAPI) ──tool calls──▶ Q
 
 **El modelo conversa, extrae y redacta; el código calcula.** Ningún número, ocupación, curso ni aviso que ve la persona sale del modelo.
 
+Si QVAC falla en modo real (no responde, o responde sin la tool o fuera del esquema después de los reintentos), se usa la respuesta grabada en `fixtures/` de esos mismos mensajes, si existe; si no, el respaldo fijo de la spec 5. Con `QVAC_MODO=respaldo` todo sale de `fixtures/` sin red.
+
 | El modelo hace | El código hace |
 |---|---|
 | Revisar si una respuesta es vaga y repreguntar | Guion fijo de 6 preguntas |
@@ -31,6 +33,8 @@ Persona ──6 preguntas──▶ Backend (FastAPI) ──tool calls──▶ Q
 | `ocupaciones.json`, `competencias.json` | 6 perfiles del Catálogo Nacional de Perfiles Ocupacionales (PDF en `docs/fuentes/`) | 27 oct 2026 |
 | `cursos.json` | CAPACITA-T del MTPE (temario de cada curso) | 27 oct 2026 |
 | `avisos.json`, `demanda.json` | Empleos Perú (MTPE), avisos de Lima | 27 oct 2026, 19:58 |
+
+La fecha de las fuentes que se ve en el Inicio se lee de `data/demanda.json` al compilar las pantallas: **después de actualizar `data/avisos.json` y `data/demanda.json`, vuelve a correr `npm run build`** (en `web/`).
 
 ## Empezar (Windows, VS Code)
 
@@ -51,7 +55,7 @@ Persona ──6 preguntas──▶ Backend (FastAPI) ──tool calls──▶ Q
    cd web; npm install; npm run build; cd ..
    uvicorn app.main:app
    ```
-8. Pruebas de pantalla (Playwright, en 360 y 1280 px, contra el backend en modo respaldo; las capturas quedan en `tests/e2e/capturas/`):
+8. Pruebas de pantalla (Playwright, en 360, 1280 y 1920 px, contra el backend en modo respaldo; las capturas quedan en `tests/e2e/capturas/`):
    ```powershell
    cd web; npx playwright install chromium; npm run build; npm run e2e
    ```

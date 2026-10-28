@@ -1,7 +1,9 @@
-// e2e-01 a e2e-07 (docs/historias.md) en 360 y 1280 px, contra el backend en modo respaldo.
+// e2e-01 a e2e-09 (docs/historias.md) en 360, 1280 y 1920 px, contra el backend en modo respaldo.
 import { expect, type Page, test } from "../../web/node_modules/@playwright/test";
+import demanda from "../../data/demanda.json";
 import {
   capturar,
+  contraste,
   conversarComoMaria,
   conversarHastaElFin,
   guardarCaptura,
@@ -16,6 +18,10 @@ import {
 const [RESPUESTA_1, RESPUESTA_2] = RELATO_MARIA.respuestas.map((r) => r.texto ?? "");
 const PLANTILLA_RESUMEN = "Experiencia práctica en:";
 const REACCIONES_RESPALDO = ["Gracias.", "Entendido.", "Anotado.", "Perfecto, sigamos."];
+const ROJO_PERU = "rgb(217, 16, 35)";
+const MESES = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "set", "oct", "nov", "dic"];
+const [ANIO, MES, DIA] = demanda.tomado.slice(0, 10).split("-").map(Number);
+const FECHA_FOTO = `${DIA} ${MESES[(MES ?? 1) - 1]} ${ANIO}`;
 
 /** Simula que el backend corre con QVAC real (para lo que solo se ve en respaldo). */
 async function modoReal(page: Page): Promise<void> {
@@ -45,6 +51,28 @@ test("e2e-01: inicio → elegir Caja → primera pregunta", async ({ page }) => 
   await expect(page.getByText("Prototipo · no es un sitio oficial")).toBeVisible();
   await expect(page.getByText("modo sin conexión")).toBeVisible();
   await expect(page.getByText("gob.pe")).toHaveCount(0);
+  // Acento Perú: franja fina roja y blanca debajo de la banda "Prototipo".
+  const franja = page.locator(".franja-peru");
+  await expect(franja).toBeVisible();
+  expect(await franja.evaluate((e) => getComputedStyle(e).backgroundImage)).toContain(ROJO_PERU);
+  // Cómo funciona: 3 pasos en orden, debajo de "¿No está tu trabajo?".
+  const pasos = page.locator(".como-funciona li");
+  await expect(pasos).toHaveText(["Cuentas lo que haces", "Ganas sellos", "Ves a qué trabajos puedes llegar"]);
+  await expect(pasos.locator(".sello")).toHaveCount(3);
+  const otro = await page.getByText("¿No está tu trabajo?").boundingBox();
+  const como = await page.locator(".como-funciona").boundingBox();
+  expect(como!.y).toBeGreaterThan(otro!.y);
+  // Fuentes, con la fecha de la foto de data/demanda.json.
+  await expect(page.locator(".inicio-fuentes")).toHaveText(
+    "Hecho con datos oficiales del Perú: Catálogo Nacional de Perfiles Ocupacionales del MTPE · " +
+      `Cursos gratuitos CAPACITA-T · Avisos de Empleos Perú al ${FECHA_FOTO}`,
+  );
+  await expect(page.locator(".inicio-fuentes img, .como-funciona img")).toHaveCount(0);
+  if (test.info().project.name === "360") {
+    // En celular, los pasos van en una columna.
+    const cajas = await Promise.all((await pasos.all()).map((p) => p.boundingBox()));
+    expect(new Set(cajas.map((c) => Math.round(c!.x))).size).toBe(1);
+  }
   await capturar(page, "01-inicio");
   await tocar(page.getByRole("button", { name: "Caja" }));
   await expect(page.getByText("Soy el asistente de empleo del Ministerio de Trabajo")).toBeVisible();
@@ -73,6 +101,14 @@ test("e2e-02b: reacciones del modelo grabadas y contador de sellos", async ({ pa
   expect(pregunta).toBe("¿Qué haces en un día normal?");
   await responder(page, RESPUESTA_2);
   await expect(page.getByText(/\d+ sellos? ganados?/)).toBeVisible({ timeout: 15_000 });
+  // El rojo Perú es el acento de la barra y cumple contraste AA (4,5:1) sobre su fondo.
+  const marca = page.locator(".chat-sellos-marca");
+  const [color, fondo] = await marca.evaluate((e) => [
+    getComputedStyle(e).color,
+    getComputedStyle(e.parentElement!).backgroundColor,
+  ]);
+  expect(color).toBe(ROJO_PERU);
+  expect(contraste(color, fondo)).toBeGreaterThanOrEqual(4.5);
 });
 
 test("e2e-02c (A13): si sellos-parciales falla, la barra no aparece y no hay error en pantalla", async ({ page }) => {

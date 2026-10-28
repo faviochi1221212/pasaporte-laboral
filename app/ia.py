@@ -132,7 +132,11 @@ def _resumen_valido(args: dict[str, Any]) -> bool:
 def _llamar(
     tarea: str, mensajes: Datos, tool: dict[str, Any], valida: Callable[[dict[str, Any]], bool]
 ) -> dict[str, Any] | None:
-    """Llama al modelo con un solo reintento si la salida no es válida; None si hay que usar el respaldo."""
+    """Llama al modelo con un solo reintento si la salida no es válida; None si hay que usar el respaldo.
+
+    En modo real, si al final no hay respuesta válida por cualquier motivo, antes del respaldo fijo
+    se prueba la respuesta grabada en fixtures/ para estos mensajes (spec 7).
+    """
     for intento in (1, 2):
         try:
             args = qvac.llamar_tool(tarea, mensajes, tool)
@@ -140,11 +144,15 @@ def _llamar(
             logger.warning("%s: intento %d sin tool", tarea, intento)
             continue
         except qvac.ErrorQvac as e:
-            logger.warning("%s: QVAC sin respuesta (%s), se usa el respaldo", tarea, type(e).__name__)
-            return None
+            logger.warning("%s: QVAC sin respuesta (%s)", tarea, type(e).__name__)
+            break
         if valida(args):
             return args
         logger.warning("%s: intento %d con salida fuera del esquema", tarea, intento)
+    if config.QVAC_MODO == "real":
+        grabada = qvac.grabada(tarea, mensajes, tool)
+        if grabada is not None and valida(grabada):
+            return grabada
     logger.warning("%s: se usa el respaldo", tarea)
     return None
 

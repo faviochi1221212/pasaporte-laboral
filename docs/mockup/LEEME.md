@@ -22,6 +22,7 @@ Falta en el mockup y se agrega en la app: pantalla de Intereses (3 botones) y pa
 ```css
 :root {
   --rojo-gob: #C8102E;      /* logo gob.pe, acentos */
+  --rojo-peru: #D91023;     /* acento Perú (solo en la app): franja roja y blanca bajo la banda y barra "N sellos ganados"; 5,2:1 sobre blanco y 4,7:1 sobre --fondo (AA) */
   --azul: #1C5FA8;          /* botones y enlaces */
   --azul-oscuro: #123F73;   /* hover */
   --fondo: #F2F5F9;

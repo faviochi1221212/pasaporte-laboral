@@ -1,6 +1,7 @@
 /* Estilos propios, primero celular (spec 2). Colores de docs/mockup/LEEME.md. */
 :root {
   --rojo-gob: #c8102e;
+  --rojo-peru: #d91023; /* acento Perú: franja y barra de sellos; 5,2:1 sobre blanco y 4,7:1 sobre --fondo (AA) */
   --azul: #1c5fa8;
   --azul-oscuro: #123f73;
   --fondo: #f2f5f9;
@@ -74,12 +75,15 @@ p {
   height: 100dvh;
 }
 
-/* --- Banda "Prototipo" y marca de modo sin conexión */
+/* --- Banda "Prototipo", franja roja y blanca, y marca de modo sin conexión */
 
-.banda {
+.cabecera-fija {
   position: sticky;
   top: 0;
   z-index: 10;
+}
+
+.banda {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
@@ -91,6 +95,16 @@ p {
   font-size: 0.85rem;
   font-weight: 500;
   text-align: center;
+}
+
+.franja-peru {
+  height: 4px;
+  background: linear-gradient(
+    to right,
+    var(--rojo-peru) 0 33.33%,
+    var(--blanco) 33.33% 66.67%,
+    var(--rojo-peru) 66.67% 100%
+  );
 }
 
 .marca-sin-conexion {
@@ -389,6 +403,53 @@ p {
   }
 }
 
+/* "Cómo funciona" y fuentes: en celular, una columna; desde 1024 px, los 3 pasos en fila. */
+
+.como-funciona {
+  margin-top: 2rem;
+}
+
+.como-funciona ol {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.como-funciona li {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--borde);
+  border-radius: 12px;
+  background: var(--blanco);
+  font-weight: 700;
+}
+
+.inicio-fuentes {
+  margin: 2rem 0 0;
+  padding-top: 1rem;
+  border-top: 1px solid var(--borde-2);
+  color: var(--texto-3);
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+@media (min-width: 1024px) {
+  .como-funciona ol {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .como-funciona li {
+    padding: 1rem 1.25rem;
+    font-size: 1.05rem;
+  }
+}
+
 /* --- Conversación (chat, spec 5b) */
 
 .chat {
@@ -503,6 +564,7 @@ p {
   align-items: center;
   gap: 0.75rem;
   padding: 0.5rem 0.75rem;
+  border-left: 4px solid var(--rojo-peru);
   border-radius: 12px;
   background: var(--fondo);
 }
@@ -514,9 +576,9 @@ p {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 3px solid var(--granate);
+  border: 3px solid var(--rojo-peru);
   border-radius: 50%;
-  color: var(--granate);
+  color: var(--rojo-peru);
   font-weight: 900;
   transform: rotate(-8deg);
 }
@@ -706,7 +768,11 @@ p {
   }
 }
 
-/* --- Intereses */
+/* --- Intereses: centrado, para que en pantallas anchas no quede pegado a la izquierda */
+
+.intereses {
+  margin-inline: auto;
+}
 
 .intereses-opciones {
   display: flex;
@@ -1083,7 +1149,7 @@ p {
     background: #fff;
   }
 
-  .banda,
+  .cabecera-fija,
   .no-imprimir {
     display: none !important;
   }

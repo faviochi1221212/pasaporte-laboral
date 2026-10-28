@@ -206,6 +206,8 @@ Etiquetas de los sellos (revisadas: acción que se puede ver, sin palabras del c
 | Los códigos y textos del catálogo del MTPE | María Quispe y su relato son inventados; nunca se usan datos reales porque Tether ve los prompts |
 | Los cálculos de afinidad | Si QVAC no responde, QVAC_MODO=respaldo usa respuestas grabadas de una corrida real y la pantalla lo indica con una marca pequeña. Solo en respaldo, cada pregunta tiene el botón "Usar respuesta de ejemplo", que pone en el campo la respuesta de María (tests/relatos/maria_cajera.json; en una repregunta, la de su repregunta si el relato la trae), y si no se puede leer el relato la pantalla dice "Sin conexión solo funciona el ejemplo" con el botón "Empezar con el ejemplo". En modo real no aparece nada de esto |
 
+Modo real con respaldo grabado: en modo real, si al final de los reintentos de la sección 5 no hay una respuesta válida de QVAC por cualquier motivo (no responde, error HTTP, responde sin la tool o fuera del esquema) y existe en fixtures/ la respuesta grabada de esos mismos mensajes, se usa esa respuesta (si pasa la misma validación) y queda en el log. Si no hay fixture, se usa el respaldo fijo de la sección 5, como siempre. Esto no graba nada nuevo y la pantalla no muestra la marca "modo sin conexión".
+
 ## 8. Fuera del MVP
 
 - Login, DNI y cuentas.

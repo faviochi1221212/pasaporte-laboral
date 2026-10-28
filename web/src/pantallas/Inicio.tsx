@@ -1,14 +1,26 @@
 import { useState, type FormEvent } from "react";
 import { useNavigate } from "react-router";
-import { Sello } from "../componentes/Sello";
+// La fecha de la foto se lee al compilar: después de actualizar data/ hay que correr npm run build.
+import demanda from "../../../data/demanda.json";
+import { Sello, type Icono } from "../componentes/Sello";
 import { Trabajador } from "../componentes/Trabajador";
 import { hayDictado } from "../dictado";
+import { fechaConAnio } from "../fecha";
 import { TARJETAS, useSesion, type Tarjeta } from "../sesion";
 import { TEXTOS } from "../textos";
 
 const T = TEXTOS.inicio;
+// Ícono y color de cada paso de "Cómo funciona", con los mismos colores que los sellos de la portada.
+const PASOS: [Icono, string][] = [
+  ["atencion", "#1C5FA8"],
+  ["registro", "#1E7A46"],
+  ["maleta", "#5B3E96"],
+];
 
-/** Inicio (HU-01): 6 tarjetas y "¿No está tu trabajo?". Al tocar se crea la sesión sin pedir datos. */
+/**
+ * Inicio (HU-01): 6 tarjetas y "¿No está tu trabajo?". Al tocar se crea la sesión sin pedir datos.
+ * Debajo, "Cómo funciona" en 3 pasos y las fuentes de los datos.
+ */
 export function Inicio() {
   const { iniciar } = useSesion();
   const navegar = useNavigate();
@@ -80,6 +92,25 @@ export function Inicio() {
         </form>
         {error && <p role="alert" className="error">{TEXTOS.errorRed}</p>}
       </section>
+
+      <section className="como-funciona">
+        <h2>{T.comoFunciona}</h2>
+        <ol>
+          {T.pasos.map((paso, i) => {
+            const [icono, color] = PASOS[i] ?? PASOS[0]!;
+            return (
+              <li key={paso}>
+                <span aria-hidden="true">
+                  <Sello icono={icono} etiqueta={paso} color={color} giro={i % 2 ? 6 : -6} tamano={56} />
+                </span>
+                {paso}
+              </li>
+            );
+          })}
+        </ol>
+      </section>
+
+      <p className="inicio-fuentes">{T.fuentes(fechaConAnio(demanda.tomado))}</p>
     </main>
   );
 }

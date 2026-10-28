@@ -25,6 +25,11 @@ export const TEXTOS = {
     minutos: "5 minutos",
     puedesHablar: "Puedes hablar",
     sellosDecorativos: ["Cuadra la caja", "Atiende reclamos", "Ordena mercadería"],
+    comoFunciona: "Cómo funciona",
+    pasos: ["Cuentas lo que haces", "Ganas sellos", "Ves a qué trabajos puedes llegar"],
+    fuentes: (fecha: string) =>
+      "Hecho con datos oficiales del Perú: Catálogo Nacional de Perfiles Ocupacionales del MTPE · " +
+      `Cursos gratuitos CAPACITA-T · Avisos de Empleos Perú al ${fecha}`,
   },
 
   chat: {

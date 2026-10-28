@@ -1,4 +1,6 @@
 """Pruebas de M4 sin red: las 3 tareas del modelo con salidas falsas, y A1 a A4 y A12 en modo respaldo."""
+import json
+from pathlib import Path
 from typing import Any
 
 import pytest
@@ -25,10 +27,11 @@ class ModeloFalso:
 
 
 @pytest.fixture
-def modelo(monkeypatch: pytest.MonkeyPatch) -> Any:
+def modelo(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> Any:
     def instalar(*salidas: dict[str, Any] | Exception) -> ModeloFalso:
         falso = ModeloFalso(*salidas)
         monkeypatch.setattr(qvac, "llamar_tool", falso)
+        monkeypatch.setattr(qvac, "FIXTURES", tmp_path / "fixtures")
         return falso
 
     return instalar
@@ -167,6 +170,50 @@ def test_m4_qvac_sin_respuesta_va_directo_al_respaldo(modelo: Any) -> None:
     falso = modelo(qvac.ErrorQvac("x"))
     ia.revisar_respuesta(2, P2, LARGA, False)
     assert len(falso.llamadas) == 1
+
+
+# --- modo real con respaldo grabado (spec 7)
+
+GRABADA = revision(reaccion="¡Qué bien que cuadres la caja!")
+
+
+def grabar_fixture(falso: ModeloFalso, args: dict[str, Any]) -> None:
+    """Escribe, como lo haría QVAC_GRABAR, la respuesta de los mensajes que se le pidieron al modelo."""
+    llamada = falso.llamadas[0]
+    ruta = qvac.FIXTURES / llamada["tarea"] / f"{qvac.clave(llamada['mensajes'])}.json"
+    ruta.parent.mkdir(parents=True, exist_ok=True)
+    llamada_tool = {"function": {"name": "revisar_respuesta", "arguments": json.dumps(args)}}
+    respuesta = {"choices": [{"message": {"tool_calls": [llamada_tool]}}]}
+    ruta.write_text(json.dumps(respuesta), encoding="utf-8")
+
+
+@pytest.fixture
+def modo_real(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(config, "QVAC_MODO", "real")
+
+
+def test_m3_real_sin_respuesta_usa_el_fixture_si_existe(modelo: Any, modo_real: None) -> None:
+    falso = modelo(qvac.ErrorQvac("x"), qvac.ErrorQvac("x"))
+    ia.revisar_respuesta(2, P2, LARGA, False)
+    grabar_fixture(falso, GRABADA)
+    assert ia.revisar_respuesta(2, P2, LARGA, False)["reaccion"] == "¡Qué bien que cuadres la caja!"
+
+
+def test_m3_real_sin_tool_tras_los_reintentos_usa_el_fixture_si_existe(modelo: Any, modo_real: None) -> None:
+    falso = modelo(*[qvac.ErrorSinTool("x")] * 4)
+    ia.revisar_respuesta(2, P2, LARGA, False)
+    grabar_fixture(falso, GRABADA)
+    assert ia.revisar_respuesta(2, P2, LARGA, False)["reaccion"] == "¡Qué bien que cuadres la caja!"
+    assert len(falso.llamadas) == 4
+
+
+def test_m3_real_sin_fixture_usa_el_respaldo_fijo_y_no_graba(
+    modelo: Any, modo_real: None, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(config, "QVAC_GRABAR", True)
+    modelo(qvac.ErrorQvac("x"))
+    assert ia.revisar_respuesta(2, P2, LARGA, False) == {"reaccion": "Entendido.", "repregunta": None}
+    assert not qvac.FIXTURES.exists()
 
 
 @pytest.mark.parametrize(

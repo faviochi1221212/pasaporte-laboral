@@ -91,6 +91,12 @@ Hecho cuando: A10 y A11 pasan y las capturas se revisaron a ojo en los dos tama�
 
 28 oct 2026: 20 e2e pasan en 360 (tocando) y 1280 px; cada captura revisa sin scroll horizontal, botones de 48 px, 2 columnas en 1280 y la regla 5. Falta la revisión a ojo del equipo de `tests/e2e/capturas/`.
 
+28 oct 2026, ajustes después de M6:
+- [x] Inicio: "Cómo funciona" en 3 pasos y franja de fuentes con la fecha de `data/demanda.json` (se lee al compilar)
+- [x] Acento Perú: `--rojo-peru` (AA) en una franja roja y blanca bajo la banda "Prototipo" y en la barra "N sellos ganados"
+- [x] 1920 px: capturas en 360, 1280 y 1920; en 1920 se revisa que el contenido vaya centrado (Intereses quedaba a la izquierda)
+- [x] Modo real con respaldo grabado (spec 7): si al final de los reintentos no hay respuesta válida y existe el fixture, se usa
+
 ## M7 · Demo y pitch
 
 - [ ] Relato de María ensayado y grabado en `fixtures/`

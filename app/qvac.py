@@ -6,6 +6,7 @@ import hashlib
 import json
 import logging
 import time
+from pathlib import Path
 from typing import Any
 
 import httpx
@@ -35,6 +36,11 @@ def clave(mensajes: list[dict[str, Any]]) -> str:
     return hashlib.sha256(texto.encode("utf-8")).hexdigest()[:12]
 
 
+def _ruta(tarea: str, mensajes: list[dict[str, Any]]) -> Path:
+    """Archivo del fixture de estos mensajes: fixtures/{tarea}/{clave}.json."""
+    return FIXTURES / tarea / f"{clave(mensajes)}.json"
+
+
 def llamar_tool(
     tarea: str,
     mensajes: list[dict[str, Any]],
@@ -42,7 +48,7 @@ def llamar_tool(
     cliente: httpx.Client | None = None,
 ) -> dict[str, Any]:
     """Pide al modelo que llame la tool y devuelve sus argumentos como dict."""
-    ruta = FIXTURES / tarea / f"{clave(mensajes)}.json"
+    ruta = _ruta(tarea, mensajes)
     if config.QVAC_MODO == "respaldo":
         if not ruta.exists():
             raise ErrorSinFixture(f"No hay respuesta grabada para la tarea {tarea}: falta {ruta.name}")
@@ -54,6 +60,19 @@ def llamar_tool(
             ruta.parent.mkdir(parents=True, exist_ok=True)
             ruta.write_text(json.dumps(respuesta, ensure_ascii=False, indent=2), encoding="utf-8")
     return _argumentos(respuesta, tool["function"]["name"])
+
+
+def grabada(tarea: str, mensajes: list[dict[str, Any]], tool: dict[str, Any]) -> dict[str, Any] | None:
+    """Argumentos del fixture de estos mensajes, o None si no hay fixture o no trae la tool (spec 7)."""
+    ruta = _ruta(tarea, mensajes)
+    if not ruta.exists():
+        return None
+    try:
+        argumentos = _argumentos(json.loads(ruta.read_text(encoding="utf-8")), tool["function"]["name"])
+    except ErrorSinTool:
+        return None
+    logger.info("qvac %s: modo real sin respuesta válida, se usa el fixture %s", tarea, ruta.name)
+    return argumentos
 
 
 def _pedir(

@@ -4,7 +4,6 @@ import maria from "../relatos/maria_cajera.json";
 
 export const RELATO_MARIA = maria;
 
-
 const RAICES = ["certific", "competen", "brecha", "no sirves"];
 const FRASE_CV = /competencias declaradas/gi;
 const TOCABLES = "button, a.boton, a.volver, a.estacion, input, textarea";
@@ -56,11 +55,39 @@ async function dosColumnasEnComputadora(pagina: Page): Promise<void> {
   }
 }
 
-/** Revisa la pantalla (regla 5, A10, A11) y guarda una captura completa en tests/e2e/capturas/. */
+/** En 1920, el contenido va centrado: no queda pegado a la izquierda con la derecha vacía. */
+async function centradoEnPantallaAncha(pagina: Page): Promise<void> {
+  if (test.info().project.name !== "1920") return;
+  const [izquierda, derecha] = await pagina.locator("main").evaluate((main) => {
+    const cajas = [...main.children].map((hijo) => hijo.getBoundingClientRect()).filter((c) => c.width > 0);
+    const desde = Math.min(...cajas.map((c) => c.left));
+    const hasta = Math.max(...cajas.map((c) => c.right));
+    return [desde, window.innerWidth - hasta];
+  });
+  expect(Math.abs(izquierda - derecha), `contenido descentrado en ${pagina.url()}`).toBeLessThanOrEqual(48);
+}
+
+/** Luminancia relativa de WCAG de un color "rgb(r, g, b)". */
+function luminancia(rgb: string): number {
+  const [r, g, b] = (rgb.match(/\d+/g) ?? []).slice(0, 3).map((v) => {
+    const c = Number(v) / 255;
+    return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+  });
+  return 0.2126 * (r ?? 0) + 0.7152 * (g ?? 0) + 0.0722 * (b ?? 0);
+}
+
+/** Contraste WCAG entre dos colores "rgb(r, g, b)" (AA para texto: 4,5 o más). */
+export function contraste(a: string, b: string): number {
+  const [claro, oscuro] = [luminancia(a), luminancia(b)].sort((x, y) => y - x);
+  return ((claro ?? 0) + 0.05) / ((oscuro ?? 0) + 0.05);
+}
+
+/** Revisa la pantalla (regla 5, A10, A11, 1920) y guarda una captura completa en tests/e2e/capturas/. */
 export async function capturar(pagina: Page, nombre: string): Promise<void> {
   await sinPalabrasProhibidas(pagina);
   await usableEnCelular(pagina);
   await dosColumnasEnComputadora(pagina);
+  await centradoEnPantallaAncha(pagina);
   await guardarCaptura(pagina, nombre);
 }
 
