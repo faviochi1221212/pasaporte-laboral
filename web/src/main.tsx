@@ -3,7 +3,9 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router";
 import "./estilos.css";
 import { Marco } from "./Marco";
+import { Avisos } from "./pantallas/Avisos";
 import { Conversacion } from "./pantallas/Conversacion";
+import { Cv } from "./pantallas/Cv";
 import { Destino } from "./pantallas/Destino";
 import { Espera } from "./pantallas/Espera";
 import { Inicio } from "./pantallas/Inicio";
@@ -28,6 +30,8 @@ createRoot(raiz).render(
             <Route path="/intereses" element={<Intereses />} />
             <Route path="/ruta" element={<Ruta />} />
             <Route path="/destino/:codigo" element={<Destino />} />
+            <Route path="/avisos/:codigo" element={<Avisos />} />
+            <Route path="/cv/:codigo" element={<Cv />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Route>
         </Routes>

@@ -25,7 +25,7 @@ export function Destino() {
   const destino = ruta.destinos.find((d) => d.codigo === codigo);
   if (!destino) return <Navigate to="/ruta" replace />;
   const sellos = new Map(sesion.pasaporte.sellos.map((s) => [s.codigo, s]));
-  const avisos = TEXTOS.ruta.avisos(destino.avisos_lima, fechaCorta(ruta.foto));
+  const avisos = TEXTOS.ruta.avisos(destino.avisos_lima, fechaCorta(ruta.foto), destino.avisos_parecidos);
 
   return (
     <main className="pagina destino">

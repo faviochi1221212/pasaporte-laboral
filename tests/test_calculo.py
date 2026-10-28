@@ -370,3 +370,28 @@ def test_hu09_maximo_3_avisos_por_destino() -> None:
 def test_hu09_sin_avisos_dice_el_mensaje_exacto() -> None:
     resultado = calculo.avisos_para("B", [{"id": "1", "perfil": "A"}])
     assert resultado == {"avisos": [], "mensaje": "Hoy no hay avisos en Lima para esto"}
+
+
+# --- avisos parecidos (spec 6b caso 3, HU-09)
+
+
+@pytest.mark.parametrize(
+    ("notas", "esperado"),
+    [
+        (["Aviso parecido: recepción de edificio", "Aviso parecido: de oficina"], True),
+        (["Aviso parecido: de oficina", None], False),
+        ([None, None], False),
+        ([], False),
+    ],
+)
+def test_hu09_avisos_parecidos_si_todos_los_avisos_del_perfil_lo_son(
+    notas: list[str | None], esperado: bool
+) -> None:
+    avisos = [{"id": str(i), "perfil": "A", **({"nota": n} if n else {})} for i, n in enumerate(notas)]
+    avisos.append({"id": "otro", "perfil": "B"})
+    assert calculo.avisos_parecidos("A", avisos) is esperado
+
+
+def test_hu09_recepcion_tiene_avisos_parecidos_y_almacen_no() -> None:
+    assert calculo.avisos_parecidos("I2555001", datos.AVISOS) is True
+    assert calculo.avisos_parecidos("H2452001", datos.AVISOS) is False

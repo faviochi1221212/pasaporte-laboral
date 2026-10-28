@@ -1,4 +1,4 @@
-import { expect, test } from "../../web/node_modules/@playwright/test";
+import { expect, type Page, test } from "../../web/node_modules/@playwright/test";
 import { capturar, conversarComoMaria, RELATO_MARIA, sinScrollHorizontal } from "./comun";
 
 const [RESPUESTA_1, RESPUESTA_2] = RELATO_MARIA.respuestas.map((r) => r.texto);
@@ -92,6 +92,7 @@ test("e2e-04: pasaporte → intereses → ruta con 3 destinos", async ({ page },
     await expect(page.getByRole("link", { name: `Estación: ${nombre}` })).toBeVisible();
   }
   await expect(page.getByText(/avisos en Lima al 27 oct/).first()).toBeVisible();
+  await expect(page.getByText("3 avisos parecidos en Lima al 27 oct")).toBeVisible();
   await sinScrollHorizontal(page);
   await capturar(page, info, "04-ruta");
 });
@@ -116,4 +117,85 @@ test("e2e-05: detalle de un destino con los 4 bloques en orden", async ({ page }
   await expect(page.getByText(/Te ayuda con la parte teórica de/)).toBeVisible();
   await sinScrollHorizontal(page);
   await capturar(page, info, "05-destino");
+});
+
+/** Va a la ruta de María con interés "gente" (el mismo recorrido de A8). */
+async function hastaLaRuta(page: Page): Promise<void> {
+  await conversarComoMaria(page);
+  await page.getByRole("link", { name: "Ver a dónde te lleva" }).click();
+  await page.getByRole("button", { name: /Con gente/ }).click();
+  await expect(page.getByRole("heading", { name: "Tu ruta" })).toBeVisible();
+}
+
+/** Cambia de pantalla sin recargar, para no perder la sesión que vive en memoria. */
+async function irSinRecargar(page: Page, ruta: string): Promise<void> {
+  await page.evaluate((destino) => {
+    window.history.pushState({}, "", destino);
+    window.dispatchEvent(new PopStateEvent("popstate"));
+  }, ruta);
+}
+
+test("e2e-06: avisos de un destino con y sin avisos", async ({ page }, info) => {
+  await hastaLaRuta(page);
+  await page.getByRole("link", { name: "Estación: Recepción de Hotel/Hostal" }).click();
+  await page.getByRole("link", { name: "Ver los avisos" }).click();
+  await expect(page.getByRole("heading", { name: "Para postular hoy" })).toBeVisible();
+  const avisos = page.getByRole("article");
+  await expect(avisos).toHaveCount(2);
+  await expect(page.getByText(/Aviso parecido/).first()).toBeVisible();
+  await expect(page.getByText("Qué piden").first()).toBeVisible();
+  const enlace = page.getByRole("link", { name: /Ver el aviso en Empleos Perú/ }).first();
+  await expect(enlace).toHaveAttribute("href", /^https:\/\/mtpe-candidatos\.empleosperu\.gob\.pe\//);
+  await expect(enlace).toHaveAttribute("target", "_blank");
+  await sinScrollHorizontal(page);
+  await capturar(page, info, "06-avisos");
+  await irSinRecargar(page, "/avisos/I2555002");
+  await expect(page.getByText("Hoy no hay avisos en Lima para esto")).toBeVisible();
+  await expect(page.getByRole("article")).toHaveCount(0);
+  await capturar(page, info, "06-sin-avisos");
+});
+
+test("e2e-07: CV con nombre escrito en el navegador y sin enviarlo", async ({ page }, info) => {
+  const enviado: string[] = [];
+  page.on("request", (pedido) => enviado.push(`${pedido.url()} ${pedido.postData() ?? ""}`));
+  await hastaLaRuta(page);
+  await page.getByRole("link", { name: /^Estación:/ }).first().click();
+  await page.getByRole("link", { name: "Mi CV" }).click();
+  await expect(page.getByText("COMPETENCIAS DECLARADAS", { exact: true })).toBeVisible();
+  await expect(
+    page.getByText("Competencias declaradas por la persona, basadas en el Catálogo Nacional de Perfiles Ocupacionales del MTPE."),
+  ).toBeVisible();
+
+  const imprimir = page.getByRole("button", { name: "Imprimir / Guardar PDF" });
+  await imprimir.click();
+  await expect(page.getByRole("alert")).toBeVisible();
+
+  // Desde aquí, nada de lo que se escribe en el CV puede salir del navegador ("Ate" sí va en el relato).
+  enviado.length = 0;
+  const datos = { nombre: "María Quispe", distrito: "Ate", telefono: "999 000 000", correo: "maria.quispe@ejemplo.pe" };
+  await page.getByLabel("Tu nombre").fill(datos.nombre);
+  await page.getByLabel("Distrito").fill(datos.distrito);
+  await page.getByLabel("Teléfono").fill(datos.telefono);
+  await page.getByLabel("Correo").fill(datos.correo);
+  await expect(page.getByText("MARÍA QUISPE")).toBeVisible();
+  await expect(page.getByText(`${datos.distrito} | ${datos.telefono} | ${datos.correo}`)).toBeVisible();
+  await expect(page.getByText("PERFIL", { exact: true })).toBeVisible();
+  await expect(page.getByText("BUSCO Y CAPACITACIÓN")).toBeVisible();
+  await sinScrollHorizontal(page);
+  await capturar(page, info, "07-cv");
+
+  for (const valor of Object.values(datos)) {
+    expect(enviado.join("\n"), `"${valor}" salió del navegador`).not.toContain(valor);
+    expect(enviado.join("\n")).not.toContain(encodeURIComponent(valor));
+  }
+
+  await page.emulateMedia({ media: "print" });
+  await expect(page.getByText("Prototipo · no es un sitio oficial")).toBeHidden();
+  await expect(imprimir).toBeHidden();
+  const fuente = await page.locator(".cv-hoja").evaluate((e) => getComputedStyle(e).fontFamily);
+  expect(fuente).toContain("Times New Roman");
+  await capturar(page, info, "07-cv-impresion");
+  if (info.project.name === "1280") {
+    await page.pdf({ path: "../tests/e2e/capturas/cv-maria.pdf", format: "A4", printBackground: true });
+  }
 });

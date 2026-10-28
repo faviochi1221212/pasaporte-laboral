@@ -169,6 +169,12 @@ def faltantes(
     return resultado
 
 
+def avisos_parecidos(perfil: str, avisos: Datos) -> bool:
+    """True si el perfil tiene avisos y todos son parecidos, no del puesto exacto (su nota lo dice)."""
+    del_perfil = [a for a in avisos if a["perfil"] == perfil]
+    return bool(del_perfil) and all(a.get("nota", "").startswith("Aviso parecido") for a in del_perfil)
+
+
 def avisos_para(perfil: str, avisos: Datos) -> dict[str, Any]:
     """Los 3 primeros avisos del perfil, o el mensaje fijo si no hay (spec 6 y 6b caso 5)."""
     del_perfil = [a for a in avisos if a["perfil"] == perfil][: config.MAX_AVISOS]

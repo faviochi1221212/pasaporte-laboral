@@ -80,6 +80,7 @@ export interface Destino {
   que_harias: string[];
   faltan: Faltante[];
   avisos_lima: number;
+  avisos_parecidos: boolean;
 }
 
 export interface Ruta {

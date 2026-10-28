@@ -55,7 +55,7 @@ export function Ruta() {
                   <strong>{d.nombre}</strong>
                   <span>{T.tienes(d.tienes.length, total)}</span>
                   <span style={{ color }}>{d.faltan.length ? T.faltan(d.faltan.length) : TEXTOS.destino.nadaFalta}</span>
-                  <span className="atenuado">{T.avisos(d.avisos_lima, fecha)}</span>
+                  <span className="atenuado">{T.avisos(d.avisos_lima, fecha, d.avisos_parecidos)}</span>
                 </Link>
               </div>
             );

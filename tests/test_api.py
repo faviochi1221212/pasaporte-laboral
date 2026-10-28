@@ -334,6 +334,7 @@ def test_hu06_hu13_ruta_con_sustento_y_sin_el_origen(cliente: TestClient, modelo
         assert len(d["que_harias"]) == 3 and d["tienes"]
         for f in d["faltan"]:
             assert (f["curso"] is None) == (f["mensaje"] == config.TEXTO_SIN_CURSO)
+        assert d["avisos_parecidos"] == (d["codigo"] == "I2555001")
 
 
 def test_hu09_avisos_con_y_sin_avisos(cliente: TestClient, modelo: Any) -> None:

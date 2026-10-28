@@ -83,7 +83,8 @@ export const TEXTOS = {
     estacion: (nombre: string) => `Estación: ${nombre}`,
     tienes: (n: number, total: number) => `Ya tienes ${n} de ${total} sellos`,
     faltan: (n: number) => (n === 1 ? "Te falta 1 sello" : `Te faltan ${n} sellos`),
-    avisos: (n: number, fecha: string) => (n === 1 ? `1 aviso en Lima al ${fecha}` : `${n} avisos en Lima al ${fecha}`),
+    avisos: (n: number, fecha: string, parecidos: boolean) =>
+      `${n} ${n === 1 ? "aviso" : "avisos"}${parecidos ? (n === 1 ? " parecido" : " parecidos") : ""} en Lima al ${fecha}`,
     pocos: "Cuéntanos un poco más para encontrar otros caminos",
     volverAContar: "Volver a contar",
     porQueTitulo: "¿Por qué estos trabajos?",
@@ -109,10 +110,40 @@ export const TEXTOS = {
     verAvisos: "Ver los avisos",
     miCv: "Mi CV",
   },
+
+  avisos: {
+    titulo: "Para postular hoy",
+    volver: "Volver al trabajo",
+    quePiden: "Qué piden",
+    sueldo: "Sueldo",
+    sinSueldo: "Sueldo no publicado",
+    cierre: (fecha: string) => `Cierra el ${fecha}`,
+    ver: "Ver el aviso en Empleos Perú",
+    abreEnOtra: "(se abre en otra pestaña)",
+    fuente: (fecha: string) => `Avisos reales de Empleos Perú en Lima · vistos el ${fecha}`,
+  },
 };
 
 // Único lugar donde vale la frase de la regla 5, y solo en la pantalla del CV.
 export const TEXTOS_CV = {
+  titulo: "Tu CV",
+  detalle: "Escribe tus datos. Se quedan en este navegador: no se envían a ningún lado.",
+  volver: "Volver al trabajo",
+  nombre: "Tu nombre",
+  obligatorio: "(obligatorio)",
+  distrito: "Distrito",
+  telefono: "Teléfono",
+  correo: "Correo",
+  opcional: "(opcional)",
+  faltaNombre: "Escribe tu nombre para imprimir tu CV.",
+  imprimir: "Imprimir / Guardar PDF",
+  nombreVacio: "TU NOMBRE",
+  tituloPerfil: "PERFIL",
+  tituloExperiencia: "EXPERIENCIA",
   tituloSellos: "COMPETENCIAS DECLARADAS",
+  tituloFortalezas: "OTRAS FORTALEZAS",
+  tituloBusco: "BUSCO Y CAPACITACIÓN",
+  busco: (destino: string) => `Busco: ${destino}`,
+  curso: (nombre: string, horas: number) => `Curso: ${nombre} (CAPACITA-T, ${horas} h)`,
   pie: "Competencias declaradas por la persona, basadas en el Catálogo Nacional de Perfiles Ocupacionales del MTPE.",
 };

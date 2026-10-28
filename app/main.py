@@ -160,6 +160,7 @@ class Destino(BaseModel):
     que_harias: list[str]
     faltan: list[Faltante]
     avisos_lima: int
+    avisos_parecidos: bool
 
 
 class Ruta(BaseModel):
@@ -396,6 +397,7 @@ def ruta(sesion_id: str) -> Ruta:
                 **d,
                 que_harias=OCUPACIONES[d["codigo"]]["que_harias"],
                 faltan=calculo.faltantes(sellos, d["codigo"], datos.COMPETENCIAS, datos.CURSOS, sesion["horas"]),
+                avisos_parecidos=calculo.avisos_parecidos(d["codigo"], datos.AVISOS),
             )
             for d in destinos
         ],
