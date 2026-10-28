@@ -72,7 +72,7 @@ Antes de cada push, comprueba que el token no esté en ningún archivo: `git gre
 | Documento | Para qué |
 |---|---|
 | `docs/spec.md` | Especificación técnica: la fuente de verdad |
-| `docs/historias.md` | 15 historias de usuario con criterios de aceptación |
+| `docs/historias.md` | 16 historias de usuario con criterios de aceptación |
 | `docs/checklist.md` | Tareas por módulo |
 | `docs/mockup/` | Pantallas de referencia y colores |
 | `docs/fuentes/` | PDF oficiales de los 6 perfiles del MTPE |

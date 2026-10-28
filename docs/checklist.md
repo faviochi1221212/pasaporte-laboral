@@ -50,10 +50,10 @@ Hecho cuando: las pruebas pasan sin red y una llamada real (`pytest -m qvac`) de
 
 ## M4 · Las 3 tareas del modelo: `app/ia.py` (spec 5) — HU-02, 04, 10
 
-- [ ] `revisar_respuesta`: tool, prompt, validación y respaldo de "menos de 6 palabras"
-- [ ] `extraer_perfil`: lista cerrada de 26 elementos con `texto_simple` y `criterios_clave`, tool, validación y un reintento
+- [ ] `revisar_respuesta`: tool con reaccion, suficiente, menciona_actividad y repregunta; validación de la reacción (12 palabras, sin palabras prohibidas) y respaldos (spec 5)
+- [ ] `extraer_perfil`: lista cerrada de 26 elementos con `texto_simple` y `criterios_clave`, tool, validación y un reintento; versión parcial con las respuestas 1 a 3
 - [ ] `redactar_resumen`: 2 frases y plantilla de respaldo
-- [ ] Pruebas A1 a A4 contra QVAC real con `tests/relatos/` (marcador `qvac`); sus respuestas se graban en `fixtures/`
+- [ ] Pruebas A1 a A4 y A12 contra QVAC real con `tests/relatos/` (marcador `qvac`); sus respuestas se graban en `fixtures/`
 - [ ] Las mismas pruebas pasan en modo respaldo leyendo esos fixtures
 
 Hecho cuando: A1 a A4 pasan dos veces seguidas contra QVAC con el mismo resultado, y en modo respaldo sin red.
@@ -61,11 +61,11 @@ Hecho cuando: A1 a A4 pasan dos veces seguidas contra QVAC con el mismo resultad
 ## M5 · Backend: `app/db.py` y `app/main.py` (spec 6 y 9b) — HU-01, 02, 04, 05, 06, 13, 15
 
 - [ ] SQLite con 4 tablas: sesion, respuesta, sello, fortaleza (id anónimo, sin datos personales)
-- [ ] Los 8 endpoints de la spec 6 con modelos Pydantic iguales a la spec
+- [ ] Los 9 endpoints de la spec 6 con modelos Pydantic iguales a la spec (incluye saludo, reacción, cierre y sellos-parciales)
 - [ ] Guion fijo de 6 preguntas con máximo una repregunta y la regla de las preguntas 4 y 5
 - [ ] Formato único de errores
 - [ ] `scripts/borrar_sesiones.py` para después de la demo
-- [ ] Prueba de recorrido completo de María por la API en modo respaldo (A8)
+- [ ] Prueba de recorrido completo de María por la API en modo respaldo (A8), y prueba de que una falla en sellos-parciales no rompe el recorrido (A13)
 
 Hecho cuando: el recorrido de María funciona desde `/docs` y desde la prueba, en modo real y en respaldo.
 
@@ -74,7 +74,7 @@ Hecho cuando: el recorrido de María funciona desde `/docs` y desde la prueba, e
 - [ ] Proyecto Vite + React + TS estricto; FastAPI sirve el build en `/`
 - [ ] Estilos: variables CSS con los colores del mockup (`docs/mockup/LEEME.md`), Roboto, 1 columna hasta 1023 px y 2 desde 1024 px
 - [ ] Componentes reutilizables: `Sello`, `Trabajador`, `Pasaporte`, `BarraProgreso`, `Boton`
-- [ ] Pantallas: Inicio, Conversación (con dictado), Espera, Pasaporte, Intereses, Ruta, Destino, Avisos, CV
+- [ ] Pantallas: Inicio, Conversación en formato chat (spec 5b: burbujas, "escribiendo…", texto de a poco, reacciones, contador de sellos, dictado), Espera, Pasaporte, Intereses, Ruta, Destino, Avisos, CV
 - [ ] Banda "Prototipo · no es un sitio oficial" y marca de "modo sin conexión"
 - [ ] Textos sin "competencia", "brecha" ni "certificado" (salvo "competencias declaradas" en el CV)
 - [ ] Pruebas Playwright e2e-01 a e2e-07 en 360 y 1280 px con capturas
@@ -88,13 +88,13 @@ Hecho cuando: A10 y A11 pasan y las capturas se revisaron a ojo en los dos tama�
 - [ ] Hotspot probado en el lugar del Demo Day
 - [ ] Modo respaldo probado con el wifi apagado
 - [ ] Lámina "Lo que encontramos en nuestra revisión inicial": tareas sin curso, perfil vencido (Atención por teléfono), perfiles que no existen (vendedor, auxiliar administrativo)
-- [ ] README final con pipeline, 3 tareas del modelo, fórmula, límites, fuentes y resultado de A1 a A11
+- [ ] README final con pipeline, 3 tareas del modelo, fórmula, límites, fuentes y resultado de A1 a A13
 
 Hecho cuando: el pitch de 3 minutos sale dos veces seguidas sin depender del wifi.
 
 ## M8 · Verificación final (spec 9)
 
-- [ ] A1 a A11 pasan y el resultado está en el README
+- [ ] A1 a A13 pasan y el resultado está en el README
 - [ ] Una persona que no programó hace el recorrido sola
 - [ ] Revisión: ningún dato de pantalla viene del modelo sin pasar por `data/` o la regla del sello
 - [ ] `git grep` no encuentra el token ni datos reales de personas

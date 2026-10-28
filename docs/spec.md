@@ -82,8 +82,9 @@ Siempre con el modo pensar apagado (chat_template_kwargs.enable_thinking = false
 
 | Tarea | Cuándo | Entrada | Salida (tool) | Respaldo |
 |---|---|---|---|---|
-| revisar_respuesta | Después de cada respuesta a las preguntas 2 a 5 | pregunta y respuesta | suficiente (sí/no), repregunta (máx. 15 palabras) | Repregunta fija si la respuesta tiene menos de 6 palabras |
-| extraer_perfil | Al terminar la pregunta 6 | todas las respuestas + lista cerrada de competencias (código y texto_simple) | competencias: código y evidencia; fortalezas: texto y evidencia | Pantalla "No pudimos leer tu relato, inténtalo de nuevo" |
+| revisar_respuesta | Después de cada respuesta a las preguntas 1 a 5 | pregunta y respuesta | reaccion (máx. 12 palabras, sobre lo que dijo la persona), suficiente (sí/no), menciona_actividad (sí/no), repregunta (máx. 15 palabras) | Reacción fija "Gracias por contarme."; repregunta fija si la respuesta tiene menos de 6 palabras |
+| extraer_perfil (parcial) | En segundo plano, después de cerrar las preguntas 2 y 3 | respuestas de las preguntas 1 a 3 + lista cerrada | igual que la completa | Si falla, el contador no cambia y la conversación sigue |
+| extraer_perfil (completa) | Al terminar la pregunta 6 | todas las respuestas + lista cerrada de competencias (código, texto_simple y criterios_clave) | competencias: código y evidencia; fortalezas: texto y evidencia | Pantalla "No pudimos leer tu relato, inténtalo de nuevo" |
 | redactar_resumen | Al pedir el CV | sellos confirmados y años de experiencia | 2 frases de perfil para el CV | Plantilla fija con los sellos |
 
 Reglas de la conversación, en código y no en el modelo:
@@ -91,6 +92,20 @@ Reglas de la conversación, en código y no en el modelo:
 - Las 6 preguntas son fijas, en el orden de la pantalla "Guion".
 - Máximo una repregunta por pregunta.
 - En las preguntas 4 y 5 la repregunta es siempre "¿Y qué haces tú ahí?", si revisar_respuesta dice que mencionó una actividad.
+- La reacción se valida en código: máximo 12 palabras y sin las palabras prohibidas ("certificado", "competente", "competencia", "brecha", "no sirves"). Si no pasa, se usa la reacción fija. A la pregunta 6 se responde siempre con el texto fijo de cierre.
+- Los sellos parciales solo sirven para el contador del chat; el pasaporte usa siempre la extracción completa.
+
+### 5b. Experiencia de conversación
+
+Para que se sienta como hablar con alguien (pedido en la mentoría con Tether, 26 oct) sin engañar a nadie:
+
+- **Formato chat:** burbujas del asistente a la izquierda y de la persona a la derecha; el historial queda visible arriba y siempre hay una sola pregunta abierta. Los ejemplos tocables y el campo de texto van debajo de la última pregunta.
+- **Ritmo:** antes de cada burbuja del asistente se ve "escribiendo…" unos 700 ms y el texto aparece de a poco (máximo 1,5 s por burbuja). Tocar la burbuja la muestra completa. Con `prefers-reduced-motion` todo aparece de inmediato.
+- **Saludo fijo, igual para todos:** "¡Hola! 👋 Soy el asistente de empleo del Ministerio de Trabajo. Te haré 6 preguntas cortas sobre lo que haces. No hay respuestas buenas ni malas." Luego va la pregunta 1.
+- **Reacción:** después de cada respuesta, la burbuja de reacción del modelo (por ejemplo "¡6 años es harta experiencia!") y luego la siguiente pregunta o la repregunta.
+- **Cierre fijo:** "¡Gracias! Con lo que me contaste estoy armando tu pasaporte…" y se pasa a la pantalla de espera.
+- **Sellos mientras conversa:** una barra fija abajo dice "N sellos ganados · Sigue contándonos", alimentada por la extracción parcial. Nunca bloquea el chat.
+- **Honestidad:** el asistente se presenta como asistente y no tiene nombre de persona ni foto. No finge ser humano.
 
 Prompt de sistema de extraer_perfil, al que se le pega la lista de competencias:
 
@@ -100,8 +115,9 @@ Prompt de sistema de extraer_perfil, al que se le pega la lista de competencias:
 
 | Método y ruta | Entrada | Salida |
 |---|---|---|
-| POST /api/sesiones | {ocupacion_origen} | {sesion_id, pregunta: {n, texto, ejemplos[]}} |
-| POST /api/sesiones/{id}/respuestas | {n, texto} | {tipo: "repregunta" o "siguiente" o "fin", pregunta} |
+| POST /api/sesiones | {ocupacion_origen} | {sesion_id, saludo, pregunta: {n, texto, ejemplos[]}} |
+| POST /api/sesiones/{id}/respuestas | {n, texto} | {tipo: "repregunta" o "siguiente" o "fin", reaccion, pregunta (null si es fin), cierre (solo si es fin), parcial_listo: sí/no} |
+| POST /api/sesiones/{id}/sellos-parciales | — | {sellos_ganados: n, etiquetas: [texto]} (extracción parcial con las respuestas 1 a 3; la pantalla la llama sin esperar cuando parcial_listo es sí) |
 | POST /api/sesiones/{id}/pasaporte | — | {sellos: [{codigo, etiqueta, icono, evidencia}], fortalezas: [{texto, evidencia}]} |
 | PUT /api/sesiones/{id}/pasaporte | {quitar: [codigos], quitar_fortalezas: [i]} | igual que arriba |
 | PUT /api/sesiones/{id}/preferencias | {interes: gente o cosas o papeles, horas: 1-2 o 3-5 o 5+} | {ok} |
@@ -208,6 +224,8 @@ El MVP está listo cuando pasa todo esto, no cuando "parece funcionar".
 | A9 | Tiempos | Cada respuesta del modelo en menos de 8 s (hoy mide 2 a 4 s) |
 | A10 | Celular | Todo el recorrido se hace en 360 px de ancho y solo tocando |
 | A11 | Computadora | Todo el recorrido funciona en 1280 px con el diseño de 2 columnas del mockup de escritorio; Playwright guarda capturas de cada pantalla en 360 y 1280 px |
+| A12 | Reacción del asistente | Con una salida falsa de más de 12 palabras o con una palabra prohibida, se usa la reacción fija; con QVAC real, las reacciones de los relatos A1 a A3 cumplen el límite |
+| A13 | Sellos parciales | Si la extracción parcial falla o tarda, el chat sigue sin esperar y el pasaporte final no depende de ella |
 
 Las pruebas A1 a A3 se corren contra QVAC real y sus respuestas se guardan en fixtures/ (de ahí sale el modo respaldo). A5 a A8 son automáticas y no llaman a QVAC.
 
