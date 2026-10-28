@@ -57,7 +57,7 @@ prompts/        encargo de cada módulo para Claude Code
 4. Corre **todas** las pruebas: `pytest -q`. No sigas si algo falla.
 5. Revisa tu propio cambio contra las reglas de oro y las buenas prácticas.
 6. Actualiza `docs/checklist.md` (marca la tarea) y, si cambió algo visible, el `README.md`.
-7. Commit pequeño con mensaje en español: `M2: afinidad con desempate (A6)`.
+7. Propón el mensaje de un commit pequeño, en español: `M2: afinidad con desempate (A6)`. **Claude Code nunca hace `git commit` ni `git push`:** solo propone el mensaje y el commit lo hace la persona.
 
 No empieces un módulo hasta que el anterior cumpla su "Hecho cuando" del checklist.
 
