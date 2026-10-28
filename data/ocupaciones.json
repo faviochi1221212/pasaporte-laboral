@@ -1,0 +1,126 @@
+[
+  {
+    "codigo": "G2347002",
+    "nombre": "Caja en Establecimientos Comerciales",
+    "nombre_simple": "Cajero/a",
+    "tipo": "gente",
+    "origen": true,
+    "vence": "2029-02-26",
+    "norma": "RDG N° 000020-2026-MTPE/3/19",
+    "estandares_operativos": [
+      "G2347002-1"
+    ],
+    "que_harias": [
+      "Abrir la caja al empezar el turno",
+      "Cobrar con efectivo, tarjeta o Yape",
+      "Cuadrar la caja al cerrar"
+    ],
+    "kind_ilustracion": "cajera",
+    "fuente": "Catálogo Nacional de Perfiles Ocupacionales (MTPE)",
+    "tomado": "2026-10-27"
+  },
+  {
+    "codigo": "H2452001",
+    "nombre": "Operaciones de Almacén",
+    "nombre_simple": "Operario/a de almacén",
+    "tipo": "cosas",
+    "origen": true,
+    "vence": "2027-08-29",
+    "norma": "RDG N° 000081-2026-MTPE/3/19",
+    "estandares_operativos": [
+      "H2452001-1"
+    ],
+    "que_harias": [
+      "Recibir la mercadería que llega",
+      "Guardarla ordenada en su lugar",
+      "Preparar y despachar los pedidos"
+    ],
+    "kind_ilustracion": "almacen",
+    "fuente": "Catálogo Nacional de Perfiles Ocupacionales (MTPE)",
+    "tomado": "2026-10-27"
+  },
+  {
+    "codigo": "M2981001",
+    "nombre": "Servicios de Limpieza",
+    "nombre_simple": "Operario/a de limpieza",
+    "tipo": "cosas",
+    "origen": true,
+    "vence": "2030-08-11",
+    "norma": "RDG N° 000052-2025-MTPE/3/19",
+    "estandares_operativos": [
+      "M2981001-1"
+    ],
+    "que_harias": [
+      "Preparar tus materiales de limpieza",
+      "Limpiar las áreas asignadas",
+      "Revisar que todo quede en buen estado"
+    ],
+    "kind_ilustracion": "limpieza",
+    "fuente": "Catálogo Nacional de Perfiles Ocupacionales (MTPE)",
+    "tomado": "2026-10-27"
+  },
+  {
+    "codigo": "I2555001",
+    "nombre": "Recepción de Hotel/Hostal",
+    "nombre_simple": "Recepcionista de hotel",
+    "tipo": "gente",
+    "origen": false,
+    "vence": "2027-04-25",
+    "norma": "RDG N° 000038-2025-MTPE/3/19",
+    "estandares_operativos": [
+      "I2555001-1",
+      "I2555001-2"
+    ],
+    "que_harias": [
+      "Recibir a los huéspedes y registrar su entrada y salida",
+      "Dar información y atender pedidos",
+      "Cobrar y cuadrar la caja de recepción"
+    ],
+    "kind_ilustracion": "administrativo",
+    "fuente": "Catálogo Nacional de Perfiles Ocupacionales (MTPE)",
+    "tomado": "2026-10-27"
+  },
+  {
+    "codigo": "I2555002",
+    "nombre": "Operaciones de Housekeeping",
+    "nombre_simple": "Housekeeping (limpieza de hotel)",
+    "tipo": "cosas",
+    "origen": false,
+    "vence": "2028-05-01",
+    "norma": "RD N° 0028-2023-MTPE/3/19",
+    "estandares_operativos": [
+      "I2555002-1",
+      "I2555002-2",
+      "I2555002-3"
+    ],
+    "que_harias": [
+      "Limpiar áreas y habitaciones de hotel",
+      "Dejar lista la habitación para el huésped",
+      "Atender lo que pida el huésped"
+    ],
+    "kind_ilustracion": "limpieza",
+    "fuente": "Catálogo Nacional de Perfiles Ocupacionales (MTPE)",
+    "tomado": "2026-10-27"
+  },
+  {
+    "codigo": "I2556002",
+    "nombre": "Atención en Salón de Comidas y Bebidas/Eventos",
+    "nombre_simple": "Mozo/a o ayudante de salón",
+    "tipo": "gente",
+    "origen": false,
+    "vence": "2029-02-22",
+    "norma": "RDG N° 000018-2026-MTPE/3/19",
+    "estandares_operativos": [
+      "I2556002-1",
+      "I2556002-2"
+    ],
+    "que_harias": [
+      "Preparar mesas y menaje",
+      "Recibir al cliente y tomar su pedido",
+      "Servir, cobrar y entregar el vuelto"
+    ],
+    "kind_ilustracion": "vendedor",
+    "fuente": "Catálogo Nacional de Perfiles Ocupacionales (MTPE)",
+    "tomado": "2026-10-27"
+  }
+]

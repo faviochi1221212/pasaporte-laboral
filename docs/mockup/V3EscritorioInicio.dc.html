@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Computadora · Inicio</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&amp;display=swap" rel="stylesheet">
+<style>body{margin:0}a{color:#1C5FA8}a:hover{color:#123F73}</style>
+</helmet>
+<div style="width: 100%; min-height: 820px; box-sizing: border-box; background: #F2F5F9; font-family: 'Roboto', system-ui, sans-serif; color: #1F2430; display: flex; flex-direction: column">
+<div style="background: #FFF4E5; color: #7A4300; font-size: 12px; padding: 4px 16px; text-align: center">Prototipo · no es un sitio oficial</div>
+<header style="background: #FFFFFF; box-shadow: 0 1px 0 #E3E8EF">
+<div style="max-width: 1200px; margin: 0 auto; padding: 18px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
+<span style="font-size: 28px; font-weight: 900; color: #C8102E; letter-spacing: -0.5px">gob.pe</span>
+<nav aria-label="Secciones" style="display: flex; gap: 24px; flex-wrap: wrap; font-size: 15px; font-weight: 500"><a href="#">Empleo</a><a href="#">Capacitación</a><a href="#">Centros de Empleo</a></nav>
+</div>
+</header>
+<section style="background: #FFFFFF">
+<div style="max-width: 1200px; margin: 0 auto; padding: 40px 24px; display: flex; flex-wrap: wrap; gap: 32px; align-items: center">
+<div style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+<h1 style="margin: 0; font-size: 56px; line-height: 1; font-weight: 900">Sabes más de lo que crees.</h1>
+<p style="margin: 0; font-size: 20px; color: #3A4352">Cuéntanos tu trabajo y llévate tu pasaporte laboral.</p>
+<div style="display: flex; gap: 20px; flex-wrap: wrap; font-size: 15px; color: #3A4352; margin-top: 6px">
+<span style="display: flex; gap: 6px; align-items: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5B3E96" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>5 minutos</span>
+<span style="display: flex; gap: 6px; align-items: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5B3E96" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg>Tus datos, en el Perú</span>
+<span style="display: flex; gap: 6px; align-items: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5B3E96" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"></rect><path d="M5 11a7 7 0 0 0 14 0"></path></svg>Puedes hablar</span>
+</div>
+</div>
+<div aria-hidden="true" style="flex: 1 1 380px; min-width: 0; display: flex; justify-content: center; align-items: center; gap: 0">
+<dc-import name="Sello" kind="caja" label="Cuadre de caja" color="#1C5FA8" rot="{{-10}}" size="{{120}}" hint-size="120px,120px"></dc-import>
+<div style="margin-left: -20px; margin-top: 50px"><dc-import name="Sello" kind="reclamo" label="Atiende reclamos" color="#1E7A46" rot="{{8}}" size="{{120}}" hint-size="120px,120px"></dc-import></div>
+<div style="margin-left: -20px"><dc-import name="Sello" kind="inventario" label="Orden de mercadería" color="#5B3E96" rot="{{-4}}" size="{{120}}" hint-size="120px,120px"></dc-import></div>
+<div style="margin-left: -20px; margin-top: 46px"><dc-import name="Sello" kind="cobro" label="Cobros y pagos" color="#C8102E" rot="{{9}}" size="{{120}}" hint-size="120px,120px"></dc-import></div>
+</div>
+</div>
+</section>
+<main style="max-width: 1200px; width: 100%; margin: 0 auto; padding: 32px 24px 40px; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px">
+<h2 style="margin: 0; font-size: 24px; font-weight: 700">¿En qué trabajas?</h2>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px">
+<a href="V3Conversacion.dc.html" style="text-decoration: none; color: #1F2430; background: #FFFFFF; border: 2px solid #1C5FA8; border-radius: 12px; padding: 14px 6px; display: flex; flex-direction: column; align-items: center; gap: 8px"><dc-import name="Trabajador" kind="cajera" size="{{100}}" hint-size="100px,100px"></dc-import><span style="font-size: 16px; font-weight: 700">Caja</span></a>
+<a href="V3Conversacion.dc.html" style="text-decoration: none; color: #1F2430; background: #FFFFFF; border: 1px solid #DCE3EC; border-radius: 12px; padding: 14px 6px; display: flex; flex-direction: column; align-items: center; gap: 8px"><dc-import name="Trabajador" kind="vendedor" size="{{100}}" hint-size="100px,100px"></dc-import><span style="font-size: 16px; font-weight: 700">Ventas</span></a>
+<a href="V3Conversacion.dc.html" style="text-decoration: none; color: #1F2430; background: #FFFFFF; border: 1px solid #DCE3EC; border-radius: 12px; padding: 14px 6px; display: flex; flex-direction: column; align-items: center; gap: 8px"><dc-import name="Trabajador" kind="limpieza" size="{{100}}" hint-size="100px,100px"></dc-import><span style="font-size: 16px; font-weight: 700">Limpieza</span></a>
+<a href="V3Conversacion.dc.html" style="text-decoration: none; color: #1F2430; background: #FFFFFF; border: 1px solid #DCE3EC; border-radius: 12px; padding: 14px 6px; display: flex; flex-direction: column; align-items: center; gap: 8px"><dc-import name="Trabajador" kind="almacen" size="{{100}}" hint-size="100px,100px"></dc-import><span style="font-size: 16px; font-weight: 700">Almacén</span></a>
+<a href="V3Conversacion.dc.html" style="text-decoration: none; color: #1F2430; background: #FFFFFF; border: 1px solid #DCE3EC; border-radius: 12px; padding: 14px 6px; display: flex; flex-direction: column; align-items: center; gap: 8px"><dc-import name="Trabajador" kind="administrativo" size="{{100}}" hint-size="100px,100px"></dc-import><span style="font-size: 16px; font-weight: 700">Oficina</span></a>
+<a href="V3Conversacion.dc.html" style="text-decoration: none; color: #1F2430; background: #FFFFFF; border: 1px solid #DCE3EC; border-radius: 12px; padding: 14px 6px; display: flex; flex-direction: column; align-items: center; gap: 8px"><dc-import name="Trabajador" kind="todo" size="{{100}}" hint-size="100px,100px"></dc-import><span style="font-size: 16px; font-weight: 700">De todo</span></a>
+</div>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; background: #FFFFFF; border-radius: 12px; box-shadow: 0 0 0 1px #E3E8EF; padding: 14px 16px">
+<label for="otro-pc" style="font-size: 16px; font-weight: 700">¿No está tu trabajo?</label>
+<input id="otro-pc" placeholder="Escríbelo: mozo, costurera, chofer…" style="flex: 1 1 260px; min-width: 0; min-height: 48px; border: 1px solid #A9B3C1; border-radius: 8px; padding: 0 12px; font-family: inherit; font-size: 16px">
+<a href="V3Conversacion.dc.html" style="min-height: 48px; padding: 0 22px; border-radius: 8px; background: #1C5FA8; color: #FFFFFF; text-decoration: none; font-size: 16px; font-weight: 700; display: flex; align-items: center">Empezar</a>
+</div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":820}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

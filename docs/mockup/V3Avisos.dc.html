@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Avisos para postular</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&amp;display=swap" rel="stylesheet">
+<style>body{margin:0}a{color:#1C5FA8}a:hover{color:#123F73}</style>
+</helmet>
+<div style="width: 390px; height: 960px; box-sizing: border-box; background: #F2F5F9; font-family: 'Roboto', system-ui, sans-serif; color: #1F2430; display: flex; flex-direction: column; overflow: hidden">
+<div style="background: #FFF4E5; color: #7A4300; font-size: 11px; padding: 4px 16px; text-align: center">Prototipo · no es un sitio oficial</div>
+<header style="display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: #FFFFFF; box-shadow: 0 1px 0 #E3E8EF">
+<a href="V3Estacion.dc.html" aria-label="Atrás" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1F2430" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg></a>
+<span style="font-size: 20px; font-weight: 900; color: #C8102E">gob.pe</span>
+<span style="width: 44px"></span>
+</header>
+<main style="flex: 1; padding: 22px 18px 22px; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<h1 style="margin: 0; font-size: 30px; line-height: 1.05; font-weight: 900">Para postular hoy</h1>
+<p style="margin: 0; font-size: 16px; color: #3A4352">Avisos que piden tus sellos.</p>
+</div>
+<div style="display: flex; gap: 8px; flex-wrap: wrap">
+<button style="min-height: 40px; padding: 6px 14px; border-radius: 20px; border: 2px solid #1E7A46; background: #EAF6EF; color: #155C34; font-family: inherit; font-size: 14px; font-weight: 700">Almacén</button>
+<button style="min-height: 40px; padding: 6px 14px; border-radius: 20px; border: 1px solid #A9B3C1; background: #FFFFFF; color: #1F2430; font-family: inherit; font-size: 14px">Recepción</button>
+<button style="min-height: 40px; padding: 6px 14px; border-radius: 20px; border: 2px solid #1C5FA8; background: #EAF1FA; color: #1C5FA8; font-family: inherit; font-size: 14px; font-weight: 700">Cerca de Ate</button>
+</div>
+<sc-for list="{{jobs}}" as="j" hint-placeholder-count="3">
+<article style="background: #FFFFFF; border-radius: 14px; box-shadow: 0 0 0 1px #E3E8EF; padding: 14px; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; flex-direction: column; gap: 2px"><strong style="font-size: 18px; line-height: 1.15">{{j.title}}</strong><span style="font-size: 15px; font-weight: 500">{{j.company}}</span><span style="font-size: 14px; color: #5F6B7A">{{j.where}}</span></div>
+<div style="display: flex; flex-wrap: wrap; gap: 6px"><span style="font-size: 13px; background: #F2F5F9; border-radius: 8px; padding: 4px 8px">{{j.pay}}</span><span style="font-size: 13px; background: #FDECEE; color: #9B0C24; border-radius: 8px; padding: 4px 8px; font-weight: 700">{{j.close}}</span></div>
+<div style="display: flex; align-items: center; gap: 10px">
+<div style="display: flex">
+<dc-import name="Sello" kind="caja" color="#1C5FA8" rot="{{-6}}" size="{{40}}" hint-size="40px,40px"></dc-import>
+<div style="margin-left: -8px"><dc-import name="Sello" kind="inventario" color="#5B3E96" rot="{{5}}" size="{{40}}" hint-size="40px,40px"></dc-import></div>
+<div style="margin-left: -8px"><dc-import name="Sello" kind="reclamo" color="#1E7A46" rot="{{-3}}" size="{{40}}" hint-size="40px,40px"></dc-import></div>
+</div>
+<span style="font-size: 15px; font-weight: 700; color: #155C34">Usa {{j.n}} de tus sellos</span>
+</div>
+<a href="#" style="min-height: 46px; border-radius: 8px; background: #1C5FA8; color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center">Postular con mi pasaporte</a>
+</article>
+</sc-for>
+<span style="margin-top: auto; font-size: 12px; color: #5F6B7A; text-align: center">Avisos reales de Empleos Perú · vistos el 27 oct 2026</span>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":960}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      jobs: [
+        { title: 'Auxiliar de almacén campaña', company: 'Topitop · Trading Fashion Line', where: 'Real Plaza Puruchuco, Ate', pay: 'S/ 1,231 – 1,300', close: 'Cierra 29 oct', n: 5 },
+        { title: 'Auxiliar de almacén', company: 'Multialmacenes del Perú', where: 'Ate', pay: 'Planilla completa', close: 'Cierra 31 oct', n: 4 },
+        { title: 'Operario de almacén', company: 'QROMA', where: 'El Agustino', pay: 'S/ 1,301 – 1,399', close: 'Cierra 30 oct', n: 4 }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

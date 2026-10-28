@@ -1,0 +1,26 @@
+# Secretos
+.env
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Base de datos local
+*.db
+*.sqlite3
+
+# Frontend
+web/node_modules/
+web/dist/
+
+# Pruebas de pantalla
+tests/e2e/capturas/
+test-results/
+playwright-report/
+
+# Sistema
+.DS_Store
+Thumbs.db
+.vscode/

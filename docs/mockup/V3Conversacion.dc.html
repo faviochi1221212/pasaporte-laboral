@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Cuéntanos tu día</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&amp;display=swap" rel="stylesheet">
+<style>body{margin:0}a{color:#1C5FA8}a:hover{color:#123F73}</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: #FFFFFF; font-family: 'Roboto', system-ui, sans-serif; color: #1F2430; display: flex; flex-direction: column; overflow: hidden">
+<div style="background: #FFF4E5; color: #7A4300; font-size: 11px; padding: 4px 16px; text-align: center">Prototipo · no es un sitio oficial</div>
+<header style="display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: #FFFFFF; box-shadow: 0 1px 0 #E3E8EF">
+<a href="V3Inicio.dc.html" aria-label="Atrás" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1F2430" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg></a>
+<div style="display: flex; gap: 6px" role="img" aria-label="Pregunta 2 de 6"><span style="width: 22px; height: 6px; border-radius: 3px; background: #1C5FA8"></span><span style="width: 22px; height: 6px; border-radius: 3px; background: #1C5FA8"></span><span style="width: 22px; height: 6px; border-radius: 3px; background: #DCE3EC"></span><span style="width: 22px; height: 6px; border-radius: 3px; background: #DCE3EC"></span><span style="width: 22px; height: 6px; border-radius: 3px; background: #DCE3EC"></span><span style="width: 22px; height: 6px; border-radius: 3px; background: #DCE3EC"></span></div>
+<span style="font-size: 20px; font-weight: 900; color: #C8102E">gob.pe</span>
+</header>
+<main style="flex: 1; padding: 28px 22px 24px; display: flex; flex-direction: column; gap: 22px">
+<h1 style="margin: 0; font-size: 30px; line-height: 1.12; font-weight: 900">¿Qué haces en un día normal?</h1>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<button style="min-height: 44px; padding: 8px 16px; border-radius: 22px; border: 2px solid #1C5FA8; background: #EAF1FA; color: #1C5FA8; font-family: inherit; font-size: 16px; font-weight: 700">Cobro</button>
+<button style="min-height: 44px; padding: 8px 16px; border-radius: 22px; border: 2px solid #1C5FA8; background: #EAF1FA; color: #1C5FA8; font-family: inherit; font-size: 16px; font-weight: 700">Cuadro la caja</button>
+<button style="min-height: 44px; padding: 8px 16px; border-radius: 22px; border: 1px solid #A9B3C1; background: #FFFFFF; color: #1F2430; font-family: inherit; font-size: 16px">Atiendo reclamos</button>
+<button style="min-height: 44px; padding: 8px 16px; border-radius: 22px; border: 1px solid #A9B3C1; background: #FFFFFF; color: #1F2430; font-family: inherit; font-size: 16px">Ordeno productos</button>
+</div>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 10px">
+<button aria-label="Responder hablando" style="width: 112px; height: 112px; border-radius: 56px; border: 10px solid #EAF1FA; background: #1C5FA8; display: flex; align-items: center; justify-content: center; box-sizing: content-box"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"></rect><path d="M5 11a7 7 0 0 0 14 0M12 18v3"></path></svg></button>
+<span style="font-size: 16px; font-weight: 500; color: #3A4352">Toca y cuéntalo con tu voz</span>
+<a href="#" style="font-size: 15px">o escríbelo</a>
+</div>
+<section style="margin-top: auto; background: #F2F5F9; border-radius: 16px; padding: 14px 16px; display: flex; align-items: center; gap: 12px">
+<div style="display: flex">
+<dc-import name="Sello" kind="caja" label="Caja" color="#1C5FA8" rot="{{-8}}" size="{{58}}" hint-size="58px,58px"></dc-import>
+<div style="margin-left: -10px"><dc-import name="Sello" kind="cobro" label="Cobros" color="#C8102E" rot="{{7}}" size="{{58}}" hint-size="58px,58px"></dc-import></div>
+</div>
+<div style="display: flex; flex-direction: column"><strong style="font-size: 17px">2 sellos ganados</strong><span style="font-size: 14px; color: #3A4352">Sigue contándonos</span></div>
+</section>
+<a href="V3Pasaporte.dc.html" style="min-height: 54px; border-radius: 8px; background: #1C5FA8; color: #FFFFFF; text-decoration: none; font-size: 17px; font-weight: 700; display: flex; align-items: center; justify-content: center">Siguiente</a>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

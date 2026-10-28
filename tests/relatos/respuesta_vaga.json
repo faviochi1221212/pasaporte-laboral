@@ -1,0 +1,14 @@
+{
+  "id": "respuesta_vaga",
+  "descripcion": "Caso A4: respuesta vaga a la pregunta 2.",
+  "ocupacion_origen": null,
+  "respuestas": [
+    {
+      "n": 2,
+      "texto": "de todo un poco"
+    }
+  ],
+  "esperado": {
+    "repreguntas_maximas": 1
+  }
+}

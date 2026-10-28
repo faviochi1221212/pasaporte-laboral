@@ -1,0 +1,51 @@
+[
+  {
+    "id": "logistica-360",
+    "nombre": "Logística 360°. Claves para una gestión moderna y eficiente",
+    "horas": 20,
+    "certifica": "Fundación Romero",
+    "plataforma": "CAPACITA-T (MTPE)",
+    "url": "https://capacitacionlaboral.trabajo.gob.pe/cursos/logistica-360-claves-para-una-gestion-moderna-y-eficiente/",
+    "cubre": [
+      {
+        "codigo": "H2452001-1.E2",
+        "alcance": "solo_teoria",
+        "modulo": "Gestión de inventarios y almacenamiento",
+        "se_lleva": "Entender cómo se organiza un almacén; no reemplaza la práctica"
+      },
+      {
+        "codigo": "H2452001-1.E3",
+        "alcance": "solo_teoria",
+        "modulo": "Transporte y distribución",
+        "se_lleva": "Entender el camino de un pedido hasta el cliente"
+      }
+    ],
+    "nota": "Pensado para gestión logística; se presenta como complemento, no como el curso para ser almacenero.",
+    "fuente": "Temario publicado en capacitacionlaboral.trabajo.gob.pe",
+    "tomado": "2026-10-27"
+  },
+  {
+    "id": "orientacion-al-cliente",
+    "nombre": "Orientación al cliente – Fidelización",
+    "horas": 4,
+    "certifica": "Fundación Romero",
+    "plataforma": "CAPACITA-T (MTPE)",
+    "url": "https://capacitacionlaboral.trabajo.gob.pe/cursos/orientacion-al-cliente/",
+    "cubre": [
+      {
+        "codigo": "I2555001-2.E1",
+        "alcance": "completo",
+        "modulo": "Administrar las crisis con los clientes (quejas y reclamos)",
+        "se_lleva": "Saber recibir y resolver un reclamo"
+      },
+      {
+        "codigo": "I2555002-3.E1",
+        "alcance": "completo",
+        "modulo": "Comunicación (empatía y asertividad) y Fidelización",
+        "se_lleva": "Atender con empatía según el tipo de cliente"
+      }
+    ],
+    "fuente": "Temario publicado en capacitacionlaboral.trabajo.gob.pe",
+    "tomado": "2026-10-27"
+  }
+]

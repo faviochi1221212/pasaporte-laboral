@@ -1,0 +1,49 @@
+{
+  "id": "maria_cajera",
+  "descripcion": "Relato inventado para A1 y la demo. María Quispe no existe.",
+  "ocupacion_origen": "G2347002",
+  "respuestas": [
+    {
+      "n": 1,
+      "texto": "Ya llevo 6 años de cajera en un supermercado en Ate."
+    },
+    {
+      "n": 2,
+      "texto": "Abro mi caja, cuento el sencillo que me dan y reviso que la impresora funcione. Cobro en efectivo, con tarjeta y con Yape, y doy el vuelto. Al final del día cuadro la caja y entrego el dinero a mi supervisora."
+    },
+    {
+      "n": 3,
+      "texto": "Cuando un cliente se pica por un precio mal marcado, lo calmo y lo ayudo con su reclamo. A las chicas nuevas les enseño a usar la caja. A veces ayudo a ordenar la mercadería y reviso los precios."
+    },
+    {
+      "n": 4,
+      "texto": "Los fines de semana organizo los partidos de fulbito de mi barrio.",
+      "repregunta": "Armo los equipos, reservo la cancha y cobro la cuota a cada uno."
+    },
+    {
+      "n": 5,
+      "texto": "Me gusta cocinar para mi familia."
+    },
+    {
+      "n": 6,
+      "texto": "3 a 5 horas a la semana"
+    }
+  ],
+  "esperado": {
+    "perfil_origen": "G2347002",
+    "minimo_sellos_del_origen": 2,
+    "sellos_probables": [
+      "G2347002-1.E1",
+      "G2347002-1.E2",
+      "G2347002-1.E3",
+      "I2555001-2.E4",
+      "I2555001-2.E1",
+      "H2452001-1.E2"
+    ],
+    "fortalezas_deben_incluir": [
+      "fulbito"
+    ],
+    "interes": "gente",
+    "horas": "3-5"
+  }
+}

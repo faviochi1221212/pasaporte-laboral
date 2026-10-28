@@ -1,0 +1,436 @@
+[
+  {
+    "codigo": "G2347002-1.E1",
+    "perfil": "G2347002",
+    "estandar": "G2347002-1",
+    "texto_oficial": "Ejecutar la apertura del punto de caja asignado, teniendo en cuenta los procedimientos establecidos por la empresa y normativa vigente.",
+    "criterios_clave": [
+      "Verifica la disponibilidad del fondo de dinero en caja",
+      "Verifica la operatividad de los equipos de caja"
+    ],
+    "texto_simple": "Abrir la caja: revisar el fondo de dinero y que los equipos funcionen",
+    "sello": {
+      "icono": "caja",
+      "etiqueta": "Abre la caja"
+    },
+    "fuente": "PDF del perfil ocupacional G2347002",
+    "tomado": "2026-10-27"
+  },
+  {
+    "codigo": "G2347002-1.E2",
+    "perfil": "G2347002",
+    "estandar": "G2347002-1",
+    "texto_oficial": "Realizar la cobranza y de corresponder la entrega de los productos/servicios, de acuerdo a los procedimientos establecidos por la empresa y normativa vigente.",
+    "criterios_clave": [
+      "Recibe, cuenta y verifica el dinero",
+      "entrega el vuelto",
+      "Absuelve y/o deriva las inquietudes o reclamos expresadas por el cliente"
+    ],
+    "texto_simple": "Cobrar con efectivo, tarjeta o billetera digital y atender dudas o reclamos",
+    "sello": {
+      "icono": "cobro",
+      "etiqueta": "Cobra y da vuelto"
+    },
+    "fuente": "PDF del perfil ocupacional G2347002",
+    "tomado": "2026-10-27"
+  },
+  {
+    "codigo": "G2347002-1.E3",
+    "perfil": "G2347002",
+    "estandar": "G2347002-1",
+    "texto_oficial": "Ejecutar el arqueo y cuadre de caja, teniendo en cuenta los procedimientos establecidos por la empresa y normativa vigente.",
+    "criterios_clave": [
+      "Ejecuta el cuadre de caja al cierre de la jornada laboral",
+      "Realiza el cierre del lote de tarjetas bancarias (POS)"
+    ],
+    "texto_simple": "Cuadrar la caja al final del día",
+    "sello": {
+      "icono": "caja",
+      "etiqueta": "Cuadra la caja"
+    },
+    "fuente": "PDF del perfil ocupacional G2347002",
+    "tomado": "2026-10-27"
+  },
+  {
+    "codigo": "H2452001-1.E1",
+    "perfil": "H2452001",
+    "estandar": "H2452001-1",
+    "texto_oficial": "Recepcionar las existencias que ingresan al almacén, de acuerdo a los procedimientos de la empresa, requerimientos de clientes y normativa correspondiente.",
+    "criterios_clave": [
+      "Recibe las existencias y el documento sustentatorio",
+      "Registra las entradas en el sistema del almacén"
+    ],
+    "texto_simple": "Recibir la mercadería que llega y revisar que esté completa y en buen estado",
+    "sello": {
+      "icono": "inventario",
+      "etiqueta": "Recibe mercadería"
+    },
+    "fuente": "PDF del perfil ocupacional H2452001",
+    "tomado": "2026-10-27"
+  },
+  {
+    "codigo": "H2452001-1.E2",
+    "perfil": "H2452001",
+    "estandar": "H2452001-1",
+    "texto_oficial": "Almacenar las existencias, según tipo y características, de acuerdo a los procedimientos de la empresa, requerimientos de clientes y normativa correspondiente.",
+    "criterios_clave": [
+      "Agrupa y ubica las existencias en el almacén",
+      "Ordena y reordena las existencias del almacén según su rotación"
+    ],
+    "texto_simple": "Ordenar y guardar la mercadería en su lugar",
+    "sello": {
+      "icono": "inventario",
+      "etiqueta": "Ordena mercadería"
+    },
+    "fuente": "PDF del perfil ocupacional H2452001",
+    "tomado": "2026-10-27"
+  },
+  {
+    "codigo": "H2452001-1.E3",
+    "perfil": "H2452001",
+    "estandar": "H2452001-1",
+    "texto_oficial": "Despachar las existencias, de acuerdo a los procedimientos de la empresa, requerimientos de clientes y normativa correspondiente.",
+    "criterios_clave": [
+      "Recibe requerimientos de despacho de existencias",
+      "Realiza el picking"
+    ],
+    "texto_simple": "Preparar y entregar los pedidos que salen",
+    "sello": {
+      "icono": "inventario",
+      "etiqueta": "Despacha pedidos"
+    },
+    "fuente": "PDF del perfil ocupacional H2452001",
+    "tomado": "2026-10-27"
+  },
+  {
+    "codigo": "M2981001-1.E1",
+    "perfil": "M2981001",
+    "estandar": "M2981001-1",
+    "texto_oficial": "Organizar las actividades de limpieza de las áreas designadas, de acuerdo a las políticas del establecimiento y teniendo en cuenta la normativa vigente.",
+    "criterios_clave": [
+      "Verifica la operatividad de los equipos",
+      "Abastece el carrito o balde de limpieza"
+    ],
+    "texto_simple": "Organizar el trabajo de limpieza y preparar los materiales",
+    "sello": {
+      "icono": "grupo",
+      "etiqueta": "Organiza la limpieza"
+    },
+    "fuente": "PDF del perfil ocupacional M2981001",
+    "tomado": "2026-10-27"
+  },
+  {
+    "codigo": "M2981001-1.E2",
+    "perfil": "M2981001",
+    "estandar": "M2981001-1",
+    "texto_oficial": "Limpiar las áreas asignadas, teniendo en cuenta las políticas del establecimiento y la normativa vigente.",
+    "criterios_clave": [
+      "Limpia las áreas asignadas",
+      "Desecha los desperdicios de las áreas asignadas",
+      "Reporta objetos olvidados"
+    ],
+    "texto_simple": "Limpiar las áreas y botar los desperdicios",
+    "sello": {
+      "icono": "grupo",
+      "etiqueta": "Limpia áreas"
+    },
+    "fuente": "PDF del perfil ocupacional M2981001",
+    "tomado": "2026-10-27"
+  },
+  {
+    "codigo": "M2981001-1.E3",
+    "perfil": "M2981001",
+    "estandar": "M2981001-1",
+    "texto_oficial": "Ordenar y verificar el estado óptimo de los enseres e infraestructura, de acuerdo a las políticas del establecimiento y teniendo en cuenta la normativa vigente.",
+    "criterios_clave": [
+      "Ordena el equipamiento de las áreas asignadas",
+      "reporta desperfectos del área asignada"
+    ],
+    "texto_simple": "Ordenar los espacios y avisar si algo está malogrado",
+    "sello": {
+      "icono": "inventario",
+      "etiqueta": "Revisa y reporta daños"
+    },
+    "fuente": "PDF del perfil ocupacional M2981001",
+    "tomado": "2026-10-27"
+  },
+  {
+    "codigo": "I2555001-1.E1",
+    "perfil": "I2555001",
+    "estandar": "I2555001-1",
+    "texto_oficial": "Trasladar el equipaje del huésped al área requerida, de acuerdo a las normas de seguridad y procedimientos del establecimiento.",
+    "criterios_clave": [
+      "Recibe y acompaña al huésped",
+      "Traslada el equipaje del huésped hacia el área requerida"
+    ],
+    "texto_simple": "Recibir al huésped y llevar su equipaje",
+    "sello": {
+      "icono": "ensenar",
+      "etiqueta": "Recibe huéspedes"
+    },
+    "fuente": "PDF del perfil ocupacional I2555001",
+    "tomado": "2026-10-27"
+  },
+  {
+    "codigo": "I2555001-1.E2",
+    "perfil": "I2555001",
+    "estandar": "I2555001-1",
+    "texto_oficial": "Distribuir mensajería y encargos para los huéspedes o áreas internas, de acuerdo a los procedimientos del establecimiento.",
+    "criterios_clave": [
+      "Registra la llegada de mensajería y encargos",
+      "Entrega al huésped o al área interna correspondiente la mensajería y encargos"
+    ],
+    "texto_simple": "Recibir y entregar encargos y mensajes",
+    "sello": {
+      "icono": "inventario",
+      "etiqueta": "Entrega encargos"
+    },
+    "fuente": "PDF del perfil ocupacional I2555001",
+    "tomado": "2026-10-27"
+  },
+  {
+    "codigo": "I2555001-1.E3",
+    "perfil": "I2555001",
+    "estandar": "I2555001-1",
+    "texto_oficial": "Brindar información al huésped, de acuerdo a los procedimientos del establecimiento.",
+    "criterios_clave": [
+      "Orienta al huésped sobre la ubicación de los ambientes y servicios",
+      "Informa al huésped sobre la disponibilidad de servicios"
+    ],
+    "texto_simple": "Dar información y orientar a las personas",
+    "sello": {
+      "icono": "reclamo",
+      "etiqueta": "Da información"
+    },
+    "fuente": "PDF del perfil ocupacional I2555001",
+    "tomado": "2026-10-27"
+  },
+  {
+    "codigo": "I2555001-2.E1",
+    "perfil": "I2555001",
+    "estandar": "I2555001-2",
+    "texto_oficial": "Atender requerimientos del huésped, de acuerdo a los procedimientos del establecimiento y normativa correspondiente.",
+    "criterios_clave": [
+      "Atiende o deriva los requerimientos del huésped",
+      "Gestiona las llamadas telefónicas"
+    ],
+    "texto_simple": "Atender pedidos y quejas de los clientes",
+    "sello": {
+      "icono": "reclamo",
+      "etiqueta": "Atiende reclamos"
+    },
+    "fuente": "PDF del perfil ocupacional I2555001",
+    "tomado": "2026-10-27"
+  },
+  {
+    "codigo": "I2555001-2.E2",
+    "perfil": "I2555001",
+    "estandar": "I2555001-2",
+    "texto_oficial": "Registrar la entrada (check in) del huésped, de acuerdo a los procedimientos del establecimiento y normativa correspondiente.",
+    "criterios_clave": [
+      "Registra la entrada (check in) del huésped",
+      "Verifica el número de habitaciones disponibles y ocupadas"
+    ],
+    "texto_simple": "Registrar la llegada de los huéspedes",
+    "sello": {
+      "icono": "sistema",
+      "etiqueta": "Registra llegadas"
+    },
+    "fuente": "PDF del perfil ocupacional I2555001",
+    "tomado": "2026-10-27"
+  },
+  {
+    "codigo": "I2555001-2.E3",
+    "perfil": "I2555001",
+    "estandar": "I2555001-2",
+    "texto_oficial": "Registrar la salida (check out) del huésped, de acuerdo a los procedimientos del establecimiento y normativa correspondiente.",
+    "criterios_clave": [
+      "Verifica la cuenta final del huésped",
+      "Realiza el cobro o facturación"
+    ],
+    "texto_simple": "Cerrar la cuenta del huésped y cobrarle al salir",
+    "sello": {
+      "icono": "cobro",
+      "etiqueta": "Cierra cuentas"
+    },
+    "fuente": "PDF del perfil ocupacional I2555001",
+    "tomado": "2026-10-27"
+  },
+  {
+    "codigo": "I2555001-2.E4",
+    "perfil": "I2555001",
+    "estandar": "I2555001-2",
+    "texto_oficial": "Realizar operaciones de caja del área de recepción, de acuerdo a los procedimientos del establecimiento y normativa correspondiente.",
+    "criterios_clave": [
+      "Ejecuta el cuadre de caja al inicio y culminación de su turno",
+      "Cierra las operaciones realizadas en el POS"
+    ],
+    "texto_simple": "Manejar y cuadrar la caja de recepción",
+    "sello": {
+      "icono": "caja",
+      "etiqueta": "Cuadra la caja"
+    },
+    "fuente": "PDF del perfil ocupacional I2555001",
+    "tomado": "2026-10-27"
+  },
+  {
+    "codigo": "I2555002-1.E1",
+    "perfil": "I2555002",
+    "estandar": "I2555002-1",
+    "texto_oficial": "Organizar las actividades de limpieza de las áreas asignadas, teniendo en cuenta las indicaciones del jefe inmediato, de acuerdo a las políticas y los procedimientos de la empresa.",
+    "criterios_clave": [
+      "Prioriza el trabajo asignado",
+      "Prepara los productos de limpieza seleccionados"
+    ],
+    "texto_simple": "Organizar el trabajo de limpieza y preparar los productos",
+    "sello": {
+      "icono": "grupo",
+      "etiqueta": "Organiza la limpieza"
+    },
+    "fuente": "PDF del perfil ocupacional I2555002",
+    "tomado": "2026-10-27"
+  },
+  {
+    "codigo": "I2555002-1.E2",
+    "perfil": "I2555002",
+    "estandar": "I2555002-1",
+    "texto_oficial": "Aplicar las técnicas de limpieza en las áreas asignadas, teniendo en cuenta las indicaciones del jefe inmediato, de acuerdo a las políticas y los procedimientos de la empresa.",
+    "criterios_clave": [
+      "Emplea técnicas de limpieza en las áreas asignadas",
+      "Reporta los objetos perdidos/olvidados del cliente"
+    ],
+    "texto_simple": "Limpiar superficies, muebles y pisos con la técnica correcta",
+    "sello": {
+      "icono": "grupo",
+      "etiqueta": "Limpia áreas"
+    },
+    "fuente": "PDF del perfil ocupacional I2555002",
+    "tomado": "2026-10-27"
+  },
+  {
+    "codigo": "I2555002-2.E1",
+    "perfil": "I2555002",
+    "estandar": "I2555002-2",
+    "texto_oficial": "Organizar las actividades para el acondicionamiento de la habitación asignada, teniendo en cuenta los requerimientos del huésped, de acuerdo a las políticas y los procedimientos de la empresa.",
+    "criterios_clave": [],
+    "texto_simple": "Planificar cómo dejar lista una habitación",
+    "sello": {
+      "icono": "inventario",
+      "etiqueta": "Planifica habitaciones"
+    },
+    "fuente": "PDF del perfil ocupacional I2555002",
+    "tomado": "2026-10-27"
+  },
+  {
+    "codigo": "I2555002-2.E2",
+    "perfil": "I2555002",
+    "estandar": "I2555002-2",
+    "texto_oficial": "Habilitar la habitación, teniendo en cuenta los requerimientos del huésped, de acuerdo a las políticas y los procedimientos de la empresa.",
+    "criterios_clave": [],
+    "texto_simple": "Dejar la habitación limpia y lista para el huésped",
+    "sello": {
+      "icono": "inventario",
+      "etiqueta": "Deja lista la habitación"
+    },
+    "fuente": "PDF del perfil ocupacional I2555002",
+    "tomado": "2026-10-27"
+  },
+  {
+    "codigo": "I2555002-3.E1",
+    "perfil": "I2555002",
+    "estandar": "I2555002-3",
+    "texto_oficial": "Cumplir con los estándares de atención al cliente, de acuerdo a las políticas y los procedimientos de la empresa.",
+    "criterios_clave": [],
+    "texto_simple": "Tratar bien al cliente según las reglas del lugar",
+    "sello": {
+      "icono": "reclamo",
+      "etiqueta": "Trata bien al cliente"
+    },
+    "fuente": "PDF del perfil ocupacional I2555002",
+    "tomado": "2026-10-27"
+  },
+  {
+    "codigo": "I2555002-3.E2",
+    "perfil": "I2555002",
+    "estandar": "I2555002-3",
+    "texto_oficial": "Atender los requerimientos del cliente, de acuerdo a las políticas y los procedimientos de la empresa.",
+    "criterios_clave": [],
+    "texto_simple": "Atender lo que pide el cliente",
+    "sello": {
+      "icono": "reclamo",
+      "etiqueta": "Atiende pedidos del cliente"
+    },
+    "fuente": "PDF del perfil ocupacional I2555002",
+    "tomado": "2026-10-27"
+  },
+  {
+    "codigo": "I2556002-1.E1",
+    "perfil": "I2556002",
+    "estandar": "I2556002-1",
+    "texto_oficial": "Organizar el menaje para el servicio en salón o evento, de acuerdo a las políticas, procedimientos del establecimiento y la normativa correspondiente.",
+    "criterios_clave": [
+      "Verifica las condiciones del menaje",
+      "Abastece la estación de los mozos"
+    ],
+    "texto_simple": "Preparar platos, vasos y cubiertos para el servicio",
+    "sello": {
+      "icono": "inventario",
+      "etiqueta": "Prepara platos y cubiertos"
+    },
+    "fuente": "PDF del perfil ocupacional I2556002",
+    "tomado": "2026-10-27"
+  },
+  {
+    "codigo": "I2556002-1.E2",
+    "perfil": "I2556002",
+    "estandar": "I2556002-1",
+    "texto_oficial": "Realizar el montaje y desmontaje del salón o evento, de acuerdo al servicio requerido, las políticas, procedimientos del establecimiento y la normativa correspondiente.",
+    "criterios_clave": [
+      "Acomoda las mesas y sillas en el salón",
+      "Realiza el montaje de las mesas"
+    ],
+    "texto_simple": "Armar y desarmar mesas para el servicio o un evento",
+    "sello": {
+      "icono": "grupo",
+      "etiqueta": "Arma mesas"
+    },
+    "fuente": "PDF del perfil ocupacional I2556002",
+    "tomado": "2026-10-27"
+  },
+  {
+    "codigo": "I2556002-2.E1",
+    "perfil": "I2556002",
+    "estandar": "I2556002-2",
+    "texto_oficial": "Asistir al cliente, brindándole información sobre los servicios, productos y ofertas disponibles, de acuerdo a las políticas, procedimientos del establecimiento y la normativa correspondiente.",
+    "criterios_clave": [
+      "Recibe al cliente",
+      "Brinda información sobre los servicios, productos y ofertas",
+      "Anota el pedido en su respectiva comanda"
+    ],
+    "texto_simple": "Recibir al cliente, explicarle lo que hay y tomar su pedido",
+    "sello": {
+      "icono": "reclamo",
+      "etiqueta": "Toma pedidos"
+    },
+    "fuente": "PDF del perfil ocupacional I2556002",
+    "tomado": "2026-10-27"
+  },
+  {
+    "codigo": "I2556002-2.E2",
+    "perfil": "I2556002",
+    "estandar": "I2556002-2",
+    "texto_oficial": "Atender los pedidos del cliente, teniendo en cuenta las políticas, procedimientos del establecimiento y la normativa correspondiente.",
+    "criterios_clave": [
+      "Sirve los alimentos y/o bebidas al cliente",
+      "Resuelve quejas y reclamos",
+      "Entrega el comprobante respectivo y de ser el caso el vuelto"
+    ],
+    "texto_simple": "Servir, resolver quejas y cobrar la cuenta",
+    "sello": {
+      "icono": "cobro",
+      "etiqueta": "Sirve y cobra"
+    },
+    "fuente": "PDF del perfil ocupacional I2556002",
+    "tomado": "2026-10-27"
+  }
+]

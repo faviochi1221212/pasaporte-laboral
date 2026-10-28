@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Computadora · Tu pasaporte laboral</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400&amp;display=swap" rel="stylesheet">
+<style>body{margin:0}a{color:#1C5FA8}a:hover{color:#123F73}</style>
+</helmet>
+<div style="width: 100%; min-height: 860px; box-sizing: border-box; background: #F2F5F9; font-family: 'Roboto', system-ui, sans-serif; color: #1F2430; display: flex; flex-direction: column">
+<div style="background: #FFF4E5; color: #7A4300; font-size: 12px; padding: 4px 16px; text-align: center">Prototipo · no es un sitio oficial</div>
+<header style="background: #FFFFFF; box-shadow: 0 1px 0 #E3E8EF">
+<div style="max-width: 1200px; margin: 0 auto; padding: 18px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
+<span style="font-size: 28px; font-weight: 900; color: #C8102E; letter-spacing: -0.5px">gob.pe</span>
+<nav aria-label="Secciones" style="display: flex; gap: 24px; flex-wrap: wrap; font-size: 15px; font-weight: 500"><a href="#">Empleo</a><a href="#">Capacitación</a><a href="#">Centros de Empleo</a></nav>
+</div>
+</header>
+<main style="max-width: 1200px; width: 100%; margin: 0 auto; padding: 36px 24px 40px; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 36px; align-items: center">
+<section aria-label="Pasaporte laboral de María" style="flex: 1 1 520px; min-width: 0; background: #FBF8F1; border-radius: 16px; box-shadow: 0 16px 36px rgba(31, 36, 48, 0.14), 0 0 0 1px #E8E1D2; overflow: hidden">
+<div style="background: #7A1F2B; color: #F3E3B8; padding: 14px 22px; display: flex; justify-content: space-between; align-items: center"><span style="font-size: 15px; font-weight: 900; letter-spacing: 2.5px">PASAPORTE LABORAL</span><span style="font-size: 14px; font-weight: 700; letter-spacing: 1.5px">PERÚ</span></div>
+<div style="padding: 16px 22px; display: flex; gap: 14px; align-items: center; border-bottom: 1px dashed #D9CFBA">
+<div style="width: 64px; height: 64px; border-radius: 32px; overflow: hidden; background: #E3F1EE; flex: none"><dc-import name="Trabajador" kind="cajera" size="{{64}}" hint-size="64px,64px"></dc-import></div>
+<div style="display: flex; flex-direction: column"><strong style="font-size: 22px">María Quispe</strong><span style="font-size: 15px; color: #5A5446">Cajera · 6 años · Ate</span></div>
+</div>
+<div style="padding: 22px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px 8px; justify-items: center">
+<button onClick="{{pick.caja}}" aria-label="Sello: cuadre de caja" style="border: 0; background: transparent; padding: 0"><dc-import name="Sello" kind="caja" label="Cuadre de caja" color="#1C5FA8" rot="{{-8}}" size="{{128}}" hint-size="128px,128px"></dc-import></button>
+<button onClick="{{pick.cobro}}" aria-label="Sello: cobros y pagos" style="border: 0; background: transparent; padding: 0; margin-top: 16px"><dc-import name="Sello" kind="cobro" label="Cobros y pagos" color="#C8102E" rot="{{6}}" size="{{128}}" hint-size="128px,128px"></dc-import></button>
+<button onClick="{{pick.reclamo}}" aria-label="Sello: atiende reclamos" style="border: 0; background: transparent; padding: 0"><dc-import name="Sello" kind="reclamo" label="Atiende reclamos" color="#1E7A46" rot="{{-3}}" size="{{128}}" hint-size="128px,128px"></dc-import></button>
+<button onClick="{{pick.inventario}}" aria-label="Sello: orden de mercadería" style="border: 0; background: transparent; padding: 0; margin-top: 10px"><dc-import name="Sello" kind="inventario" label="Orden de mercadería" color="#5B3E96" rot="{{9}}" size="{{128}}" hint-size="128px,128px"></dc-import></button>
+<button onClick="{{pick.ensenar}}" aria-label="Sello: enseña a nuevos" style="border: 0; background: transparent; padding: 0"><dc-import name="Sello" kind="ensenar" label="Enseña a nuevos" color="#B45309" rot="{{-6}}" size="{{128}}" hint-size="128px,128px"></dc-import></button>
+<button onClick="{{pick.grupo}}" aria-label="Sello: organiza grupos" style="border: 0; background: transparent; padding: 0; margin-top: 12px"><dc-import name="Sello" kind="grupo" label="Organiza grupos" color="#0E7490" rot="{{5}}" size="{{128}}" hint-size="128px,128px"></dc-import></button>
+</div>
+</section>
+<section style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 18px">
+<h1 style="margin: 0; font-size: 52px; line-height: 1; font-weight: 900">¡Mira todo lo que sabes!</h1>
+<p style="margin: 0; font-size: 19px; color: #3A4352">6 sellos. Toca uno para ver por qué lo ganaste.</p>
+<div style="background: #FFFFFF; border-radius: 14px; box-shadow: 0 0 0 1px #E3E8EF; padding: 16px 18px; display: flex; flex-direction: column; gap: 4px">
+<span style="font-size: 14px; color: #5F6B7A">{{said.label}}</span>
+<span style="font-size: 22px; font-style: italic">“{{said.text}}”</span>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 12px">
+<a href="V3Escritorio.dc.html" style="min-height: 54px; padding: 0 24px; border-radius: 8px; background: #1C5FA8; color: #FFFFFF; text-decoration: none; font-size: 17px; font-weight: 700; display: flex; align-items: center">Ver a dónde te lleva</a>
+<a href="V3EscritorioInicio.dc.html" style="min-height: 54px; padding: 0 22px; border-radius: 8px; border: 2px solid #1C5FA8; color: #1C5FA8; text-decoration: none; font-size: 17px; font-weight: 700; display: flex; align-items: center; box-sizing: border-box">Agregar algo que olvidé</a>
+</div>
+<span style="font-size: 13px; color: #5F6B7A">Sellos según el catálogo de perfiles del MTPE · no es un certificado</span>
+</section>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":860}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { sel: 'caja' };
+  }
+  renderVals() {
+    var self = this;
+    var said = {
+      caja: { label: 'Sello «Cuadre de caja» · lo ganaste porque dijiste:', text: 'Al final del día cuadro la caja.' },
+      cobro: { label: 'Sello «Cobros y pagos» · lo ganaste porque dijiste:', text: 'Cobro en efectivo, tarjeta y Yape.' },
+      reclamo: { label: 'Sello «Atiende reclamos» · lo ganaste porque dijiste:', text: 'Si un cliente se pica, lo calmo.' },
+      inventario: { label: 'Sello «Orden de mercadería» · lo ganaste porque dijiste:', text: 'Ayudo a ordenar y reviso precios.' },
+      ensenar: { label: 'Sello «Enseña a nuevos» · lo ganaste porque dijiste:', text: 'A las nuevas les enseño la caja.' },
+      grupo: { label: 'Sello «Organiza grupos» · lo ganaste porque dijiste:', text: 'Organizo el fulbito del barrio.' }
+    };
+    var pick = {};
+    Object.keys(said).forEach(function (k) { pick[k] = function () { self.setState({ sel: k }); }; });
+    return { said: said[this.state.sel] || said.caja, pick: pick };
+  }
+}
+</script>
+</body>
+</html>

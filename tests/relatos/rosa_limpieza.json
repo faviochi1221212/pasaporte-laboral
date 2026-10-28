@@ -1,0 +1,45 @@
+{
+  "id": "rosa_limpieza",
+  "descripcion": "Relato inventado para A3. Rosa no existe.",
+  "ocupacion_origen": "M2981001",
+  "respuestas": [
+    {
+      "n": 1,
+      "texto": "Hace 8 años hago limpieza en oficinas, ahora con una empresa de servicios en San Isidro."
+    },
+    {
+      "n": 2,
+      "texto": "Llego temprano, preparo mi carrito con los productos y reviso que la aspiradora funcione. Limpio los pisos, los baños y los escritorios, y boto la basura separando lo que se recicla. Si veo algo malogrado, como un caño que gotea, lo reporto a mi supervisora."
+    },
+    {
+      "n": 3,
+      "texto": "Me piden que deje la sala de reuniones lista cuando hay visitas importantes, porque soy detallista."
+    },
+    {
+      "n": 4,
+      "texto": "Vendo gelatinas y postres por encargo.",
+      "repregunta": "Los preparo, tomo los pedidos por WhatsApp y los entrego yo misma."
+    },
+    {
+      "n": 5,
+      "texto": "Me gusta tejer."
+    },
+    {
+      "n": 6,
+      "texto": "Más de 5 horas"
+    }
+  ],
+  "esperado": {
+    "perfil_origen": "M2981001",
+    "minimo_sellos_del_origen": 2,
+    "sellos_probables": [
+      "M2981001-1.E1",
+      "M2981001-1.E2",
+      "M2981001-1.E3",
+      "I2555002-1.E1",
+      "I2555002-1.E2"
+    ],
+    "interes": "cosas",
+    "horas": "5+"
+  }
+}

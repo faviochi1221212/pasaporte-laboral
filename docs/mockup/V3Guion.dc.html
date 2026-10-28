@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Guion de las 6 preguntas</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&amp;display=swap" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+<div style="width: 1460px; height: 560px; box-sizing: border-box; background: #F2F5F9; font-family: 'Roboto', system-ui, sans-serif; color: #1F2430; padding: 32px; display: flex; flex-direction: column; gap: 22px">
+<div style="display: flex; justify-content: space-between; align-items: flex-end">
+<div style="display: flex; flex-direction: column; gap: 4px"><h1 style="margin: 0; font-size: 30px; font-weight: 900">Las 6 preguntas, una por pantalla</h1><p style="margin: 0; font-size: 16px; color: #3A4352">De lo más fácil a lo más personal. Cada respuesta puede dar sellos.</p></div>
+<span style="font-size: 14px; color: #3A4352; background: #FFFFFF; border-radius: 10px; padding: 8px 12px; box-shadow: 0 0 0 1px #E3E8EF">En las preguntas 4 y 5 la repregunta siempre es: <strong>“¿Y qué haces tú ahí?”</strong></span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 16px; flex: 1">
+<sc-for list="{{qs}}" as="q" hint-placeholder-count="6">
+<article style="background: #FFFFFF; border-radius: 16px; box-shadow: 0 0 0 1px #E3E8EF; border-top: 6px solid {{q.color}}; padding: 18px 16px; display: flex; flex-direction: column; gap: 12px">
+<span style="width: 34px; height: 34px; border-radius: 17px; background: {{q.color}}; color: #FFFFFF; font-weight: 900; font-size: 17px; display: flex; align-items: center; justify-content: center">{{q.n}}</span>
+<h2 style="margin: 0; font-size: 21px; line-height: 1.15; font-weight: 900">{{q.text}}</h2>
+<div style="display: flex; flex-wrap: wrap; gap: 6px">
+<sc-for list="{{q.chips}}" as="c" hint-placeholder-count="3"><span style="font-size: 13px; border: 1px solid #A9B3C1; border-radius: 14px; padding: 4px 10px">{{c}}</span></sc-for>
+</div>
+<div style="margin-top: auto; font-size: 13px; color: #3A4352; border-top: 1px dashed #DCE3EC; padding-top: 10px"><strong style="color: {{q.color}}">{{q.giveLabel}}</strong> {{q.give}}</div>
+</article>
+</sc-for>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1460,"height":560}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      qs: [
+        { n: 1, color: '#1C5FA8', text: '¿Cuánto tiempo llevas en esto?', chips: ['Menos de 1 año', '1 a 5 años', 'Más de 5'], giveLabel: 'Sirve para:', give: 'tu experiencia en el CV' },
+        { n: 2, color: '#1C5FA8', text: '¿Qué haces en un día normal?', chips: ['Cobro', 'Cuadro la caja', 'Ordeno productos'], giveLabel: 'Puede dar:', give: 'sellos de tu trabajo' },
+        { n: 3, color: '#1E7A46', text: '¿Qué te piden a ti porque lo haces bien?', chips: ['Cuadrar la caja', 'Enseñar a nuevos', 'Calmar clientes'], giveLabel: 'Puede dar:', give: 'tus sellos más fuertes' },
+        { n: 4, color: '#5B3E96', text: '¿Haces algo más aparte de tu trabajo?', chips: ['Un negocio', 'Cachuelos', 'Ayudo en mi barrio'], giveLabel: 'Puede dar:', give: 'otras fortalezas' },
+        { n: 5, color: '#5B3E96', text: '¿Qué te gusta hacer en tu tiempo libre?', chips: ['Deporte', 'Cocinar', 'Arreglar cosas'], giveLabel: 'Puede dar:', give: 'otras fortalezas' },
+        { n: 6, color: '#C8102E', text: '¿Cuánto tiempo tienes para aprender?', chips: ['1 a 2 h', '3 a 5 h', 'Más de 5 h'], giveLabel: 'Sirve para:', give: 'elegir tu curso' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

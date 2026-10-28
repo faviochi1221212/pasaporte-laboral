@@ -1,0 +1,44 @@
+{
+  "id": "jorge_almacen",
+  "descripcion": "Relato inventado para A2. Jorge no existe.",
+  "ocupacion_origen": "H2452001",
+  "respuestas": [
+    {
+      "n": 1,
+      "texto": "Trabajo 3 años como ayudante de almacén en una distribuidora de abarrotes en Santa Anita."
+    },
+    {
+      "n": 2,
+      "texto": "Recibo la mercadería que llega en los camiones y reviso que esté completa según la guía. Después la ordeno en los estantes por tipo y por fecha. En la tarde preparo los pedidos y los despacho a las bodegas."
+    },
+    {
+      "n": 3,
+      "texto": "Me piden a mí cuando hay que hacer el inventario porque soy ordenado y no me equivoco en el conteo."
+    },
+    {
+      "n": 4,
+      "texto": "Ayudo a mi tío en su puesto del mercado los domingos.",
+      "repregunta": "Atiendo a los caseros, les cobro y les doy el vuelto."
+    },
+    {
+      "n": 5,
+      "texto": "Juego vóley con mis amigos."
+    },
+    {
+      "n": 6,
+      "texto": "1 a 2 horas"
+    }
+  ],
+  "esperado": {
+    "perfil_origen": "H2452001",
+    "minimo_sellos_del_origen": 2,
+    "sellos_probables": [
+      "H2452001-1.E1",
+      "H2452001-1.E2",
+      "H2452001-1.E3"
+    ],
+    "nota": "Lo del mercado del tío viene de la pregunta 4: va a fortalezas y no da sellos de caja.",
+    "interes": "cosas",
+    "horas": "1-2"
+  }
+}

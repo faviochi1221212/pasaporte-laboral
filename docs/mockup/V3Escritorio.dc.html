@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Escritorio · Tu ruta y tu próxima estación</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&amp;display=swap" rel="stylesheet">
+<style>body{margin:0}a{color:#1C5FA8}a:hover{color:#123F73}</style>
+</helmet>
+<div style="width: 100%; min-height: 900px; box-sizing: border-box; background: #F2F5F9; font-family: 'Roboto', system-ui, sans-serif; color: #1F2430; display: flex; flex-direction: column">
+<div style="background: #FFF4E5; color: #7A4300; font-size: 12px; padding: 4px 16px; text-align: center">Prototipo · no es un sitio oficial</div>
+<header style="background: #FFFFFF; box-shadow: 0 1px 0 #E3E8EF">
+<div style="max-width: 1200px; margin: 0 auto; padding: 18px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
+<span style="font-size: 28px; font-weight: 900; color: #C8102E; letter-spacing: -0.5px">gob.pe</span>
+<nav aria-label="Secciones" style="display: flex; gap: 24px; flex-wrap: wrap; font-size: 15px; font-weight: 500"><a href="#">Empleo</a><a href="#">Capacitación</a><a href="#">Centros de Empleo</a></nav>
+</div>
+</header>
+<main style="max-width: 1200px; width: 100%; margin: 0 auto; padding: 32px 24px 40px; box-sizing: border-box; display: flex; flex-direction: column; gap: 22px">
+<div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px">
+<div style="display: flex; flex-direction: column; gap: 4px"><h1 style="margin: 0; font-size: 40px; line-height: 1.05; font-weight: 900">Tu ruta, María</h1><p style="margin: 0; font-size: 18px; color: #3A4352">Cada parada es un sello que te falta. Toca una estación.</p></div>
+<a href="V3CV.dc.html" style="min-height: 48px; padding: 0 20px; border-radius: 8px; border: 2px solid #1C5FA8; color: #1C5FA8; text-decoration: none; font-size: 16px; font-weight: 700; display: flex; align-items: center; box-sizing: border-box">Ver mi pasaporte y CV</a>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start">
+<section aria-label="Mapa de rutas" style="flex: 1 1 380px; min-width: 0; overflow-x: auto; background: #FFFFFF; border-radius: 18px; box-shadow: 0 0 0 1px #E3E8EF">
+<div style="position: relative; width: 354px; height: 560px; margin: 0 auto">
+<div style="position: absolute; left: 0; top: 0; width: 354px; height: 560px" aria-hidden="true">
+<svg width="354" height="560" viewBox="0 0 354 560">
+<path d="M177 52 C177 96 64 92 64 146 V388" stroke="#1C5FA8" stroke-width="9" fill="none" stroke-linecap="round"></path>
+<path d="M177 52 C177 96 290 92 290 146 V458" stroke="#5B3E96" stroke-width="9" fill="none" stroke-linecap="round"></path>
+<path d="M177 52 V316" stroke="#1E7A46" stroke-width="12" fill="none" stroke-linecap="round"></path>
+<circle cx="177" cy="126" r="7" fill="#FFFFFF" stroke="#1E7A46" stroke-width="4"></circle>
+<circle cx="177" cy="190" r="7" fill="#FFFFFF" stroke="#1E7A46" stroke-width="4"></circle>
+<circle cx="177" cy="254" r="7" fill="#FFFFFF" stroke="#1E7A46" stroke-width="4"></circle>
+<circle cx="64" cy="186" r="6" fill="#FFFFFF" stroke="#1C5FA8" stroke-width="3.5"></circle>
+<circle cx="64" cy="236" r="6" fill="#FFFFFF" stroke="#1C5FA8" stroke-width="3.5"></circle>
+<circle cx="64" cy="286" r="6" fill="#FFFFFF" stroke="#1C5FA8" stroke-width="3.5"></circle>
+<circle cx="64" cy="336" r="6" fill="#FFFFFF" stroke="#1C5FA8" stroke-width="3.5"></circle>
+<circle cx="290" cy="186" r="6" fill="#FFFFFF" stroke="#5B3E96" stroke-width="3.5"></circle>
+<circle cx="290" cy="240" r="6" fill="#FFFFFF" stroke="#5B3E96" stroke-width="3.5"></circle>
+<circle cx="290" cy="294" r="6" fill="#FFFFFF" stroke="#5B3E96" stroke-width="3.5"></circle>
+<circle cx="290" cy="348" r="6" fill="#FFFFFF" stroke="#5B3E96" stroke-width="3.5"></circle>
+<circle cx="290" cy="402" r="6" fill="#FFFFFF" stroke="#5B3E96" stroke-width="3.5"></circle>
+<circle cx="177" cy="316" r="18" fill="#FFFFFF" stroke="#1E7A46" stroke-width="7"></circle>
+<circle cx="64" cy="388" r="15" fill="#FFFFFF" stroke="#1C5FA8" stroke-width="6"></circle>
+<circle cx="290" cy="458" r="15" fill="#FFFFFF" stroke="#5B3E96" stroke-width="6"></circle>
+<circle cx="177" cy="52" r="24" fill="#1F2430"></circle>
+<circle cx="177" cy="52" r="12" fill="#FFFFFF"></circle>
+</svg>
+</div>
+<div style="position: absolute; left: 210px; top: 30px; display: flex; flex-direction: column"><span style="font-size: 12px; font-weight: 700; color: #5F6B7A; letter-spacing: 0.4px">ESTÁS AQUÍ</span><strong style="font-size: 17px">Cajera</strong></div>
+<button onClick="{{pickAlmacen}}" style="position: absolute; left: 102px; top: 342px; width: 150px; box-sizing: border-box; background: {{bAlmacen.bg}}; border: {{bAlmacen.border}}; border-radius: 12px; padding: 8px 10px; font-family: inherit; color: #1F2430; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 2px"><strong style="font-size: 16px; line-height: 1.15">Asistente de almacén</strong><span style="font-size: 13px; color: #155C34; font-weight: 700">Faltan 3 sellos</span></button>
+<button onClick="{{pickRecep}}" style="position: absolute; left: 8px; top: 412px; width: 128px; box-sizing: border-box; background: {{bRecep.bg}}; border: {{bRecep.border}}; border-radius: 12px; padding: 7px 8px; font-family: inherit; color: #1F2430; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 2px"><strong style="font-size: 15px; line-height: 1.15">Recepcionista</strong><span style="font-size: 13px; color: #1C5FA8; font-weight: 700">Faltan 4 sellos</span></button>
+<button onClick="{{pickAdmin}}" style="position: absolute; left: 212px; top: 480px; width: 136px; box-sizing: border-box; background: {{bAdmin.bg}}; border: {{bAdmin.border}}; border-radius: 12px; padding: 7px 8px; font-family: inherit; color: #1F2430; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 2px"><strong style="font-size: 15px; line-height: 1.15">Asistente administrativo</strong><span style="font-size: 13px; color: #5B3E96; font-weight: 700">Faltan 5 sellos</span></button>
+</div>
+</section>
+<section aria-label="Estación elegida" style="flex: 999 1 520px; min-width: 0; background: #FFFFFF; border-radius: 18px; box-shadow: 0 0 0 1px #E3E8EF; overflow: hidden">
+<div style="background: {{st.color}}; color: #FFFFFF; padding: 22px 24px; display: flex; flex-wrap: wrap; gap: 18px; align-items: center">
+<div style="width: 100px; height: 100px; border-radius: 50px; background: #FFFFFF; flex: none; display: flex; align-items: center; justify-content: center"><dc-import name="Trabajador" kind="{{st.kind}}" size="{{96}}" hint-size="96px,96px"></dc-import></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 12px; font-weight: 700; letter-spacing: 1px; opacity: 0.9">ESTACIÓN</span><h2 style="margin: 0; font-size: 32px; line-height: 1.05; font-weight: 900">{{st.name}}</h2><span style="align-self: flex-start; font-size: 13px; font-weight: 700; background: #FFFFFF; color: #1F2430; border-radius: 10px; padding: 3px 10px">{{st.demand}}</span></div>
+</div>
+<div style="padding: 22px 24px; display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: center">
+<div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 44px; font-weight: 900; line-height: 1; color: {{st.color}}">{{st.has}}</span><span style="font-size: 15px; color: #3A4352">sellos que ya tienes</span></div>
+<div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 44px; font-weight: 900; line-height: 1; color: #8A94A3">{{st.miss}}</span><span style="font-size: 15px; color: #3A4352">sellos que te faltan</span></div>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 14px">
+<sc-for list="{{st.gaps}}" as="g" hint-placeholder-count="3">
+<div style="flex: 1 1 150px; min-width: 0; border: 2px dashed #A9B3C1; border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 6px">
+<strong style="font-size: 17px">{{g.name}}</strong>
+<span style="font-size: 14px; color: {{g.tone}}">{{g.course}}</span>
+<a href="#" style="font-size: 15px; font-weight: 700; margin-top: auto">{{g.cta}}</a>
+</div>
+</sc-for>
+</div>
+<span style="font-size: 13px; color: #5F6B7A">Cursos de CAPACITA-T (MTPE) · Avisos de Empleos Perú en Lima, 27 oct 2026 · Sellos según el catálogo del MTPE</span>
+</div>
+</section>
+</div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":900}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { sel: 'almacen' };
+  }
+  renderVals() {
+    var self = this;
+    var c = function (name, course, hours) {
+      return course
+        ? { name: name, course: 'Gratis en CAPACITA-T: «' + course + '» · ' + hours, tone: '#155C34', cta: 'Quiero este sello' }
+        : { name: name, course: 'Todavía sin curso gratis del MTPE', tone: '#5F6B7A', cta: 'Avísame cuando haya' };
+    };
+    var data = {
+      almacen: { name: 'Asistente de almacén', kind: 'almacen', color: '#1E7A46', demand: '78 avisos hoy en Lima', has: 7, miss: 3,
+        gaps: [c('Excel básico', 'Excel básico', '10 h'), c('Control de stock y kárdex', 'Logística 360°', '20 h'), c('Sistema de almacén')] },
+      recep: { name: 'Recepcionista', kind: 'administrativo', color: '#1C5FA8', demand: '3 avisos hoy en Lima', has: 6, miss: 4,
+        gaps: [c('Atención al cliente', 'Orientación al cliente – Fidelización', '4 h'), c('Agenda y citas'), c('Word', 'Word básico', '1 h'), c('Recepción de documentos')] },
+      admin: { name: 'Asistente administrativo', kind: 'administrativo', color: '#5B3E96', demand: '5 avisos hoy en Lima', has: 5, miss: 5,
+        gaps: [c('Excel básico', 'Excel básico', '10 h'), c('Word', 'Word básico', '1 h'), c('Archivo de documentos'), c('Redacción simple'), c('Sistemas administrativos')] }
+    };
+    var sel = this.state.sel;
+    var b = function (id) { var on = sel === id; return { bg: on ? '#EAF1FA' : '#FFFFFF', border: on ? '2px solid #1C5FA8' : '1px solid #A9B3C1' }; };
+    return {
+      st: data[sel] || data.almacen,
+      bAlmacen: b('almacen'), bRecep: b('recep'), bAdmin: b('admin'),
+      pickAlmacen: function () { self.setState({ sel: 'almacen' }); },
+      pickRecep: function () { self.setState({ sel: 'recep' }); },
+      pickAdmin: function () { self.setState({ sel: 'admin' }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

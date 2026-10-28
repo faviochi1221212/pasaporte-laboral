@@ -1,0 +1,67 @@
+{
+  "fuente": "Empleos Perú (MTPE), API pública del buscador de avisos",
+  "tomado": "2026-10-27T19:58-05:00",
+  "ambito": "Departamento de Lima (ubigeo 15)",
+  "total_avisos": 1705,
+  "avisos_lima": 600,
+  "metodo": "Se cuentan avisos de Lima cuyo título contiene alguna palabra clave del perfil. demanda = avisos del perfil / avisos del perfil con más avisos.",
+  "perfiles": {
+    "G2347002": {
+      "avisos": 8,
+      "demanda": 0.1,
+      "palabras_clave": [
+        "cajero",
+        "cajera"
+      ]
+    },
+    "H2452001": {
+      "avisos": 83,
+      "demanda": 1.0,
+      "palabras_clave": [
+        "almacén",
+        "reponedor",
+        "despacho"
+      ]
+    },
+    "M2981001": {
+      "avisos": 42,
+      "demanda": 0.51,
+      "palabras_clave": [
+        "limpieza"
+      ]
+    },
+    "I2555001": {
+      "avisos": 3,
+      "demanda": 0.04,
+      "palabras_clave": [
+        "recepción",
+        "recepcionista"
+      ]
+    },
+    "I2555002": {
+      "avisos": 0,
+      "demanda": 0.0,
+      "palabras_clave": [
+        "housekeeping",
+        "camarera",
+        "mucama",
+        "habitación"
+      ]
+    },
+    "I2556002": {
+      "avisos": 8,
+      "demanda": 0.1,
+      "palabras_clave": [
+        "mozo",
+        "mesero",
+        "mesera",
+        "azafata",
+        "salón"
+      ]
+    }
+  },
+  "notas": [
+    "Housekeeping: el único aviso encontrado es para cruceros en el extranjero, por eso cuenta 0 en Lima.",
+    "Recepción: los 3 avisos son de edificios u oficinas, no de hoteles; la pantalla los muestra como avisos parecidos."
+  ]
+}
