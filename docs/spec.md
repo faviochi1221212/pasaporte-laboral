@@ -58,7 +58,7 @@ En el CNPO no hay perfil de vendedor ni de auxiliar administrativo. Sin un docum
 
 Cambio en el mockup: los destinos de la ruta salen del cálculo entre estos 6 perfiles (para la cajera se espera Recepción de hotel, Mozo/a y Almacén). "Asistente administrativo" sale de la ruta mientras no haya documento oficial, y los "sellos que faltan" pasan a ser elementos del perfil destino, no cursos sueltos como Excel.
 
-**competencias.json** · una fila por elemento de competencia de los estándares de puestos operativos (se excluyen los de supervisor, jefe o administrador): 26 elementos en total. Campos: codigo (código oficial del estándar + número del elemento según el orden del PDF, por ejemplo G2347002-1.E3), perfil, texto_oficial (copia literal del PDF), criterios_clave (fragmentos literales de los criterios de desempeño, para que el modelo reconozca la tarea), texto_simple y sello (ícono y etiqueta de 2 a 3 palabras). texto_simple y sello los escribe el equipo y los revisa una persona. Un script comprueba que texto_oficial y criterios_clave aparezcan tal cual en el PDF; Recepción de Hotel es un PDF escaneado y se transcribió a mano.
+**competencias.json** · una fila por elemento de competencia de los estándares de puestos operativos (se excluyen los de supervisor, jefe o administrador): 26 elementos en total. Campos: codigo (código oficial del estándar + número del elemento según el orden del PDF, por ejemplo G2347002-1.E3), perfil, texto_oficial (copia literal del PDF), criterios_clave (fragmentos literales de los criterios de desempeño, para que el modelo reconozca la tarea), texto_simple y sello (ícono y etiqueta de 2 a 4 palabras). Íconos válidos: caja, cobro, mercaderia, limpieza, revision, maleta, atencion, registro, habitacion, mesa; las etiquetas repetidas usan el mismo ícono. texto_simple y sello los escribe el equipo y los revisa una persona. Un script comprueba que texto_oficial y criterios_clave aparezcan tal cual en el PDF; Recepción de Hotel es un PDF escaneado y se transcribió a mano.
 
 **cursos.json** · cursos de CAPACITA-T revisados el 27 oct 2026: nombre, horas, certificador, url y los códigos de competencia que cubre (lo decide el equipo). Lista final en la sección 6b: Logística 360° (20 h) y Orientación al cliente – Fidelización (4 h).
 
@@ -133,7 +133,7 @@ Cómo se explica cada destino (el corazón del reto: que la persona diga "ahora 
 
 1. "Lo que ya haces y aquí también sirve": cada sello compartido con la frase de la persona que lo respalda.
 2. "Qué harías ahí": las 3 tareas del perfil destino.
-3. "Lo que te falta": los elementos del destino que no tiene, cada uno con su curso de CAPACITA-T o "Todavía sin curso gratis del MTPE".
+3. "Lo que te falta": los elementos del destino que no tiene, cada uno con su curso de CAPACITA-T o "No encontramos un curso gratuito del MTPE que cubra esto".
 4. "Avisos hoy en Lima": el número de avisos y el acceso a los 3 más cercanos.
 
 ## 6b. Los 5 casos que ve el jurado, definidos
@@ -157,7 +157,7 @@ Demanda = avisos del perfil / avisos del perfil con más avisos. La foto se toma
 
 **4. Cómo se calcula "lo que te falta".** Faltan = elementos del perfil destino cuyo código no está entre los sellos confirmados de la persona. Si no falta ninguno, la tarjeta dice "Ya haces todo lo que pide este trabajo".
 
-**5. Qué pasa si no hay curso.** Cada faltante busca en cursos.json un curso que lo cubra; si hay varios, el de menos horas. Con las horas libres de la pregunta 6 (1-2 h → 1,5 h; 3-5 h → 4 h; más de 5 h → 6 h por semana) se muestra "unas N semanas con tu tiempo" (horas del curso / horas por semana, redondeado hacia arriba). Si no hay curso, dice "Todavía sin curso gratis del MTPE" y ese faltante se cuenta en el log, para el dato de "cursos que faltan" del pitch. Si un destino no tiene avisos, dice "Hoy no hay avisos en Lima para esto".
+**5. Qué pasa si no hay curso.** Cada faltante busca en cursos.json un curso que lo cubra; si hay varios, el de menos horas. Con las horas libres de la pregunta 6 (1-2 h → 1,5 h; 3-5 h → 4 h; más de 5 h → 6 h por semana) se muestra "unas N semanas con tu tiempo" (horas del curso / horas por semana, redondeado hacia arriba). Si no hay curso, dice "No encontramos un curso gratuito del MTPE que cubra esto" y ese faltante se cuenta en el log, para el dato de "cursos que faltan" del pitch. Si un destino no tiene avisos, dice "Hoy no hay avisos en Lima para esto".
 
 Qué curso cubre qué, revisado contra el temario publicado de cada curso el 27 oct. Solo se enlaza un curso a una tarea si un módulo del temario la enseña; si no, la tarea queda sin curso:
 
@@ -174,20 +174,20 @@ Las otras 22 tareas no tienen curso en CAPACITA-T: dicen "No encontramos un curs
 
 Etiquetas de los sellos (revisadas: acción que se puede ver, sin palabras del catálogo, comprensibles sin conocer el perfil). Cuando dos elementos de perfiles distintos describen la misma acción, comparten etiqueta y el pasaporte los junta con "sirve en 2 trabajos":
 
-| Etiqueta | Elementos |
-|---|---|
-| Abre la caja · Cobra y da vuelto | G2347002-1.E1 · E2 |
-| Cuadra la caja | G2347002-1.E3 y I2555001-2.E4 (sirve en 2 trabajos) |
-| Recibe mercadería · Ordena mercadería · Despacha pedidos | H2452001-1.E1 · E2 · E3 |
-| Organiza la limpieza | M2981001-1.E1 y I2555002-1.E1 (sirve en 2 trabajos) |
-| Limpia áreas | M2981001-1.E2 y I2555002-1.E2 (sirve en 2 trabajos) |
-| Revisa y reporta daños | M2981001-1.E3 |
-| Recibe huéspedes · Entrega encargos · Da información | I2555001-1.E1 · E2 · E3 |
-| Atiende reclamos · Registra llegadas · Cierra cuentas | I2555001-2.E1 · E2 · E3 |
-| Planifica habitaciones · Deja lista la habitación | I2555002-2.E1 · E2 |
-| Trata bien al cliente · Atiende pedidos del cliente | I2555002-3.E1 · E2 |
-| Prepara platos y cubiertos · Arma mesas | I2556002-1.E1 · E2 |
-| Toma pedidos · Sirve y cobra | I2556002-2.E1 · E2 |
+| Etiqueta | Elementos | Ícono |
+|---|---|---|
+| Abre la caja · Cobra y da vuelto | G2347002-1.E1 · E2 | caja · cobro |
+| Cuadra la caja | G2347002-1.E3 y I2555001-2.E4 (sirve en 2 trabajos) | caja |
+| Recibe mercadería · Ordena mercadería · Despacha pedidos | H2452001-1.E1 · E2 · E3 | mercaderia |
+| Organiza la limpieza | M2981001-1.E1 y I2555002-1.E1 (sirve en 2 trabajos) | limpieza |
+| Limpia áreas | M2981001-1.E2 y I2555002-1.E2 (sirve en 2 trabajos) | limpieza |
+| Ordena y revisa espacios | M2981001-1.E3 | revision |
+| Recibe huéspedes · Entrega encargos · Da información | I2555001-1.E1 · E2 · E3 | maleta · mercaderia · atencion |
+| Atiende reclamos · Registra llegadas · Cierra cuentas | I2555001-2.E1 · E2 · E3 | atencion · registro · cobro |
+| Planifica habitaciones · Deja lista la habitación | I2555002-2.E1 · E2 | habitacion |
+| Trata bien al cliente · Atiende pedidos | I2555002-3.E1 · E2 | atencion |
+| Prepara platos y cubiertos · Arma mesas | I2556002-1.E1 · E2 | mesa |
+| Toma pedidos · Sirve y cobra | I2556002-2.E1 · E2 | registro · cobro |
 
 ## 7. Real y simulado en la demo
 
@@ -219,7 +219,7 @@ El MVP está listo cuando pasa todo esto, no cuando "parece funcionar".
 | A4 | Respuesta vaga ("de todo un poco") | Hay una repregunta y nunca una segunda |
 | A5 | Evidencia inventada (prueba con salida falsa) | El sello se descarta |
 | A6 | Afinidad | Con datos fijos de prueba, el orden y los puntajes coinciden con el cálculo a mano |
-| A7 | Destino sin curso | Muestra "Todavía sin curso gratis del MTPE" |
+| A7 | Destino sin curso | Muestra "No encontramos un curso gratuito del MTPE que cubra esto" |
 | A8 | QVAC apagado | Con QVAC_MODO=respaldo el recorrido completo funciona |
 | A9 | Tiempos | Cada respuesta del modelo en menos de 8 s (hoy mide 2 a 4 s) |
 | A10 | Celular | Todo el recorrido se hace en 360 px de ancho y solo tocando |

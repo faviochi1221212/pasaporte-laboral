@@ -95,7 +95,7 @@ class Component extends DCLogic {
     var c = function (name, course, hours) {
       return course
         ? { name: name, course: 'Gratis en CAPACITA-T: «' + course + '» · ' + hours, tone: '#155C34', cta: 'Quiero este sello' }
-        : { name: name, course: 'Todavía sin curso gratis del MTPE', tone: '#5F6B7A', cta: 'Avísame cuando haya' };
+        : { name: name, course: 'No encontramos un curso gratuito del MTPE que cubra esto', tone: '#5F6B7A', cta: 'Avísame cuando haya' };
     };
     var data = {
       almacen: { name: 'Asistente de almacén', kind: 'almacen', color: '#1E7A46', demand: '78 avisos hoy en Lima', has: 7, miss: 3,

@@ -22,7 +22,7 @@ Hecho cuando: `uvicorn app.main:app` levanta, `pytest -q` pasa y `git grep` no e
 - [x] `demanda.json`: foto de Empleos Perú del 27 oct 2026, 19:58, con palabras clave y conteo por perfil
 - [x] `avisos.json`: hasta 3 avisos reales por perfil con `que_piden` copiado del aviso
 - [x] `scripts/validar_datos.py` pasa
-- [ ] Revisión humana del equipo: etiquetas de los sellos, `texto_simple`, `que_harias` y tabla de cursos
+- [x] Revisión humana del equipo: etiquetas de los sellos, `texto_simple`, `que_harias` y tabla de cursos
 - [ ] Actualizar la foto de avisos y demanda el 29 o 30 de octubre (los avisos de recepción cierran el 30 y 31)
 
 Hecho cuando: `python scripts/validar_datos.py` dice OK y el equipo aprobó las etiquetas.

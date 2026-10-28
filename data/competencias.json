@@ -26,7 +26,7 @@
       "entrega el vuelto",
       "Absuelve y/o deriva las inquietudes o reclamos expresadas por el cliente"
     ],
-    "texto_simple": "Cobrar con efectivo, tarjeta o billetera digital y atender dudas o reclamos",
+    "texto_simple": "Cobrar en efectivo, con tarjeta o con Yape y entregar lo comprado",
     "sello": {
       "icono": "cobro",
       "etiqueta": "Cobra y da vuelto"
@@ -62,7 +62,7 @@
     ],
     "texto_simple": "Recibir la mercadería que llega y revisar que esté completa y en buen estado",
     "sello": {
-      "icono": "inventario",
+      "icono": "mercaderia",
       "etiqueta": "Recibe mercadería"
     },
     "fuente": "PDF del perfil ocupacional H2452001",
@@ -79,7 +79,7 @@
     ],
     "texto_simple": "Ordenar y guardar la mercadería en su lugar",
     "sello": {
-      "icono": "inventario",
+      "icono": "mercaderia",
       "etiqueta": "Ordena mercadería"
     },
     "fuente": "PDF del perfil ocupacional H2452001",
@@ -96,7 +96,7 @@
     ],
     "texto_simple": "Preparar y entregar los pedidos que salen",
     "sello": {
-      "icono": "inventario",
+      "icono": "mercaderia",
       "etiqueta": "Despacha pedidos"
     },
     "fuente": "PDF del perfil ocupacional H2452001",
@@ -113,7 +113,7 @@
     ],
     "texto_simple": "Organizar el trabajo de limpieza y preparar los materiales",
     "sello": {
-      "icono": "grupo",
+      "icono": "limpieza",
       "etiqueta": "Organiza la limpieza"
     },
     "fuente": "PDF del perfil ocupacional M2981001",
@@ -131,7 +131,7 @@
     ],
     "texto_simple": "Limpiar las áreas y botar los desperdicios",
     "sello": {
-      "icono": "grupo",
+      "icono": "limpieza",
       "etiqueta": "Limpia áreas"
     },
     "fuente": "PDF del perfil ocupacional M2981001",
@@ -148,8 +148,8 @@
     ],
     "texto_simple": "Ordenar los espacios y avisar si algo está malogrado",
     "sello": {
-      "icono": "inventario",
-      "etiqueta": "Revisa y reporta daños"
+      "icono": "revision",
+      "etiqueta": "Ordena y revisa espacios"
     },
     "fuente": "PDF del perfil ocupacional M2981001",
     "tomado": "2026-10-27"
@@ -165,7 +165,7 @@
     ],
     "texto_simple": "Recibir al huésped y llevar su equipaje",
     "sello": {
-      "icono": "ensenar",
+      "icono": "maleta",
       "etiqueta": "Recibe huéspedes"
     },
     "fuente": "PDF del perfil ocupacional I2555001",
@@ -182,7 +182,7 @@
     ],
     "texto_simple": "Recibir y entregar encargos y mensajes",
     "sello": {
-      "icono": "inventario",
+      "icono": "mercaderia",
       "etiqueta": "Entrega encargos"
     },
     "fuente": "PDF del perfil ocupacional I2555001",
@@ -199,7 +199,7 @@
     ],
     "texto_simple": "Dar información y orientar a las personas",
     "sello": {
-      "icono": "reclamo",
+      "icono": "atencion",
       "etiqueta": "Da información"
     },
     "fuente": "PDF del perfil ocupacional I2555001",
@@ -216,7 +216,7 @@
     ],
     "texto_simple": "Atender pedidos y quejas de los clientes",
     "sello": {
-      "icono": "reclamo",
+      "icono": "atencion",
       "etiqueta": "Atiende reclamos"
     },
     "fuente": "PDF del perfil ocupacional I2555001",
@@ -233,7 +233,7 @@
     ],
     "texto_simple": "Registrar la llegada de los huéspedes",
     "sello": {
-      "icono": "sistema",
+      "icono": "registro",
       "etiqueta": "Registra llegadas"
     },
     "fuente": "PDF del perfil ocupacional I2555001",
@@ -284,7 +284,7 @@
     ],
     "texto_simple": "Organizar el trabajo de limpieza y preparar los productos",
     "sello": {
-      "icono": "grupo",
+      "icono": "limpieza",
       "etiqueta": "Organiza la limpieza"
     },
     "fuente": "PDF del perfil ocupacional I2555002",
@@ -301,7 +301,7 @@
     ],
     "texto_simple": "Limpiar superficies, muebles y pisos con la técnica correcta",
     "sello": {
-      "icono": "grupo",
+      "icono": "limpieza",
       "etiqueta": "Limpia áreas"
     },
     "fuente": "PDF del perfil ocupacional I2555002",
@@ -315,7 +315,7 @@
     "criterios_clave": [],
     "texto_simple": "Planificar cómo dejar lista una habitación",
     "sello": {
-      "icono": "inventario",
+      "icono": "habitacion",
       "etiqueta": "Planifica habitaciones"
     },
     "fuente": "PDF del perfil ocupacional I2555002",
@@ -329,7 +329,7 @@
     "criterios_clave": [],
     "texto_simple": "Dejar la habitación limpia y lista para el huésped",
     "sello": {
-      "icono": "inventario",
+      "icono": "habitacion",
       "etiqueta": "Deja lista la habitación"
     },
     "fuente": "PDF del perfil ocupacional I2555002",
@@ -343,7 +343,7 @@
     "criterios_clave": [],
     "texto_simple": "Tratar bien al cliente según las reglas del lugar",
     "sello": {
-      "icono": "reclamo",
+      "icono": "atencion",
       "etiqueta": "Trata bien al cliente"
     },
     "fuente": "PDF del perfil ocupacional I2555002",
@@ -357,8 +357,8 @@
     "criterios_clave": [],
     "texto_simple": "Atender lo que pide el cliente",
     "sello": {
-      "icono": "reclamo",
-      "etiqueta": "Atiende pedidos del cliente"
+      "icono": "atencion",
+      "etiqueta": "Atiende pedidos"
     },
     "fuente": "PDF del perfil ocupacional I2555002",
     "tomado": "2026-10-27"
@@ -374,7 +374,7 @@
     ],
     "texto_simple": "Preparar platos, vasos y cubiertos para el servicio",
     "sello": {
-      "icono": "inventario",
+      "icono": "mesa",
       "etiqueta": "Prepara platos y cubiertos"
     },
     "fuente": "PDF del perfil ocupacional I2556002",
@@ -391,7 +391,7 @@
     ],
     "texto_simple": "Armar y desarmar mesas para el servicio o un evento",
     "sello": {
-      "icono": "grupo",
+      "icono": "mesa",
       "etiqueta": "Arma mesas"
     },
     "fuente": "PDF del perfil ocupacional I2556002",
@@ -409,7 +409,7 @@
     ],
     "texto_simple": "Recibir al cliente, explicarle lo que hay y tomar su pedido",
     "sello": {
-      "icono": "reclamo",
+      "icono": "registro",
       "etiqueta": "Toma pedidos"
     },
     "fuente": "PDF del perfil ocupacional I2556002",
