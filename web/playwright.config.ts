@@ -12,7 +12,7 @@ export default defineConfig({
   workers: 1,
   use: { baseURL: "http://127.0.0.1:8020" },
   projects: [
-    { name: "360", use: { viewport: { width: 360, height: 780 }, hasTouch: true } },
+    { name: "360", use: { viewport: { width: 360, height: 780 }, hasTouch: true, isMobile: true } },
     { name: "1280", use: { viewport: { width: 1280, height: 860 } } },
   ],
   webServer: {

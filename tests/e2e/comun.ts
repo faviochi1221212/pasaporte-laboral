@@ -1,15 +1,15 @@
 // Las pruebas viven fuera de web/ (CLAUDE.md): @playwright/test se importa desde web/node_modules.
-import { expect, type Page, type TestInfo } from "../../web/node_modules/@playwright/test";
+import { expect, type Locator, type Page, test } from "../../web/node_modules/@playwright/test";
 import maria from "../relatos/maria_cajera.json";
 
 export const RELATO_MARIA = maria;
 
 // Igual que tests/casos_api.py, para que los mensajes calcen con los fixtures grabados.
 export const RESPUESTA_A_REPREGUNTA_SIN_RELATO = "Preparo el almuerzo del domingo.";
-export const SELLO_A_QUITAR = "H2452001-1.E2";
 
 const RAICES = ["certific", "competen", "brecha", "no sirves"];
 const FRASE_CV = /competencias declaradas/gi;
+const TOCABLES = "button, a.boton, a.volver, a.estacion, input, textarea";
 
 /** Igual que calculo.normalizar: minúsculas, sin tildes, sin signos ni espacios dobles. */
 function normalizar(texto: string): string {
@@ -23,6 +23,12 @@ function normalizar(texto: string): string {
     .join(" ");
 }
 
+/** A10: en celular (360) todo se hace tocando; en computadora (1280), con clic. */
+export async function tocar(elemento: Locator): Promise<void> {
+  if (test.info().project.name === "360") await elemento.tap();
+  else await elemento.click();
+}
+
 /** Regla 5: ninguna palabra prohibida en pantalla; "competencias declaradas" solo vale en /cv. */
 export async function sinPalabrasProhibidas(pagina: Page): Promise<void> {
   let texto = await pagina.locator("body").innerText();
@@ -31,21 +37,46 @@ export async function sinPalabrasProhibidas(pagina: Page): Promise<void> {
   for (const raiz of RAICES) expect(normal, `"${raiz}" en ${pagina.url()}`).not.toContain(` ${raiz}`);
 }
 
-/** Captura de página completa en tests/e2e/capturas/, con el ancho en el nombre. */
-export async function capturar(pagina: Page, info: TestInfo, nombre: string): Promise<void> {
+/** HU-14: sin scroll horizontal y todo lo que se toca mide al menos 48 px de alto. */
+async function usableEnCelular(pagina: Page): Promise<void> {
+  const sobra = await pagina.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+  expect(sobra, `scroll horizontal en ${pagina.url()}`).toBeLessThanOrEqual(0);
+  const bajos = await pagina.locator(TOCABLES).evaluateAll((elementos) =>
+    elementos
+      .filter((e) => (e as HTMLElement).offsetParent !== null && e.getBoundingClientRect().height < 47.5)
+      .map((e) => `${e.tagName} "${(e.textContent ?? "").trim().slice(0, 30)}" ${Math.round(e.getBoundingClientRect().height)} px`),
+  );
+  expect(bajos, `menos de 48 px en ${pagina.url()}`).toEqual([]);
+}
+
+/** A11: en computadora, las pantallas con columnas muestran 2. */
+async function dosColumnasEnComputadora(pagina: Page): Promise<void> {
+  if (test.info().project.name !== "1280") return;
+  for (const columnas of await pagina.locator(".columnas").all()) {
+    const pistas = await columnas.evaluate((e) => getComputedStyle(e).gridTemplateColumns.split(" ").length);
+    expect(pistas, `columnas en ${pagina.url()}`).toBe(2);
+  }
+}
+
+/** Revisa la pantalla (regla 5, A10, A11) y guarda una captura completa en tests/e2e/capturas/. */
+export async function capturar(pagina: Page, nombre: string): Promise<void> {
   await sinPalabrasProhibidas(pagina);
-  await pagina.screenshot({ path: `../tests/e2e/capturas/${nombre}-${info.project.name}.png`, fullPage: true });
+  await usableEnCelular(pagina);
+  await dosColumnasEnComputadora(pagina);
+  await guardarCaptura(pagina, nombre);
 }
 
-/** Sin scroll horizontal (HU-14). */
-export async function sinScrollHorizontal(pagina: Page): Promise<void> {
-  const ancho = await pagina.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
-  expect(ancho).toBeLessThanOrEqual(0);
+export async function guardarCaptura(pagina: Page, nombre: string): Promise<void> {
+  const proyecto = test.info().project.name;
+  await pagina.screenshot({ path: `../tests/e2e/capturas/${nombre}-${proyecto}.png`, fullPage: true });
 }
 
-/** Inicio → Caja → responde las 6 preguntas de María como tests/casos_api.py, hasta el pasaporte. */
-export async function conversarComoMaria(pagina: Page, info?: TestInfo): Promise<void> {
-  if (info) {
+/**
+ * Inicio → Caja → las 6 preguntas de María como tests/casos_api.py, hasta el pasaporte.
+ * Con `capturas`, guarda la conversación y la espera.
+ */
+export async function conversarComoMaria(pagina: Page, capturas = false): Promise<void> {
+  if (capturas) {
     // Demora el pasaporte para alcanzar a capturar la pantalla de Espera.
     await pagina.route("**/pasaporte", async (ruta) => {
       await new Promise((listo) => setTimeout(listo, 1500));
@@ -53,32 +84,52 @@ export async function conversarComoMaria(pagina: Page, info?: TestInfo): Promise
     });
   }
   await pagina.goto("/");
-  await pagina.getByRole("button", { name: "Caja" }).click();
+  await tocar(pagina.getByRole("button", { name: "Caja" }));
   for (const respuesta of maria.respuestas) {
     await responder(pagina, respuesta.texto);
-    const repregunta = await esperarTurno(pagina, respuesta.n);
-    if (repregunta) await responder(pagina, ("repregunta" in respuesta && respuesta.repregunta) || RESPUESTA_A_REPREGUNTA_SIN_RELATO);
-    if (respuesta.n === 3 && info) await capturar(pagina, info, "02-conversacion");
+    if (await esRepregunta(pagina, respuesta.n)) {
+      await responder(pagina, ("repregunta" in respuesta && respuesta.repregunta) || RESPUESTA_A_REPREGUNTA_SIN_RELATO);
+    }
+    if (respuesta.n === 3 && capturas) await capturar(pagina, "02-conversacion");
   }
-  if (info) {
+  if (capturas) {
     await expect(pagina.getByText("Armando tu pasaporte…")).toBeVisible({ timeout: 15_000 });
-    await capturar(pagina, info, "03-espera");
+    await capturar(pagina, "03-espera");
   }
   await expect(pagina).toHaveURL(/\/pasaporte$/, { timeout: 30_000 });
 }
 
-async function responder(pagina: Page, texto: string): Promise<void> {
+/** Como A8: quita el primer sello del pasaporte y lo deshace, para que la ruta use el pasaporte completo. */
+export async function quitarYDeshacerElPrimerSello(pagina: Page): Promise<void> {
+  const primero = pagina.locator(".libreta-sello").first();
+  const nombre = (await primero.getAttribute("aria-label")) ?? "";
+  await tocar(primero);
+  await tocar(pagina.getByRole("button", { name: "Quitar este sello" }));
+  await expect(pagina.getByRole("button", { name: nombre, exact: true })).toHaveCount(0);
+  await tocar(pagina.getByRole("button", { name: /^Deshacer/ }).first());
+  await expect(pagina.getByRole("button", { name: nombre, exact: true })).toBeVisible();
+}
+
+/** Recorrido de A8 hasta la ruta: conversa, quita y deshace un sello y elige "Con gente". */
+export async function hastaLaRuta(pagina: Page): Promise<void> {
+  await conversarComoMaria(pagina);
+  await quitarYDeshacerElPrimerSello(pagina);
+  await tocar(pagina.getByRole("link", { name: "Ver a dónde te lleva" }));
+  await tocar(pagina.getByRole("button", { name: /Con gente/ }));
+  await expect(pagina.getByRole("heading", { name: "Tu ruta" })).toBeVisible();
+}
+
+export async function responder(pagina: Page, texto: string): Promise<void> {
   const campo = pagina.getByLabel("Tu respuesta");
   await expect(campo).toBeEnabled({ timeout: 15_000 });
   await campo.fill(texto);
-  await pagina.getByRole("button", { name: "Enviar" }).click();
+  await tocar(pagina.getByRole("button", { name: "Enviar" }));
   await expect(campo).toBeDisabled();
 }
 
-/** Espera a que el asistente termine de hablar; devuelve true si lo último fue una repregunta. */
-async function esperarTurno(pagina: Page, n: number): Promise<boolean> {
+/** Espera a que el asistente termine de hablar; true si lo último fue una repregunta (sigue la misma n). */
+async function esRepregunta(pagina: Page, n: number): Promise<boolean> {
   if (n === 6) return false;
-  const campo = pagina.getByLabel("Tu respuesta");
-  await expect(campo).toBeEnabled({ timeout: 15_000 });
+  await expect(pagina.getByLabel("Tu respuesta")).toBeEnabled({ timeout: 15_000 });
   return (await pagina.locator("[data-pregunta-abierta]").getAttribute("data-pregunta-abierta")) === `${n}`;
 }

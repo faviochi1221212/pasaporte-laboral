@@ -243,6 +243,27 @@ def test_hu04_fortalezas_se_validan_contra_todas_las_respuestas(modelo: Any) -> 
     assert [f["texto"] for f in fortalezas] == ["Enseña a compañeras nuevas", "Organiza partidos"]
 
 
+def test_hu04_una_sola_fortaleza_por_respuesta_contando_su_repregunta(modelo: Any) -> None:
+    # "organizo los partidos…" es la respuesta 4 y "Armo los equipos…" su repregunta: cuentan como una.
+    modelo(
+        {
+            "competencias": [],
+            "fortalezas": [
+                {"texto": "Organiza partidos de fulbito", "evidencia": "organizo los partidos de fulbito de mi barrio"},
+                {"texto": "Arma equipos y cobra la cuota", "evidencia": "Armo los equipos, reservo la cancha"},
+                {"texto": "Enseña a compañeras nuevas", "evidencia": "A las chicas nuevas les enseño a usar la caja"},
+                {"texto": "Cocina para su familia", "evidencia": "Me gusta cocinar para mi familia"},
+            ],
+        }
+    )
+    fortalezas = ia.extraer_perfil(MARIA, datos.COMPETENCIAS)["fortalezas"]
+    assert [f["texto"] for f in fortalezas] == [
+        "Organiza partidos de fulbito",
+        "Enseña a compañeras nuevas",
+        "Cocina para su familia",
+    ]
+
+
 def test_m4_extraer_perfil_envia_las_respuestas_1_a_5(modelo: Any) -> None:
     falso = modelo({"competencias": [], "fortalezas": []})
     ia.extraer_perfil(MARIA, datos.COMPETENCIAS)

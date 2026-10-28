@@ -238,16 +238,28 @@ def extraer_perfil(respuestas: Datos, competencias: Datos) -> dict[str, Datos]:
         raise ErrorExtraccion(config.TEXTO_ERROR_EXTRACCION)
     sellos = calculo.otorgar_sellos(args["competencias"], _textos(respuestas, 3), competencias, set())
     de_sellos = {calculo.normalizar(s["evidencia"]) for s in sellos}
-    todas = _textos(respuestas, 5)
     fortalezas = []
+    usadas: set[int] = set()
     for f in args["fortalezas"]:
-        if not calculo.evidencia_valida(f["evidencia"], todas):
+        n = _respuesta_de(f["evidencia"], respuestas)
+        if n is None:
             logger.info("fortaleza descartada: evidencia no textual")
         elif calculo.normalizar(f["evidencia"]) in de_sellos:
             logger.info("fortaleza descartada: misma frase que un sello")
+        elif n in usadas:
+            logger.info("fortaleza descartada: ya hay una de la respuesta %d", n)
         else:
+            usadas.add(n)
             fortalezas.append({"texto": f["texto"], "evidencia": f["evidencia"]})
     return {"sellos": sellos, "fortalezas": fortalezas}
+
+
+def _respuesta_de(evidencia: str, respuestas: Datos) -> int | None:
+    """Número de la respuesta 1 a 5 (con su repregunta) donde está la frase tal cual; None si no está."""
+    for r in respuestas:
+        if r["n"] <= 5 and calculo.evidencia_valida(evidencia, _textos([r], 5)):
+            return int(r["n"])
+    return None
 
 
 def extraer_parcial(respuestas: Datos, competencias: Datos) -> dict[str, Any] | None:

@@ -79,15 +79,17 @@ Hecho cuando: el recorrido de María funciona desde `/docs` y desde la prueba, e
 
 ## M6 · Pantallas: `web/` React + TypeScript (mockup v3) — HU-01 a HU-10, HU-14
 
-- [ ] Proyecto Vite + React + TS estricto; FastAPI sirve el build en `/`
-- [ ] Estilos: variables CSS con los colores del mockup (`docs/mockup/LEEME.md`), Roboto, 1 columna hasta 1023 px y 2 desde 1024 px
-- [ ] Componentes reutilizables: `Sello`, `Trabajador`, `Pasaporte`, `BarraProgreso`, `Boton`
-- [ ] Pantallas: Inicio, Conversación en formato chat (spec 5b: burbujas, "escribiendo…", texto de a poco, reacciones, contador de sellos, dictado), Espera, Pasaporte, Intereses, Ruta, Destino, Avisos, CV
-- [ ] Banda "Prototipo · no es un sitio oficial" y marca de "modo sin conexión"
-- [ ] Textos sin "competencia", "brecha" ni "certificado" (salvo "competencias declaradas" en el CV)
-- [ ] Pruebas Playwright e2e-01 a e2e-07 en 360 y 1280 px con capturas
+- [x] Proyecto Vite + React + TS estricto; FastAPI sirve el build en `/`
+- [x] Estilos: variables CSS con los colores del mockup (`docs/mockup/LEEME.md`), Roboto, 1 columna hasta 1023 px y 2 desde 1024 px
+- [x] Componentes reutilizables: `Sello`, `Trabajador`, `Pasaporte`, `BarraProgreso`, `Boton` (quedó como la clase CSS `.boton`)
+- [x] Pantallas: Inicio, Conversación en formato chat (spec 5b: burbujas, "escribiendo…", texto de a poco, reacciones, contador de sellos, dictado), Espera, Pasaporte, Intereses, Ruta, Destino, Avisos, CV
+- [x] Banda "Prototipo · no es un sitio oficial" y marca de "modo sin conexión"
+- [x] Textos sin "competencia", "brecha" ni "certificado" (salvo "competencias declaradas" en el CV)
+- [x] Pruebas Playwright e2e-01 a e2e-07 en 360 y 1280 px con capturas
 
 Hecho cuando: A10 y A11 pasan y las capturas se revisaron a ojo en los dos tamaños.
+
+28 oct 2026: 20 e2e pasan en 360 (tocando) y 1280 px; cada captura revisa sin scroll horizontal, botones de 48 px, 2 columnas en 1280 y la regla 5. Falta la revisión a ojo del equipo de `tests/e2e/capturas/`.
 
 ## M7 · Demo y pitch
 

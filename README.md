@@ -46,6 +46,15 @@ Persona ──6 preguntas──▶ Backend (FastAPI) ──tool calls──▶ Q
 4. Abre `.env` y pega tu token de QVAC en `QVAC_TOKEN=`. **Nunca subas `.env`.**
 5. Comprueba los datos: `python scripts/validar_datos.py`
 6. Prueba QVAC (con el hotspot del celular, la red de la ULima bloquea ngrok): `python scripts/probar_qvac2.py`
+7. Pantallas (M6): arma el build y FastAPI lo sirve en http://127.0.0.1:8000
+   ```powershell
+   cd web; npm install; npm run build; cd ..
+   uvicorn app.main:app
+   ```
+8. Pruebas de pantalla (Playwright, en 360 y 1280 px, contra el backend en modo respaldo; las capturas quedan en `tests/e2e/capturas/`):
+   ```powershell
+   cd web; npx playwright install chromium; npm run build; npm run e2e
+   ```
 
 ## Subir a GitHub (primera vez)
 

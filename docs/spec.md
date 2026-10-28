@@ -95,6 +95,7 @@ Reglas de la conversación, en código y no en el modelo:
 - En las preguntas 4 y 5 la repregunta es siempre "¿Y qué haces tú ahí?", si revisar_respuesta dice que mencionó una actividad.
 - La reacción se valida en código: máximo 12 palabras y sin palabras prohibidas: ninguna palabra que empiece con "certific" o "competen" (certificado, certificada, certificación, competente, competencia…), ni "brecha" ni "no sirves", comparando sin mayúsculas ni tildes. Si no pasa, se usa la reacción fija. A la pregunta 6 se responde siempre con el texto fijo de cierre.
 - Los sellos parciales solo sirven para el contador del chat; el pasaporte usa siempre la extracción completa.
+- Una sola fortaleza por respuesta: si dos fortalezas tienen su evidencia en la misma respuesta (la respuesta y su repregunta cuentan como una), se queda solo la primera.
 
 ### 5b. Experiencia de conversación
 

@@ -478,7 +478,7 @@ p {
 }
 
 .ejemplo {
-  min-height: 44px;
+  min-height: 48px;
   padding: 8px 16px;
   border: 2px solid var(--azul);
   border-radius: 22px;
