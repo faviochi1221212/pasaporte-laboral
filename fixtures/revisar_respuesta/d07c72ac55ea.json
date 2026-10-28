@@ -13,13 +13,13 @@
               "name": "revisar_respuesta",
               "arguments": "{\"reaccion\":\"Qué bonito que cocines para tu familia.\",\"suficiente\":true,\"menciona_actividad\":true,\"repregunta\":\"\"}"
             },
-            "id": "ki2fXWfJBmVGiLPgd3imEQ0OSvlD68qQ"
+            "id": "hoBFH0dmwZ19btPIM0VBkPfU384L8gee"
           }
         ]
       }
     }
   ],
-  "created": 1793191828,
+  "created": 1793197315,
   "model": "qwen-38-27b",
   "system_fingerprint": "b9242-17810f33a",
   "object": "chat.completion",
@@ -31,18 +31,18 @@
       "cached_tokens": 488
     }
   },
-  "id": "chatcmpl-oTvTlbk89hCP8kYV3l2zehzYGnSWpDbN",
+  "id": "chatcmpl-WQ72mjIxll15ta8oFYgCAC6fAobeFx1j",
   "timings": {
     "cache_n": 488,
     "prompt_n": 37,
-    "prompt_ms": 108.633,
-    "prompt_per_token_ms": 2.936027027027027,
-    "prompt_per_second": 340.59631971868583,
+    "prompt_ms": 116.551,
+    "prompt_per_token_ms": 3.150027027027027,
+    "prompt_per_second": 317.45759367143995,
     "predicted_n": 76,
-    "predicted_ms": 450.292,
-    "predicted_per_token_ms": 6.003893333333333,
-    "predicted_per_second": 166.55858864914322,
-    "draft_n": 80,
-    "draft_n_accepted": 59
+    "predicted_ms": 429.271,
+    "predicted_per_token_ms": 5.723613333333334,
+    "predicted_per_second": 174.71480719638643,
+    "draft_n": 75,
+    "draft_n_accepted": 60
   }
 }

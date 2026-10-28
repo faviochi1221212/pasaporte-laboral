@@ -1,0 +1,48 @@
+{
+  "choices": [
+    {
+      "finish_reason": "tool_calls",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+          {
+            "type": "function",
+            "function": {
+              "name": "redactar_resumen",
+              "arguments": "{\"resumen\":\"Cajera con 6 años de experiencia en supermercado, responsable de abrir y cuadrar la caja, cobrar en efectivo, tarjeta o Yape y entregar lo comprado. También ordena la mercadería y recibe al cliente para explicarle lo disponible y tomar su pedido.\",\"anios\":\"6 años\"}"
+            },
+            "id": "byQZ3k1fKpVrzoffw78JXVajWA8fChk0"
+          }
+        ]
+      }
+    }
+  ],
+  "created": 1793197323,
+  "model": "qwen-38-27b",
+  "system_fingerprint": "b9242-17810f33a",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 99,
+    "prompt_tokens": 549,
+    "total_tokens": 648,
+    "prompt_tokens_details": {
+      "cached_tokens": 412
+    }
+  },
+  "id": "chatcmpl-K6T8HKuU65CHqwcSX8iDQ4Q7KVlDF5Tn",
+  "timings": {
+    "cache_n": 412,
+    "prompt_n": 137,
+    "prompt_ms": 158.14,
+    "prompt_per_token_ms": 1.1543065693430656,
+    "prompt_per_second": 866.3209814088783,
+    "predicted_n": 99,
+    "predicted_ms": 684.037,
+    "predicted_per_token_ms": 6.979969387755102,
+    "predicted_per_second": 143.26710397244594,
+    "draft_n": 120,
+    "draft_n_accepted": 74
+  }
+}

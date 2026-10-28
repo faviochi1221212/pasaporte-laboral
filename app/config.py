@@ -43,6 +43,9 @@ QVAC_MAX_TOKENS = 2000
 # Base de datos local (spec 9b): sin datos personales.
 DB_RUTA = RAIZ / "pasaporte.db"
 
+# Build de las pantallas (M6), servido por FastAPI en "/".
+WEB_DIST = RAIZ / "web" / "dist"
+
 # Afinidad (spec 6): 0,60 × cobertura + 0,25 × interés + 0,15 × demanda.
 PESO_COBERTURA = 0.60
 PESO_INTERES = 0.25

@@ -20,7 +20,7 @@ EXTRACCION_MARIA = {
         {"codigo": "G2347002-1.E1", "evidencia": "Abro mi caja"},
         {"codigo": "G2347002-1.E2", "evidencia": "Cobro en efectivo, con tarjeta y con Yape"},
         {"codigo": "G2347002-1.E3", "evidencia": "Al final del día cuadro la caja"},
-        {"codigo": "I2555001-2.E1", "evidencia": "lo ayudo con su reclamo"},
+        {"codigo": "I2555001-2.E1", "evidencia": "atiendo su reclamo"},
         {"codigo": "H2452001-1.E2", "evidencia": "ayudo a ordenar la mercadería"},
     ],
     "fortalezas": [

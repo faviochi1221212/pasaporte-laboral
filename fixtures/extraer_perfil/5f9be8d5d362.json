@@ -1,0 +1,48 @@
+{
+  "choices": [
+    {
+      "finish_reason": "tool_calls",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+          {
+            "type": "function",
+            "function": {
+              "name": "extraer_perfil",
+              "arguments": "{\"competencias\":[{\"codigo\": \"H2452001-1.E1\", \"evidencia\": \"Recibo la mercadería que llega en los camiones y reviso que esté completa según la guía\"}, {\"codigo\": \"H2452001-1.E2\", \"evidencia\": \"la ordeno en los estantes por tipo y por fecha\"}, {\"codigo\": \"H2452001-1.E3\", \"evidencia\": \"En la tarde preparo los pedidos y los despacho a las bodegas\"}, {\"codigo\": \"G2347002-1.E2\", \"evidencia\": \"les cobro y les doy el vuelto\"}],\"fortalezas\":[{\"texto\": \"soy ordenado y no me equivoco en el conteo\", \"evidencia\": \"soy ordenado y no me equivoco en el conteo\"}, {\"texto\": \"Juego vóley con mis amigos\", \"evidencia\": \"Juego vóley con mis amigos\"}]}"
+            },
+            "id": "YIYoZWfQuzf75XwIrXDDAv0cfbLFEOH8"
+          }
+        ]
+      }
+    }
+  ],
+  "created": 1793197265,
+  "model": "qwen-38-27b",
+  "system_fingerprint": "b9242-17810f33a",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 263,
+    "prompt_tokens": 2162,
+    "total_tokens": 2425,
+    "prompt_tokens_details": {
+      "cached_tokens": 1956
+    }
+  },
+  "id": "chatcmpl-t9GI9LkEt81VHIovcOsg4nzLHMysaOTY",
+  "timings": {
+    "cache_n": 1956,
+    "prompt_n": 206,
+    "prompt_ms": 177.291,
+    "prompt_per_token_ms": 0.8606359223300971,
+    "prompt_per_second": 1161.9315137260212,
+    "predicted_n": 263,
+    "predicted_ms": 1314.508,
+    "predicted_per_token_ms": 5.017206106870229,
+    "predicted_per_second": 199.31411600385846,
+    "draft_n": 230,
+    "draft_n_accepted": 217
+  }
+}

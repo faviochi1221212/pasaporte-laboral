@@ -11,38 +11,38 @@
             "type": "function",
             "function": {
               "name": "revisar_respuesta",
-              "arguments": "{\"reaccion\":\"Vender postres por encargo suena muy rico y creativo.\",\"suficiente\":true,\"menciona_actividad\":true,\"repregunta\":\"\"}"
+              "arguments": "{\"reaccion\":\"Vender postres por encargo suena muy rico.\",\"suficiente\":true,\"menciona_actividad\":true,\"repregunta\":\"\"}"
             },
-            "id": "8WSh3RuwIkYIl7KmN7JEvTN2ieC1OkfK"
+            "id": "E7SLb1JiOerNiqrTTwPfNaJUtPpWgQ4d"
           }
         ]
       }
     }
   ],
-  "created": 1793190415,
+  "created": 1793197295,
   "model": "qwen-38-27b",
   "system_fingerprint": "b9242-17810f33a",
   "object": "chat.completion",
   "usage": {
-    "completion_tokens": 81,
+    "completion_tokens": 79,
     "prompt_tokens": 529,
-    "total_tokens": 610,
+    "total_tokens": 608,
     "prompt_tokens_details": {
       "cached_tokens": 488
     }
   },
-  "id": "chatcmpl-wrxmAuYMgKNrbjFCNk7SgwkLGQy9LSET",
+  "id": "chatcmpl-jPK7cpek0BojAhgHBp47flLW7GU7YuX6",
   "timings": {
     "cache_n": 488,
     "prompt_n": 41,
-    "prompt_ms": 112.937,
-    "prompt_per_token_ms": 2.754560975609756,
-    "prompt_per_second": 363.03425803766703,
-    "predicted_n": 81,
-    "predicted_ms": 456.947,
-    "predicted_per_token_ms": 5.7118375,
-    "predicted_per_second": 175.0750086990395,
-    "draft_n": 80,
-    "draft_n_accepted": 65
+    "prompt_ms": 111.197,
+    "prompt_per_token_ms": 2.7121219512195123,
+    "prompt_per_second": 368.7149833178953,
+    "predicted_n": 79,
+    "predicted_ms": 474.749,
+    "predicted_per_token_ms": 6.086525641025641,
+    "predicted_per_second": 164.29734449151022,
+    "draft_n": 85,
+    "draft_n_accepted": 61
   }
 }

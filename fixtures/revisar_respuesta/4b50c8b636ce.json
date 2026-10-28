@@ -13,13 +13,13 @@
               "name": "revisar_respuesta",
               "arguments": "{\"reaccion\":\"Qué bonito que ayudes a tu tío en el mercado.\",\"suficiente\":true,\"menciona_actividad\":true,\"repregunta\":\"\"}"
             },
-            "id": "qREN6sH7vwTsZa8DZADUXVID9td4nyq4"
+            "id": "XyGGUdpf5Mtv87MrFodhp8A3WtbDzpoz"
           }
         ]
       }
     }
   ],
-  "created": 1793190408,
+  "created": 1793197287,
   "model": "qwen-38-27b",
   "system_fingerprint": "b9242-17810f33a",
   "object": "chat.completion",
@@ -31,17 +31,17 @@
       "cached_tokens": 488
     }
   },
-  "id": "chatcmpl-bjiWNrK4C82AkBTYuAKuhZoyHVr9yo2P",
+  "id": "chatcmpl-J0x1rkurh6kWRVg0RLNHqay21ni2zzt1",
   "timings": {
     "cache_n": 488,
     "prompt_n": 43,
-    "prompt_ms": 111.512,
-    "prompt_per_token_ms": 2.593302325581395,
-    "prompt_per_second": 385.60872372480094,
+    "prompt_ms": 112.368,
+    "prompt_per_token_ms": 2.6132093023255814,
+    "prompt_per_second": 382.6712231240211,
     "predicted_n": 80,
-    "predicted_ms": 449.007,
-    "predicted_per_token_ms": 5.683632911392405,
-    "predicted_per_second": 175.9438048850018,
+    "predicted_ms": 452.476,
+    "predicted_per_token_ms": 5.727544303797468,
+    "predicted_per_second": 174.59489564087377,
     "draft_n": 80,
     "draft_n_accepted": 64
   }

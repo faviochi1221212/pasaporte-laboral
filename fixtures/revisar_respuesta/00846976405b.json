@@ -13,13 +13,13 @@
               "name": "revisar_respuesta",
               "arguments": "{\"reaccion\":\"Ocho años limpiando oficinas en San Isidro es una gran experiencia.\",\"suficiente\":true,\"menciona_actividad\":true,\"repregunta\":\"\"}"
             },
-            "id": "miFAi5JUbgcN3JgvwRWw05JqzQ0IIyPp"
+            "id": "e6TgPzjJdBMvG2ZwmpUzms1Srcd7GwSq"
           }
         ]
       }
     }
   ],
-  "created": 1793190411,
+  "created": 1793197290,
   "model": "qwen-38-27b",
   "system_fingerprint": "b9242-17810f33a",
   "object": "chat.completion",
@@ -31,17 +31,17 @@
       "cached_tokens": 488
     }
   },
-  "id": "chatcmpl-GnbiJThBuxi12trATXRWuuW8gcap3gNY",
+  "id": "chatcmpl-z11Hrj4HgZFArBXLar86FGBHukDYNumO",
   "timings": {
     "cache_n": 488,
     "prompt_n": 49,
-    "prompt_ms": 111.961,
-    "prompt_per_token_ms": 2.284918367346939,
-    "prompt_per_second": 437.6523968167487,
+    "prompt_ms": 115.24,
+    "prompt_per_token_ms": 2.3518367346938773,
+    "prompt_per_second": 425.19958347795904,
     "predicted_n": 83,
-    "predicted_ms": 471.19,
-    "predicted_per_token_ms": 5.746219512195122,
-    "predicted_per_second": 174.0274623824784,
+    "predicted_ms": 470.343,
+    "predicted_per_token_ms": 5.735890243902439,
+    "predicted_per_second": 174.34085337721618,
     "draft_n": 85,
     "draft_n_accepted": 65
   }

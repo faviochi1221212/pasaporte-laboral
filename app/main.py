@@ -4,7 +4,7 @@ from typing import Annotated, Any, Literal
 
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
-from fastapi.responses import JSONResponse
+from fastapi.responses import FileResponse, JSONResponse
 from pydantic import BaseModel, Field, StringConstraints
 from starlette.exceptions import HTTPException
 
@@ -435,3 +435,19 @@ def cv(sesion_id: str, destino: str) -> Cv:
         destino=ocupacion["nombre"],
         curso=next((f["curso"] for f in faltan if f["curso"]), None),
     )
+
+
+# --- pantallas (M6): el build de web/ en "/"; las rutas de React devuelven index.html
+
+
+@app.get("/{ruta:path}", include_in_schema=False)
+def pantallas(ruta: str) -> FileResponse:
+    """Sirve un archivo de web/dist o, para cualquier otra ruta que no sea de la API, index.html."""
+    dist = config.WEB_DIST.resolve()
+    indice = dist / "index.html"
+    if ruta.startswith("api/") or not indice.is_file():
+        raise ErrorApi(404, "no_encontrado", "No encontramos esa dirección.")
+    archivo = (dist / ruta).resolve()
+    if not archivo.is_relative_to(dist):
+        raise ErrorApi(404, "no_encontrado", "No encontramos esa dirección.")
+    return FileResponse(archivo if archivo.is_file() else indice)

@@ -84,7 +84,7 @@ Siempre con el modo pensar apagado (chat_template_kwargs.enable_thinking = false
 |---|---|---|---|---|
 | revisar_respuesta | Después de cada respuesta a las preguntas 1 a 5 | pregunta y respuesta | reaccion (máx. 12 palabras, sobre lo que dijo la persona), suficiente (sí/no), menciona_actividad (sí/no), repregunta (máx. 15 palabras) | Reacción fija "Gracias por contarme."; repregunta fija si la respuesta tiene menos de 6 palabras: "¿Me das un ejemplo de algo que hiciste esta semana?" en las preguntas 2 y 3, y "¿Y qué haces tú ahí?" en la 4 y la 5 |
 | extraer_perfil (parcial) | En segundo plano, después de cerrar las preguntas 2 y 3 | respuestas de las preguntas 1 a 3 + lista cerrada | igual que la completa | Si falla, el contador no cambia y la conversación sigue |
-| extraer_perfil (completa) | Al terminar la pregunta 6 | todas las respuestas + lista cerrada de competencias (código, texto_simple y criterios_clave) | competencias: código y evidencia; fortalezas: texto y evidencia | Pantalla "No pudimos leer tu relato, inténtalo de nuevo" |
+| extraer_perfil (completa) | Al terminar la pregunta 6 | todas las respuestas + lista cerrada de competencias (código, texto_simple y criterios_clave), agrupada por ocupación con el título "Trabajo: {nombre} ({codigo})" de ocupaciones.json | competencias: código y evidencia; fortalezas: texto y evidencia | Pantalla "No pudimos leer tu relato, inténtalo de nuevo" |
 | redactar_resumen | Al pedir el CV | sellos confirmados y la respuesta 1 (de ahí salen los años); usa solo eso, sin inventar ni usar palabras prohibidas | 2 frases de perfil para el CV y anios: texto corto como "6 años", que solo se usa si pasa evidencia_valida contra la respuesta 1 (si no, null) | Plantilla fija, sin años (anios = null): "Experiencia práctica en: {texto_simple 1}; {texto_simple 2}; {texto_simple 3}." con hasta 3 sellos agrupados en el orden del pasaporte y la primera letra de cada texto_simple en minúscula |
 
 Reglas de la conversación, en código y no en el modelo:
@@ -110,7 +110,7 @@ Para que se sienta como hablar con alguien (pedido en la mentoría con Tether, 2
 
 Prompt de sistema de extraer_perfil, al que se le pega la lista de competencias:
 
-> Eres un asistente del Ministerio de Trabajo del Perú. Lee lo que contó la persona y llama a extraer_perfil. Usa solo códigos de la lista. Para cada competencia, copia como evidencia la frase exacta que la persona escribió; si no hay frase exacta, no la incluyas. Lo que hace fuera de su trabajo, y lo que hace en su trabajo que no está en la lista, va en fortalezas, nunca en competencias. No inventes nada.
+> Eres un asistente del Ministerio de Trabajo del Perú. Lee lo que contó la persona y llama a extraer_perfil. La lista tiene tareas de 6 trabajos distintos: compara cada cosa que cuenta la persona con toda la lista, no solo con su trabajo actual. Si cuenta que hace una tarea de la lista, aunque sea de otro trabajo o la haga a veces, va en competencias. Una misma frase puede ir en varios códigos. Usa solo códigos de la lista. Como evidencia copia, letra por letra, el pedazo de lo que escribió la persona que lo muestra; puede ser corto. Si no hay frase exacta, no lo incluyas. En fortalezas va solo lo que no corresponde a ningún código de la lista, como lo que hace fuera del trabajo. No inventes nada.
 
 ## 6. Endpoints
 

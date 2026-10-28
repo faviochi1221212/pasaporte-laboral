@@ -179,14 +179,27 @@ def test_m4_prompt_de_extraer_perfil_es_el_de_la_spec_con_los_26_elementos(model
         "Eres un asistente del Ministerio de Trabajo del Perú. Lee lo que contó la persona y llama a "
         "extraer_perfil."
     )
+    assert "compara cada cosa que cuenta la persona con toda la lista, no solo con su trabajo actual" in sistema
     assert (
-        "Lo que hace fuera de su trabajo, y lo que hace en su trabajo que no está en la lista, va en "
-        "fortalezas, nunca en competencias. No inventes nada." in sistema
+        "En fortalezas va solo lo que no corresponde a ningún código de la lista, como lo que hace fuera "
+        "del trabajo. No inventes nada." in sistema
     )
     for c in datos.COMPETENCIAS:
         assert c["codigo"] in sistema
         assert c["texto_simple"] in sistema
         assert all(criterio in sistema for criterio in c["criterios_clave"])
+
+
+def test_m4_lista_agrupada_por_trabajo_con_titulo(modelo: Any) -> None:
+    falso = modelo({"competencias": [], "fortalezas": []})
+    ia.extraer_perfil(MARIA, datos.COMPETENCIAS)
+    sistema = falso.llamadas[0]["mensajes"][0]["content"]
+    for ocupacion in datos.OCUPACIONES:
+        titulo = f"Trabajo: {ocupacion['nombre']} ({ocupacion['codigo']})"
+        assert sistema.count(titulo) == 1, titulo
+        grupo = sistema.split(titulo, 1)[1].split("\nTrabajo: ", 1)[0]
+        for c in datos.COMPETENCIAS:
+            assert (f"- {c['codigo']}: " in grupo) == (c["perfil"] == ocupacion["codigo"]), c["codigo"]
 
 
 def test_a5_extraer_perfil_pasa_por_otorgar_sellos(modelo: Any) -> None:
@@ -277,7 +290,7 @@ SELLOS = [
     {"codigos": ["G2347002-1.E3", "I2555001-2.E4"], "etiqueta": "Cuadra la caja", "icono": "caja", "evidencia": "x", "sirve_en": 2},
     {"codigos": ["H2452001-1.E2"], "etiqueta": "Ordena mercadería", "icono": "mercaderia", "evidencia": "x", "sirve_en": 1},
 ]
-RESPUESTA_1 = "Ya llevo 6 años de cajera en un supermercado en Ate."
+RESPUESTA_1 = MARIA[0]["texto"]
 PLANTILLA = (
     "Experiencia práctica en: abrir la caja: revisar el fondo de dinero y que los equipos funcionen; "
     "cobrar en efectivo, con tarjeta o con Yape y entregar lo comprado; cuadrar la caja al final del día."

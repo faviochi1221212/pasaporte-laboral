@@ -7,7 +7,7 @@ import re
 from collections.abc import Callable
 from typing import Any
 
-from app import calculo, config, qvac
+from app import calculo, config, datos, qvac
 
 logger = logging.getLogger(__name__)
 
@@ -28,10 +28,13 @@ PROMPT_REVISAR = (
 
 PROMPT_EXTRAER = (
     "Eres un asistente del Ministerio de Trabajo del Perú. Lee lo que contó la persona y llama a "
-    "extraer_perfil. Usa solo códigos de la lista. Para cada competencia, copia como evidencia la "
-    "frase exacta que la persona escribió; si no hay frase exacta, no la incluyas. Lo que hace fuera "
-    "de su trabajo, y lo que hace en su trabajo que no está en la lista, va en fortalezas, nunca en "
-    "competencias. No inventes nada."
+    "extraer_perfil. La lista tiene tareas de 6 trabajos distintos: compara cada cosa que cuenta la "
+    "persona con toda la lista, no solo con su trabajo actual. Si cuenta que hace una tarea de la "
+    "lista, aunque sea de otro trabajo o la haga a veces, va en competencias. Una misma frase puede ir "
+    "en varios códigos. Usa solo códigos de la lista. Como evidencia copia, letra por letra, el pedazo "
+    "de lo que escribió la persona que lo muestra; puede ser corto. Si no hay frase exacta, no lo "
+    "incluyas. En fortalezas va solo lo que no corresponde a ningún código de la lista, como lo que "
+    "hace fuera del trabajo. No inventes nada."
 )
 
 PROMPT_RESUMEN = (
@@ -195,13 +198,24 @@ def revisar_respuesta(n: int, pregunta: str, respuesta: str, ya_repregunto: bool
 # --- extraer_perfil
 
 
+def _linea(c: dict[str, Any]) -> str:
+    if c["criterios_clave"]:
+        return f"- {c['codigo']}: {c['texto_simple']}. Ejemplos: {'; '.join(c['criterios_clave'])}"
+    return f"- {c['codigo']}: {c['texto_simple']}."
+
+
+def _lista_por_trabajo(competencias: Datos) -> str:
+    """Lista cerrada agrupada por ocupación, con el título "Trabajo: {nombre} ({codigo})"."""
+    grupos = []
+    for o in datos.OCUPACIONES:
+        lineas = [_linea(c) for c in competencias if c["perfil"] == o["codigo"]]
+        if lineas:
+            grupos.append("\n".join([f"Trabajo: {o['nombre']} ({o['codigo']})", *lineas]))
+    return "\n\n".join(grupos)
+
+
 def _mensajes_extraer(respuestas: Datos, competencias: Datos, hasta: int) -> Datos:
-    lista = "\n".join(
-        f"- {c['codigo']}: {c['texto_simple']}. Ejemplos: {'; '.join(c['criterios_clave'])}"
-        if c["criterios_clave"]
-        else f"- {c['codigo']}: {c['texto_simple']}."
-        for c in competencias
-    )
+    lista = _lista_por_trabajo(competencias)
     relato = []
     for r in respuestas:
         if r["n"] > hasta:

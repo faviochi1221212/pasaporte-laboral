@@ -13,13 +13,13 @@
               "name": "revisar_respuesta",
               "arguments": "{\"reaccion\":\"Me encanta cómo organizas los estantes por fecha.\",\"suficiente\":true,\"menciona_actividad\":true,\"repregunta\":\"\"}"
             },
-            "id": "izA8Hiy1qSgb0S3PauepjlHQuqRP7yiZ"
+            "id": "7K0OEyDkG7RHabUUjUFVmGVNj1ta31qf"
           }
         ]
       }
     }
   ],
-  "created": 1793190405,
+  "created": 1793197283,
   "model": "qwen-38-27b",
   "system_fingerprint": "b9242-17810f33a",
   "object": "chat.completion",
@@ -31,18 +31,18 @@
       "cached_tokens": 488
     }
   },
-  "id": "chatcmpl-THvf7BclBAbN8LwQGct7ZOuwdDOCT0yN",
+  "id": "chatcmpl-Cu38e0Rb5vSQuwrGSj8B3WjKxItveJPz",
   "timings": {
     "cache_n": 488,
     "prompt_n": 78,
-    "prompt_ms": 125.643,
-    "prompt_per_token_ms": 1.6108076923076924,
-    "prompt_per_second": 620.8065709987823,
+    "prompt_ms": 123.865,
+    "prompt_per_token_ms": 1.5880128205128206,
+    "prompt_per_second": 629.7178379687564,
     "predicted_n": 78,
-    "predicted_ms": 449.564,
-    "predicted_per_token_ms": 5.838493506493506,
-    "predicted_per_second": 171.27705955103167,
-    "draft_n": 80,
-    "draft_n_accepted": 61
+    "predicted_ms": 479.876,
+    "predicted_per_token_ms": 6.232155844155844,
+    "predicted_per_second": 160.4581183472397,
+    "draft_n": 85,
+    "draft_n_accepted": 60
   }
 }

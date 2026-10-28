@@ -1,0 +1,48 @@
+{
+  "choices": [
+    {
+      "finish_reason": "tool_calls",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+          {
+            "type": "function",
+            "function": {
+              "name": "extraer_perfil",
+              "arguments": "{\"competencias\":[{\"codigo\": \"M2981001-1.E1\", \"evidencia\": \"preparo mi carrito con los productos y reviso que la aspiradora funcione\"}, {\"codigo\": \"M2981001-1.E2\", \"evidencia\": \"Limpio los pisos, los baños y los escritorios, y boto la basura\"}, {\"codigo\": \"M2981001-1.E3\", \"evidencia\": \"Si veo algo malogrado, como un caño que gotea, lo reporto a mi supervisora\"}, {\"codigo\": \"I2555002-1.E1\", \"evidencia\": \"preparo mi carrito con los productos\"}, {\"codigo\": \"I2555002-1.E2\", \"evidencia\": \"Limpio los pisos, los baños y los escritorios\"}, {\"codigo\": \"I2555002-2.E2\", \"evidencia\": \"deje la sala de reuniones lista\"}],\"fortalezas\":[{\"texto\": \"soy detallista\", \"evidencia\": \"porque soy detallista\"}, {\"texto\": \"Vendo gelatinas y postres por encargo\", \"evidencia\": \"Vendo gelatinas y postres por encargo\"}, {\"texto\": \"Los preparo, tomo los pedidos por WhatsApp y los entrego yo misma\", \"evidencia\": \"Los preparo, tomo los pedidos por WhatsApp y los entrego yo misma\"}, {\"texto\": \"Me gusta tejer\", \"evidencia\": \"Me gusta tejer\"}]}"
+            },
+            "id": "abGmJ9Pl51LqLwFGjVq6gIjuvnaatDtX"
+          }
+        ]
+      }
+    }
+  ],
+  "created": 1793197268,
+  "model": "qwen-38-27b",
+  "system_fingerprint": "b9242-17810f33a",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 388,
+    "prompt_tokens": 2165,
+    "total_tokens": 2553,
+    "prompt_tokens_details": {
+      "cached_tokens": 1956
+    }
+  },
+  "id": "chatcmpl-VTQgBr6TtEpFNm8hMiQl6sgRwSlw6tz1",
+  "timings": {
+    "cache_n": 1956,
+    "prompt_n": 209,
+    "prompt_ms": 175.969,
+    "prompt_per_token_ms": 0.841956937799043,
+    "prompt_per_second": 1187.7091987793306,
+    "predicted_n": 388,
+    "predicted_ms": 1970.193,
+    "predicted_per_token_ms": 5.090937984496124,
+    "predicted_per_second": 196.4274565994296,
+    "draft_n": 350,
+    "draft_n_accepted": 317
+  }
+}

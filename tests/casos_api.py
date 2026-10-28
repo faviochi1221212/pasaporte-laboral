@@ -12,7 +12,8 @@ from app import config
 
 # Si el modelo repregunta donde el relato no trae respuesta, se contesta con esta frase inventada.
 RESPUESTA_A_REPREGUNTA_SIN_RELATO = "Preparo el almuerzo del domingo."
-SELLO_A_QUITAR = "H2452001-1.E2"
+# Spec 6b y línea "Cambio en el mockup" de la spec 3: para la cajera se espera Recepción, Mozo/a y Almacén.
+DESTINOS_DE_MARIA = {"I2555001", "I2556002", "H2452001"}
 
 
 def recorrer_maria(cliente: TestClient) -> dict[str, Any]:
@@ -41,9 +42,15 @@ def recorrer_maria(cliente: TestClient) -> dict[str, Any]:
     assert r.status_code == 200, r.text
     resultado["pasaporte"] = r.json()
 
-    r = cliente.put(f"{base}/pasaporte", json={"quitar": [SELLO_A_QUITAR], "quitar_fortalezas": []})
+    # Quita el primer sello y lo deshace, para que la ruta use el pasaporte completo.
+    quitado = resultado["pasaporte"]["sellos"][0]["codigo"]
+    r = cliente.put(f"{base}/pasaporte", json={"quitar": [quitado], "quitar_fortalezas": []})
     assert r.status_code == 200, r.text
-    resultado["pasaporte_editado"] = r.json()
+    resultado["quitado"] = quitado
+    resultado["pasaporte_quitado"] = r.json()
+    r = cliente.put(f"{base}/pasaporte", json={"quitar": [], "quitar_fortalezas": []})
+    assert r.status_code == 200, r.text
+    resultado["pasaporte_restaurado"] = r.json()
 
     esperado = relato["esperado"]
     r = cliente.put(f"{base}/preferencias", json={"interes": esperado["interes"], "horas": esperado["horas"]})
@@ -74,10 +81,11 @@ def comprobar_a8(resultado: dict[str, Any]) -> None:
 
     codigos = {s["codigo"] for s in resultado["pasaporte"]["sellos"]}
     assert len({c for c in codigos if c.startswith("G2347002")}) >= 2
-    assert SELLO_A_QUITAR not in {s["codigo"] for s in resultado["pasaporte_editado"]["sellos"]}
+    assert resultado["quitado"] not in {s["codigo"] for s in resultado["pasaporte_quitado"]["sellos"]}
+    assert resultado["pasaporte_restaurado"] == resultado["pasaporte"]
 
     destinos = resultado["ruta"]["destinos"]
-    assert destinos and all(d["codigo"] != "G2347002" for d in destinos)
+    assert {d["codigo"] for d in destinos} == DESTINOS_DE_MARIA, destinos
     assert resultado["avisos"]["avisos"] or resultado["avisos"]["mensaje"]
     cv = resultado["cv"]
     assert cv["puesto"] == "Cajero/a"
