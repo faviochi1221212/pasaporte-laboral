@@ -6,12 +6,12 @@ Orden: **M0 a M5 = backend probado por su API** (se revisa en `http://127.0.0.1:
 
 ## M0 · Base del repositorio (spec 2)
 
-- [ ] Carpetas `app/`, `fixtures/`, `tests/`, `tests/relatos/` (ya existe), `web/` vacía
-- [ ] `requirements.txt` con fastapi, uvicorn, httpx, pytest (ya existe; no agregar más)
-- [ ] `app/config.py` con constantes y lectura de `.env` (QVAC_TOKEN, QVAC_BASE_URL, QVAC_MODEL, QVAC_MODO)
-- [ ] `app/main.py` con `GET /api/salud` que responde `{"ok": true, "modo": "real" o "respaldo"}`
-- [ ] `pytest.ini` con el marcador `qvac` excluido por defecto
-- [ ] Prueba `test_salud`
+- [x] Carpetas `app/`, `fixtures/`, `tests/`, `tests/relatos/` (ya existe), `web/` vacía
+- [x] `requirements.txt` con fastapi, uvicorn, httpx, pytest (ya existe; no agregar más)
+- [x] `app/config.py` con constantes y lectura de `.env` (QVAC_TOKEN, QVAC_BASE_URL, QVAC_MODEL, QVAC_MODO)
+- [x] `app/main.py` con `GET /api/salud` que responde `{"ok": true, "modo": "real" o "respaldo"}`
+- [x] `pytest.ini` con el marcador `qvac` excluido por defecto
+- [x] Prueba `test_salud`
 
 Hecho cuando: `uvicorn app.main:app` levanta, `pytest -q` pasa y `git grep` no encuentra el token.
 

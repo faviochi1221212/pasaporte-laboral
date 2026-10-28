@@ -82,7 +82,7 @@ Siempre con el modo pensar apagado (chat_template_kwargs.enable_thinking = false
 
 | Tarea | Cuándo | Entrada | Salida (tool) | Respaldo |
 |---|---|---|---|---|
-| revisar_respuesta | Después de cada respuesta a las preguntas 1 a 5 | pregunta y respuesta | reaccion (máx. 12 palabras, sobre lo que dijo la persona), suficiente (sí/no), menciona_actividad (sí/no), repregunta (máx. 15 palabras) | Reacción fija "Gracias por contarme."; repregunta fija si la respuesta tiene menos de 6 palabras |
+| revisar_respuesta | Después de cada respuesta a las preguntas 1 a 5 | pregunta y respuesta | reaccion (máx. 12 palabras, sobre lo que dijo la persona), suficiente (sí/no), menciona_actividad (sí/no), repregunta (máx. 15 palabras) | Reacción fija "Gracias por contarme."; repregunta fija "¿Me das un ejemplo de algo que hiciste esta semana?" en las preguntas 2 a 5 si la respuesta tiene menos de 6 palabras |
 | extraer_perfil (parcial) | En segundo plano, después de cerrar las preguntas 2 y 3 | respuestas de las preguntas 1 a 3 + lista cerrada | igual que la completa | Si falla, el contador no cambia y la conversación sigue |
 | extraer_perfil (completa) | Al terminar la pregunta 6 | todas las respuestas + lista cerrada de competencias (código, texto_simple y criterios_clave) | competencias: código y evidencia; fortalezas: texto y evidencia | Pantalla "No pudimos leer tu relato, inténtalo de nuevo" |
 | redactar_resumen | Al pedir el CV | sellos confirmados y años de experiencia | 2 frases de perfil para el CV | Plantilla fija con los sellos |
