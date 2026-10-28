@@ -80,4 +80,4 @@ Antes de cada push, comprueba que el token no esté en ningún archivo: `git gre
 
 ## Límites
 
-La herramienta orienta; no certifica competencias, no promete empleo y no decide por la persona. No pide edad, género, discapacidad, nivel educativo, DNI ni teléfono. Los relatos de prueba son inventados.
+La herramienta orienta; no certifica competencias, no promete empleo y no decide por la persona. No pide DNI, edad, género, discapacidad ni nivel educativo. Nombre, distrito, teléfono y correo se escriben solo en la pantalla del CV, se quedan en el navegador y nunca se envían al servidor ni se guardan en la base. Los relatos de prueba son inventados.

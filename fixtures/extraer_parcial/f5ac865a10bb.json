@@ -1,0 +1,48 @@
+{
+  "choices": [
+    {
+      "finish_reason": "tool_calls",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+          {
+            "type": "function",
+            "function": {
+              "name": "extraer_perfil",
+              "arguments": "{\"competencias\":[{\"codigo\": \"G2347002-1.E1\", \"evidencia\": \"Abro mi caja, cuento el sencillo que me dan y reviso que la impresora funcione.\"}, {\"codigo\": \"G2347002-1.E2\", \"evidencia\": \"Cobro en efectivo, con tarjeta y con Yape, y doy el vuelto.\"}, {\"codigo\": \"G2347002-1.E3\", \"evidencia\": \"Al final del día cuadro la caja y entrego el dinero a mi supervisora.\"}],\"fortalezas\":[]}"
+            },
+            "id": "Al9Q81dZVsLnOSu5TcBnhX36245jKNHl"
+          }
+        ]
+      }
+    }
+  ],
+  "created": 1793191818,
+  "model": "qwen-38-27b",
+  "system_fingerprint": "b9242-17810f33a",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 172,
+    "prompt_tokens": 1861,
+    "total_tokens": 2033,
+    "prompt_tokens_details": {
+      "cached_tokens": 1766
+    }
+  },
+  "id": "chatcmpl-n3yuqBcpb8tZ1huwawNeq8qfr9cA7Bap",
+  "timings": {
+    "cache_n": 1766,
+    "prompt_n": 95,
+    "prompt_ms": 234.974,
+    "prompt_per_token_ms": 2.4734105263157895,
+    "prompt_per_second": 404.3000502183221,
+    "predicted_n": 172,
+    "predicted_ms": 952.56,
+    "predicted_per_token_ms": 5.570526315789474,
+    "predicted_per_second": 179.51625094482236,
+    "draft_n": 145,
+    "draft_n_accepted": 142
+  }
+}

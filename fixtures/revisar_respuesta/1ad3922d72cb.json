@@ -11,38 +11,38 @@
             "type": "function",
             "function": {
               "name": "revisar_respuesta",
-              "arguments": "{\"reaccion\":\"Seis años de experiencia en caja es un logro valioso.\",\"suficiente\":true,\"menciona_actividad\":true,\"repregunta\":\"\"}"
+              "arguments": "{\"reaccion\":\"Seis años de experiencia en caja, ¡eso es mucho!\",\"suficiente\":true,\"menciona_actividad\":true,\"repregunta\":\"\"}"
             },
-            "id": "AHGH2IqW1xjV9A3oULpr3T4S7FUE52zB"
+            "id": "S0vrBVWm7M13SXnViEM4wBfLG6QrhrIQ"
           }
         ]
       }
     }
   ],
-  "created": 1793190396,
+  "created": 1793191813,
   "model": "qwen-38-27b",
   "system_fingerprint": "b9242-17810f33a",
   "object": "chat.completion",
   "usage": {
-    "completion_tokens": 81,
+    "completion_tokens": 80,
     "prompt_tokens": 534,
-    "total_tokens": 615,
+    "total_tokens": 614,
     "prompt_tokens_details": {
       "cached_tokens": 488
     }
   },
-  "id": "chatcmpl-G5VhLwC4kyq3oa1hZI92ALbWic4IEd3l",
+  "id": "chatcmpl-A58QJheOWFbKfqpOMWFCJv3JZOfcybsG",
   "timings": {
     "cache_n": 488,
     "prompt_n": 46,
-    "prompt_ms": 112.255,
-    "prompt_per_token_ms": 2.4403260869565218,
-    "prompt_per_second": 409.78130150104676,
-    "predicted_n": 81,
-    "predicted_ms": 468.047,
-    "predicted_per_token_ms": 5.8505875000000005,
-    "predicted_per_second": 170.9230055955919,
+    "prompt_ms": 115.563,
+    "prompt_per_token_ms": 2.5122391304347826,
+    "prompt_per_second": 398.05127938873164,
+    "predicted_n": 80,
+    "predicted_ms": 481.132,
+    "predicted_per_token_ms": 6.090278481012659,
+    "predicted_per_second": 164.19610418762417,
     "draft_n": 85,
-    "draft_n_accepted": 63
+    "draft_n_accepted": 62
   }
 }

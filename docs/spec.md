@@ -85,7 +85,7 @@ Siempre con el modo pensar apagado (chat_template_kwargs.enable_thinking = false
 | revisar_respuesta | Después de cada respuesta a las preguntas 1 a 5 | pregunta y respuesta | reaccion (máx. 12 palabras, sobre lo que dijo la persona), suficiente (sí/no), menciona_actividad (sí/no), repregunta (máx. 15 palabras) | Reacción fija "Gracias por contarme."; repregunta fija si la respuesta tiene menos de 6 palabras: "¿Me das un ejemplo de algo que hiciste esta semana?" en las preguntas 2 y 3, y "¿Y qué haces tú ahí?" en la 4 y la 5 |
 | extraer_perfil (parcial) | En segundo plano, después de cerrar las preguntas 2 y 3 | respuestas de las preguntas 1 a 3 + lista cerrada | igual que la completa | Si falla, el contador no cambia y la conversación sigue |
 | extraer_perfil (completa) | Al terminar la pregunta 6 | todas las respuestas + lista cerrada de competencias (código, texto_simple y criterios_clave) | competencias: código y evidencia; fortalezas: texto y evidencia | Pantalla "No pudimos leer tu relato, inténtalo de nuevo" |
-| redactar_resumen | Al pedir el CV | sellos confirmados y la respuesta 1 (de ahí salen los años); usa solo eso, sin inventar ni usar palabras prohibidas | 2 frases de perfil para el CV | Plantilla fija, sin años: "Experiencia práctica en: {texto_simple 1}; {texto_simple 2}; {texto_simple 3}." con hasta 3 sellos agrupados en el orden del pasaporte y la primera letra de cada texto_simple en minúscula |
+| redactar_resumen | Al pedir el CV | sellos confirmados y la respuesta 1 (de ahí salen los años); usa solo eso, sin inventar ni usar palabras prohibidas | 2 frases de perfil para el CV y anios: texto corto como "6 años", que solo se usa si pasa evidencia_valida contra la respuesta 1 (si no, null) | Plantilla fija, sin años (anios = null): "Experiencia práctica en: {texto_simple 1}; {texto_simple 2}; {texto_simple 3}." con hasta 3 sellos agrupados en el orden del pasaporte y la primera letra de cada texto_simple en minúscula |
 
 Reglas de la conversación, en código y no en el modelo:
 
@@ -118,13 +118,20 @@ Prompt de sistema de extraer_perfil, al que se le pega la lista de competencias:
 |---|---|---|
 | POST /api/sesiones | {ocupacion_origen} | {sesion_id, saludo, pregunta: {n, texto, ejemplos[]}} |
 | POST /api/sesiones/{id}/respuestas | {n, texto} | {tipo: "repregunta" o "siguiente" o "fin", reaccion, pregunta (null si es fin), cierre (solo si es fin), parcial_listo: sí/no} |
-| POST /api/sesiones/{id}/sellos-parciales | — | {sellos_ganados: n, etiquetas: [texto]} (extracción parcial con las respuestas 1 a 3; la pantalla la llama sin esperar cuando parcial_listo es sí) |
+| POST /api/sesiones/{id}/sellos-parciales | — | {sellos_ganados: n, etiquetas: [texto]} (extracción parcial con las respuestas 1 a 3; la pantalla la llama sin esperar cuando parcial_listo es sí; si falla responde 503 y el contador no cambia) |
 | POST /api/sesiones/{id}/pasaporte | — | {sellos: [{codigo, etiqueta, icono, evidencia}], fortalezas: [{texto, evidencia}]} |
 | PUT /api/sesiones/{id}/pasaporte | {quitar: [codigos], quitar_fortalezas: [i]} | igual que arriba |
 | PUT /api/sesiones/{id}/preferencias | {interes: gente o cosas o papeles, horas: 1-2 o 3-5 o 5+} | {ok} |
-| GET /api/sesiones/{id}/ruta | — | {destinos: [{codigo, nombre, puntaje, tienes: [codigo], que_harias: [3 textos], faltan: [{codigo, etiqueta, curso o null}], avisos_lima}]} (3, de mayor a menor puntaje) |
-| GET /api/sesiones/{id}/avisos?destino= | — | hasta 3 avisos de avisos.json, cada uno con su que_piden |
-| GET /api/sesiones/{id}/cv | — | Página HTML lista para imprimir o guardar como PDF |
+| GET /api/sesiones/{id}/ruta | — | {foto: fecha y hora de demanda.json, destinos: [{codigo, nombre, puntaje, cobertura, interes, demanda, tienes: [codigo], que_harias: [3 textos], faltan: [{codigo, etiqueta, curso o null, mensaje o null}], avisos_lima}]} (hasta 3, de mayor a menor puntaje; cobertura, interes y demanda son el sustento del puntaje, HU-13) |
+| GET /api/sesiones/{id}/avisos?destino= | — | {avisos: hasta 3 avisos de avisos.json tal cual (con su que_piden y, si es un aviso parecido, su nota), mensaje: null o "Hoy no hay avisos en Lima para esto"} |
+| GET /api/sesiones/{id}/cv?destino=CODIGO | — | JSON: {resumen, puesto (nombre_simple del origen o null), anios (o null), sellos: [{etiqueta, texto_simple, codigos}] (agrupados, sin los quitados), fortalezas (sin las quitadas), destino (nombre), curso (el del primer faltante de ese destino que tiene curso, o null)}. La pantalla arma el CV con docs/mockup/cv_plantilla.md |
+
+Reglas de los endpoints:
+
+- La respuesta a una repregunta llega con el mismo n. Si llega un n menor que el que toca (botón Atrás), se borran esa respuesta y las siguientes y se sigue desde ahí; cualquier otro n da 409.
+- La pregunta 6 no pasa por el modelo: tipo "fin", reaccion null y cierre con el texto fijo. parcial_listo es sí solo al cerrar las preguntas 2 y 3.
+- En PUT /pasaporte, quitar y quitar_fortalezas son la lista completa de lo quitado (no se suman), y los índices de fortalezas son los de la lista que devolvió el POST; así quitar se puede deshacer. Quitar un código quita también los de su misma etiqueta.
+- Errores con un solo formato: {"error": {"codigo", "mensaje"}}.
 
 Afinidad (en calculo.py, con pruebas): puntaje = 0,60 × cobertura + 0,25 × interés + 0,15 × demanda, donde cobertura = sellos de la persona que son elementos del destino / elementos del destino, e interés = 1 si el tipo del destino coincide con el elegido y 0 si no. El perfil de origen nunca aparece como destino. Los "sellos que faltan" de un destino son sus elementos que la persona no tiene.
 
@@ -207,6 +214,7 @@ Etiquetas de los sellos (revisadas: acción que se puede ver, sin palabras del c
 - Consultas en vivo a Empleos Perú o CAPACITA-T.
 - Vendedor y auxiliar administrativo con datos propios.
 - Cualquier pantalla que no esté en el mockup v3, salvo la de intereses.
+- "Guardar para volver otro día".
 
 ## 9. Criterios de aceptación
 
@@ -240,7 +248,7 @@ La herramienta no debe:
 - Inventar competencias, cursos ni avisos: todo sale de los archivos de data/ y se puede rastrear a su fuente.
 - Mostrar una recomendación sin su explicación.
 
-Equidad: la app no pregunta edad, género, discapacidad, nivel educativo ni lugar de nacimiento, y la afinidad solo usa sellos, interés y demanda. Así esos datos no pueden influir en la recomendación. La app tampoco pregunta el distrito ni ningún otro dato de lugar.
+Equidad: la app no pregunta edad, género, discapacidad, nivel educativo ni lugar de nacimiento, y la afinidad solo usa sellos, interés y demanda. Así esos datos no pueden influir en la recomendación. La app tampoco usa el distrito ni ningún otro dato de lugar; el distrito que se escribe en el CV se queda en el navegador.
 
 Datos en el MVP:
 
@@ -248,8 +256,8 @@ Datos en el MVP:
 |---|---|---|
 | Respuestas escritas | Sí, en SQLite, ligadas a un id anónimo | Hasta borrar la sesión; en la demo se borra todo al final |
 | Voz | No: el dictado ocurre en el navegador y solo llega texto | — |
-| Nombre para el CV | Solo en el navegador de la persona, no en el servidor | — |
-| DNI, teléfono, correo | No se piden | — |
+| Nombre (obligatorio), distrito, teléfono y correo del CV (opcionales) | Se escriben en la pantalla del CV y se quedan en el navegador; nunca se envían al servidor | — |
+| DNI | No se pide | — |
 
 Nada se usa para entrenar modelos. En la demo solo hay relatos inventados, porque los prompts del servidor de Tether no son privados; en producción QVAC correría dentro de la infraestructura del MTPE.
 

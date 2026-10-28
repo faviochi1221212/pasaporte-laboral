@@ -67,12 +67,12 @@ Hecho cuando: A1 a A4 pasan dos veces seguidas contra QVAC con el mismo resultad
 
 ## M5 · Backend: `app/db.py` y `app/main.py` (spec 6 y 9b) — HU-01, 02, 04, 05, 06, 13, 15
 
-- [ ] SQLite con 4 tablas: sesion, respuesta, sello, fortaleza (id anónimo, sin datos personales)
-- [ ] Los 9 endpoints de la spec 6 con modelos Pydantic iguales a la spec (incluye saludo, reacción, cierre y sellos-parciales)
-- [ ] Guion fijo de 6 preguntas con máximo una repregunta y la regla de las preguntas 4 y 5
-- [ ] A `otorgar_sellos` se le pasan solo las respuestas 1 a 3 (con sus repreguntas)
-- [ ] Formato único de errores
-- [ ] `scripts/borrar_sesiones.py` para después de la demo
+- [x] SQLite con 4 tablas: sesion, respuesta, sello, fortaleza (id anónimo, sin datos personales)
+- [x] Los 9 endpoints de la spec 6 con modelos Pydantic iguales a la spec (incluye saludo, reacción, cierre y sellos-parciales)
+- [x] Guion fijo de 6 preguntas con máximo una repregunta y la regla de las preguntas 4 y 5
+- [x] A `otorgar_sellos` se le pasan solo las respuestas 1 a 3 (con sus repreguntas)
+- [x] Formato único de errores
+- [x] `scripts/borrar_sesiones.py` para después de la demo
 - [ ] Prueba de recorrido completo de María por la API en modo respaldo (A8), y prueba de que una falla en sellos-parciales no rompe el recorrido (A13)
 
 Hecho cuando: el recorrido de María funciona desde `/docs` y desde la prueba, en modo real y en respaldo.

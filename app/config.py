@@ -1,6 +1,7 @@
 """Configuración y constantes de la app (spec 2). Todo valor fijo vive aquí."""
 import os
 from pathlib import Path
+from typing import Any
 
 RAIZ = Path(__file__).resolve().parent.parent
 MODOS = ("real", "respaldo")
@@ -39,6 +40,9 @@ QVAC_TIMEOUT = 20.0  # segundos de espera por intento
 QVAC_PAUSA = 1.0  # segundos entre intentos
 QVAC_MAX_TOKENS = 2000
 
+# Base de datos local (spec 9b): sin datos personales.
+DB_RUTA = RAIZ / "pasaporte.db"
+
 # Afinidad (spec 6): 0,60 × cobertura + 0,25 × interés + 0,15 × demanda.
 PESO_COBERTURA = 0.60
 PESO_INTERES = 0.25
@@ -74,3 +78,23 @@ TEXTO_SELLOS_GANADOS = "{n} sellos ganados · Sigue contándonos"
 TEXTO_SEMANAS_CURSO = "unas {n} semanas con tu tiempo"
 TEXTO_MODO_SIN_CONEXION = "modo sin conexión"
 TEXTO_RESUMEN_PLANTILLA = "Experiencia práctica en: {tareas}."
+
+# Guion de las 6 preguntas, copiado de docs/mockup/V3Guion.dc.html (spec 5). Los textos de las
+# preguntas 1 a 5 forman parte de los mensajes al modelo: si cambian, hay que volver a grabar fixtures.
+GUION: dict[int, dict[str, Any]] = {
+    1: {"texto": "¿Cuánto tiempo llevas en esto?", "ejemplos": ["Menos de 1 año", "1 a 5 años", "Más de 5"]},
+    2: {"texto": "¿Qué haces en un día normal?", "ejemplos": ["Cobro", "Cuadro la caja", "Ordeno productos"]},
+    3: {
+        "texto": "¿Qué te piden a ti porque lo haces bien?",
+        "ejemplos": ["Cuadrar la caja", "Enseñar a nuevos", "Calmar clientes"],
+    },
+    4: {
+        "texto": "¿Haces algo más aparte de tu trabajo?",
+        "ejemplos": ["Un negocio", "Cachuelos", "Ayudo en mi barrio"],
+    },
+    5: {
+        "texto": "¿Qué te gusta hacer en tu tiempo libre?",
+        "ejemplos": ["Deporte", "Cocinar", "Arreglar cosas"],
+    },
+    6: {"texto": "¿Cuánto tiempo tienes para aprender?", "ejemplos": ["1 a 2 h", "3 a 5 h", "Más de 5 h"]},
+}

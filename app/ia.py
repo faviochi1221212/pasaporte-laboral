@@ -36,8 +36,9 @@ PROMPT_EXTRAER = (
 
 PROMPT_RESUMEN = (
     "Eres un asistente del Ministerio de Trabajo del Perú. Escribe exactamente 2 frases cortas para "
-    "el perfil de un CV y llama a redactar_resumen. Usa solo las tareas y la respuesta que te paso; "
-    "no inventes nada. No uses palabras que empiecen con \"certific\" o \"competen\" (como "
+    "el perfil de un CV y llama a redactar_resumen. En anios copia los años de experiencia tal como "
+    "los dijo la persona en la respuesta 1 (por ejemplo \"6 años\"); si no los dijo, déjalo vacío. "
+    "Usa solo las tareas y la respuesta que te paso; no inventes nada. No uses palabras que empiecen con \"certific\" o \"competen\" (como "
     "certificado, certificación, competente o competencia), ni \"brecha\" ni \"no sirves\"."
 )
 
@@ -80,8 +81,8 @@ TOOL_EXTRAER = _tool(
 )
 TOOL_RESUMEN = _tool(
     "redactar_resumen",
-    "Guarda las 2 frases del perfil del CV.",
-    {"resumen": {"type": "string"}},
+    "Guarda las 2 frases del perfil del CV y los años de experiencia.",
+    {"resumen": {"type": "string"}, "anios": {"type": "string"}},
 )
 
 
@@ -119,7 +120,7 @@ def _perfil_valido(args: dict[str, Any]) -> bool:
 
 def _resumen_valido(args: dict[str, Any]) -> bool:
     resumen = args.get("resumen")
-    if not isinstance(resumen, str):
+    if not isinstance(resumen, str) or not isinstance(args.get("anios"), str):
         return False
     frases = [f for f in re.split(r"[.!?]+", resumen) if f.strip()]
     return len(frases) == 2 and not calculo.tiene_palabra_prohibida(resumen)
@@ -249,8 +250,11 @@ def extraer_parcial(respuestas: Datos, competencias: Datos) -> dict[str, Any] | 
 # --- redactar_resumen
 
 
-def redactar_resumen(sellos: Datos, respuesta_1: str, competencias: Datos) -> str:
-    """2 frases de perfil para el CV, o la plantilla fija si el modelo falla."""
+def redactar_resumen(sellos: Datos, respuesta_1: str, competencias: Datos) -> dict[str, str | None]:
+    """2 frases de perfil para el CV y los años (solo si están tal cual en la respuesta 1).
+
+    Si el modelo falla, la plantilla fija sin años.
+    """
     simples = {c["codigo"]: c["texto_simple"] for c in competencias}
     tareas = "\n".join(f"- {s['etiqueta']}: {simples[s['codigos'][0]]}" for s in sellos)
     mensajes = [
@@ -259,6 +263,8 @@ def redactar_resumen(sellos: Datos, respuesta_1: str, competencias: Datos) -> st
     ]
     args = _llamar("redactar_resumen", mensajes, TOOL_RESUMEN, _resumen_valido)
     if args is not None:
-        return args["resumen"]
+        anios = args["anios"] if calculo.evidencia_valida(args["anios"], [respuesta_1]) else None
+        return {"resumen": args["resumen"], "anios": anios}
     textos = [simples[s["codigos"][0]] for s in sellos[: config.MAX_SELLOS_RESUMEN]]
-    return config.TEXTO_RESUMEN_PLANTILLA.format(tareas="; ".join(t[0].lower() + t[1:] for t in textos))
+    plantilla = config.TEXTO_RESUMEN_PLANTILLA.format(tareas="; ".join(t[0].lower() + t[1:] for t in textos))
+    return {"resumen": plantilla, "anios": None}

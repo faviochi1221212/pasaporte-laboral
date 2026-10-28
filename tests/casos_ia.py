@@ -10,15 +10,9 @@ from app import calculo, config, datos, ia
 
 RELATOS = Path(__file__).parent / "relatos"
 
-# Textos de la pantalla Guion (docs/mockup/V3Guion.dc.html). Deben ser idénticos a los de la app:
-# la clave de cada fixture sale del texto de los mensajes.
-PREGUNTAS = {
-    1: "¿Cuánto tiempo llevas en esto?",
-    2: "¿Qué haces en un día normal?",
-    3: "¿Qué te piden a ti porque lo haces bien?",
-    4: "¿Haces algo más aparte de tu trabajo?",
-    5: "¿Qué te gusta hacer en tu tiempo libre?",
-}
+# Preguntas 1 a 5 del guion (config.GUION, copiado de docs/mockup/V3Guion.dc.html). La clave de
+# cada fixture sale del texto de los mensajes: si cambian, hay que volver a grabar.
+PREGUNTAS = {n: p["texto"] for n, p in config.GUION.items() if n <= 5}
 
 RELATOS_A1_A3 = ["maria_cajera", "jorge_almacen", "rosa_limpieza"]
 

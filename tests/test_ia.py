@@ -284,12 +284,21 @@ PLANTILLA = (
 )
 
 
-def test_hu10_resumen_valido_del_modelo(modelo: Any) -> None:
+def test_hu10_resumen_valido_del_modelo_con_anios(modelo: Any) -> None:
     resumen = "Cajera con 6 años de experiencia en supermercado. Abre, cobra y cuadra la caja."
-    falso = modelo({"resumen": resumen})
-    assert ia.redactar_resumen(SELLOS, RESPUESTA_1, datos.COMPETENCIAS) == resumen
+    falso = modelo({"resumen": resumen, "anios": "6 años"})
+    assert ia.redactar_resumen(SELLOS, RESPUESTA_1, datos.COMPETENCIAS) == {
+        "resumen": resumen,
+        "anios": "6 años",
+    }
     usuario = falso.llamadas[0]["mensajes"][1]["content"]
     assert RESPUESTA_1 in usuario and "Ordena mercadería" in usuario
+
+
+@pytest.mark.parametrize("anios", ["10 años", ""])
+def test_hu10_anios_sin_evidencia_en_la_respuesta_1_es_null(modelo: Any, anios: str) -> None:
+    modelo({"resumen": "Cajera de supermercado. Abre y cuadra la caja.", "anios": anios})
+    assert ia.redactar_resumen(SELLOS, RESPUESTA_1, datos.COMPETENCIAS)["anios"] is None
 
 
 @pytest.mark.parametrize(
@@ -303,14 +312,21 @@ def test_hu10_resumen_valido_del_modelo(modelo: Any) -> None:
         "Cajera con 6 años. Es muy competente en caja.",
     ],
 )
-def test_hu10_resumen_invalido_usa_la_plantilla(modelo: Any, resumen: str) -> None:
-    modelo({"resumen": resumen}, {"resumen": resumen})
-    assert ia.redactar_resumen(SELLOS, RESPUESTA_1, datos.COMPETENCIAS) == PLANTILLA
+def test_hu10_resumen_invalido_usa_la_plantilla_sin_anios(modelo: Any, resumen: str) -> None:
+    salida = {"resumen": resumen, "anios": "6 años"}
+    modelo(salida, salida)
+    assert ia.redactar_resumen(SELLOS, RESPUESTA_1, datos.COMPETENCIAS) == {
+        "resumen": PLANTILLA,
+        "anios": None,
+    }
 
 
 def test_hu10_plantilla_si_qvac_no_responde(modelo: Any) -> None:
     modelo(qvac.ErrorQvac("x"))
-    assert ia.redactar_resumen(SELLOS, RESPUESTA_1, datos.COMPETENCIAS) == PLANTILLA
+    assert ia.redactar_resumen(SELLOS, RESPUESTA_1, datos.COMPETENCIAS) == {
+        "resumen": PLANTILLA,
+        "anios": None,
+    }
 
 
 # --- A1 a A4 y A12 en modo respaldo, con los fixtures grabados contra QVAC real

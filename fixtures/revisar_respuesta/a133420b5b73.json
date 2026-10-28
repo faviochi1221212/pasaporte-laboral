@@ -1,0 +1,48 @@
+{
+  "choices": [
+    {
+      "finish_reason": "tool_calls",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+          {
+            "type": "function",
+            "function": {
+              "name": "revisar_respuesta",
+              "arguments": "{\"reaccion\":\"Qué rico, el almuerzo del domingo suena delicioso.\",\"suficiente\":true,\"menciona_actividad\":true,\"repregunta\":\"\"}"
+            },
+            "id": "EeRCk7purU4ySZgvK9GeW5LkKF80sYya"
+          }
+        ]
+      }
+    }
+  ],
+  "created": 1793191829,
+  "model": "qwen-38-27b",
+  "system_fingerprint": "b9242-17810f33a",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 79,
+    "prompt_tokens": 522,
+    "total_tokens": 601,
+    "prompt_tokens_details": {
+      "cached_tokens": 488
+    }
+  },
+  "id": "chatcmpl-p3bmVlVBRW0u4UCACjCQXhStwegp3kiL",
+  "timings": {
+    "cache_n": 488,
+    "prompt_n": 34,
+    "prompt_ms": 106.803,
+    "prompt_per_token_ms": 3.141264705882353,
+    "prompt_per_second": 318.3431177026863,
+    "predicted_n": 79,
+    "predicted_ms": 441.288,
+    "predicted_per_token_ms": 5.657538461538461,
+    "predicted_per_second": 176.7553162560505,
+    "draft_n": 80,
+    "draft_n_accepted": 62
+  }
+}
