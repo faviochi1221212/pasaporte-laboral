@@ -34,6 +34,10 @@ QVAC_BASE_URL: str = os.environ.get("QVAC_BASE_URL", "")
 QVAC_MODEL: str = os.environ.get("QVAC_MODEL", "")
 QVAC_MODO: str = normalizar_modo(os.environ.get("QVAC_MODO"))
 QVAC_GRABAR: bool = os.environ.get("QVAC_GRABAR", "0") == "1"
+QVAC_INTENTOS = 3
+QVAC_TIMEOUT = 20.0  # segundos de espera por intento
+QVAC_PAUSA = 1.0  # segundos entre intentos
+QVAC_MAX_TOKENS = 2000
 
 # Afinidad (spec 6): 0,60 × cobertura + 0,25 × interés + 0,15 × demanda.
 PESO_COBERTURA = 0.60

@@ -41,10 +41,10 @@ Hecho cuando: `pytest -q` pasa sin conexión y cada prueba nombra su criterio.
 
 ## M3 · Cliente de QVAC: `app/qvac.py` (spec 5 y 7) — HU-15
 
-- [ ] `llamar_tool(nombre_tarea, mensajes, tool)` con Bearer, `enable_thinking: false`, temperatura 0, timeout y 3 reintentos
-- [ ] Log de tiempo por llamada, sin token ni texto de la persona
-- [ ] Modo respaldo: responde desde `fixtures/{tarea}/{clave}.json`; si no hay fixture, error claro
-- [ ] Prueba con un servidor falso (sin red) de reintentos y modo respaldo
+- [x] `llamar_tool(nombre_tarea, mensajes, tool)` con Bearer, `enable_thinking: false`, temperatura 0, timeout y 3 reintentos
+- [x] Log de tiempo por llamada, sin token ni texto de la persona
+- [x] Modo respaldo: responde desde `fixtures/{tarea}/{clave}.json`; si no hay fixture, error claro
+- [x] Prueba con un servidor falso (sin red) de reintentos y modo respaldo
 
 Hecho cuando: las pruebas pasan sin red y una llamada real (`pytest -m qvac`) devuelve una tool call en menos de 8 s.
 
