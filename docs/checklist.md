@@ -29,13 +29,13 @@ Hecho cuando: `python scripts/validar_datos.py` dice OK y el equipo aprobó las 
 
 ## M2 · Cálculos sin IA: `app/calculo.py` (spec 4, 6, 6b) — HU-04, 05, 06, 07, 08, 09, 13
 
-- [ ] `normalizar()` y `evidencia_valida(frase, respuestas)`
-- [ ] `otorgar_sellos(propuestas, respuestas, competencias, quitados)` con las 3 condiciones y agrupación por etiqueta
-- [ ] `afinidad(sellos, interes, origen, ocupaciones, competencias, demanda)` con fórmula, descarte de 0 compartidos, desempate y máximo 3
-- [ ] `faltantes()` y `curso_para(codigo, horas_libres)` con semanas redondeadas hacia arriba y alcance
-- [ ] `avisos_para(perfil)` con máximo 3 y mensaje si no hay
-- [ ] Registro de "tareas sin curso" para la lámina de hallazgos
-- [ ] Pruebas A5, A6 y A7 con datos fijos (sin internet)
+- [x] `normalizar()` y `evidencia_valida(frase, respuestas)`
+- [x] `otorgar_sellos(propuestas, respuestas, competencias, quitados)` con las 3 condiciones y agrupación por etiqueta
+- [x] `afinidad(sellos, interes, origen, ocupaciones, competencias, demanda)` con fórmula, descarte de 0 compartidos, desempate y máximo 3
+- [x] `faltantes()` y `curso_para(codigo, horas_libres)` con semanas redondeadas hacia arriba y alcance
+- [x] `avisos_para(perfil)` con máximo 3 y mensaje si no hay
+- [x] Registro de "tareas sin curso" para la lámina de hallazgos
+- [x] Pruebas A5, A6 y A7 con datos fijos (sin internet)
 
 Hecho cuando: `pytest -q` pasa sin conexión y cada prueba nombra su criterio.
 
@@ -52,6 +52,7 @@ Hecho cuando: las pruebas pasan sin red y una llamada real (`pytest -m qvac`) de
 
 - [ ] `revisar_respuesta`: tool con reaccion, suficiente, menciona_actividad y repregunta; validación de la reacción (12 palabras, sin palabras prohibidas) y respaldos (spec 5)
 - [ ] `extraer_perfil`: lista cerrada de 26 elementos con `texto_simple` y `criterios_clave`, tool, validación y un reintento; versión parcial con las respuestas 1 a 3
+- [ ] Las fortalezas también pasan por `evidencia_valida`
 - [ ] `redactar_resumen`: 2 frases y plantilla de respaldo
 - [ ] Pruebas A1 a A4 y A12 contra QVAC real con `tests/relatos/` (marcador `qvac`); sus respuestas se graban en `fixtures/`
 - [ ] Las mismas pruebas pasan en modo respaldo leyendo esos fixtures

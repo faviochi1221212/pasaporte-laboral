@@ -74,7 +74,7 @@ Un sello es un elemento de competencia de competencias.json, es decir, una tarea
 2. La evidencia es una frase que aparece tal cual en lo que escribió la persona (comparando sin mayúsculas, tildes, signos ni espacios dobles).
 3. La persona no la quitó en la pantalla del pasaporte.
 
-Si falla 1 o 2, la propuesta se descarta en silencio y queda en el log. Una unidad da un solo sello, aunque tenga varias evidencias. Lo que viene de fuera del trabajo (preguntas 4 y 5) va a "otras fortalezas": se muestra y va al CV, pero no da sellos ni cuenta para la afinidad.
+Si falla 1 o 2, la propuesta se descarta en silencio y queda en el log. Una unidad da un solo sello, aunque tenga varias evidencias. Si un código gana su sello, también lo ganan los demás códigos con la misma etiqueta, con la misma frase de evidencia (por ejemplo, Cuadra la caja: G2347002-1.E3 e I2555001-2.E4). Lo que viene de fuera del trabajo (preguntas 4 y 5) va a "otras fortalezas": se muestra y va al CV, pero no da sellos ni cuenta para la afinidad.
 
 ## 5. Lo que hace el modelo
 
@@ -134,7 +134,7 @@ Cómo se explica cada destino (el corazón del reto: que la persona diga "ahora 
 1. "Lo que ya haces y aquí también sirve": cada sello compartido con la frase de la persona que lo respalda.
 2. "Qué harías ahí": las 3 tareas del perfil destino.
 3. "Lo que te falta": los elementos del destino que no tiene, cada uno con su curso de CAPACITA-T o "No encontramos un curso gratuito del MTPE que cubra esto".
-4. "Avisos hoy en Lima": el número de avisos y el acceso a los 3 más cercanos.
+4. "Avisos hoy en Lima": el número de avisos y el acceso a los 3 primeros.
 
 ## 6b. Los 5 casos que ve el jurado, definidos
 
@@ -239,7 +239,7 @@ La herramienta no debe:
 - Inventar competencias, cursos ni avisos: todo sale de los archivos de data/ y se puede rastrear a su fuente.
 - Mostrar una recomendación sin su explicación.
 
-Equidad: la app no pregunta edad, género, discapacidad, nivel educativo ni lugar de nacimiento, y la afinidad solo usa sellos, interés y demanda. Así esos datos no pueden influir en la recomendación. El único dato de lugar es el distrito, y solo para ordenar avisos.
+Equidad: la app no pregunta edad, género, discapacidad, nivel educativo ni lugar de nacimiento, y la afinidad solo usa sellos, interés y demanda. Así esos datos no pueden influir en la recomendación. La app tampoco pregunta el distrito ni ningún otro dato de lugar.
 
 Datos en el MVP:
 
