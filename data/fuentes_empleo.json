@@ -1,0 +1,38 @@
+[
+  {
+    "id": "empleos_peru",
+    "n": "Empleos Perú",
+    "kind": "directo",
+    "how": "Busca por oficio o distrito en el portal del MTPE."
+  },
+  {
+    "id": "computrabajo",
+    "n": "Computrabajo",
+    "kind": "convenio",
+    "how": "Entra con el enlace del convenio MTPE y filtra por tu oficio."
+  },
+  {
+    "id": "bumeran",
+    "n": "Bumeran",
+    "kind": "convenio",
+    "how": "Usa el acceso del convenio MTPE y guarda los avisos que encajan."
+  },
+  {
+    "id": "adecco",
+    "n": "Adecco",
+    "kind": "convenio",
+    "how": "Regístrate en el portal del convenio MTPE y sube tu CV."
+  },
+  {
+    "id": "linkedin",
+    "n": "LinkedIn",
+    "kind": "enlace",
+    "how": "Crea tu perfil, pon tu oficio y busca avisos en tu ciudad."
+  },
+  {
+    "id": "facebook_grupos",
+    "n": "Grupos de Facebook",
+    "kind": "enlace",
+    "how": "Únete a grupos de trabajo de tu distrito y responde los avisos."
+  }
+]

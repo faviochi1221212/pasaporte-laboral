@@ -1,0 +1,10 @@
+{
+  "iso": "pe",
+  "nombre": "Perú",
+  "locale": "es-PE",
+  "moneda": "PEN",
+  "simbolo": "S/",
+  "remuneracion_minima": 1130,
+  "zona_horaria": "America/Lima",
+  "ley_datos": "Ley N.° 29733"
+}

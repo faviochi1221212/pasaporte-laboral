@@ -25,3 +25,6 @@ playwright-report/
 Thumbs.db
 .vscode/
 .aider*
+
+# node_modules de la raíz (proyecto kallpa)
+node_modules/

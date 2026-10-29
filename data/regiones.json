@@ -1,0 +1,164 @@
+[
+  {
+    "id": "sjl",
+    "name": "Santiago de Lima",
+    "macro": "costa",
+    "city": "Lima",
+    "conn": "alta",
+    "lenguas": ["español"],
+    "boost": 1.0
+  },
+  {
+    "id": "norte",
+    "name": "Norte de Lima",
+    "macro": "costa",
+    "city": "Lima",
+    "conn": "alta",
+    "lenguas": ["español"],
+    "boost": 1.0
+  },
+  {
+    "id": "sur",
+    "name": "Sur de Lima",
+    "macro": "costa",
+    "city": "Lima",
+    "conn": "alta",
+    "lenguas": ["español"],
+    "boost": 1.0
+  },
+  {
+    "id": "callao",
+    "name": "Callao",
+    "macro": "costa",
+    "city": "Callao",
+    "conn": "alta",
+    "lenguas": ["español"],
+    "boost": 1.0
+  },
+  {
+    "id": "piura",
+    "name": "Piura",
+    "macro": "costa",
+    "city": "Piura",
+    "conn": "media",
+    "lenguas": ["español"],
+    "boost": 0.9
+  },
+  {
+    "id": "ica",
+    "name": "Ica",
+    "macro": "costa",
+    "city": "Ica",
+    "conn": "media",
+    "lenguas": ["español"],
+    "boost": 0.9
+  },
+  {
+    "id": "trujillo",
+    "name": "Trujillo",
+    "macro": "costa",
+    "city": "Trujillo",
+    "conn": "media",
+    "lenguas": ["español"],
+    "boost": 0.9
+  },
+  {
+    "id": "arequipa",
+    "name": "Arequipa",
+    "macro": "costa",
+    "city": "Arequipa",
+    "conn": "media",
+    "lenguas": ["español"],
+    "boost": 0.9
+  },
+  {
+    "id": "huancayo",
+    "name": "Huancayo",
+    "macro": "sierra",
+    "city": "Huancayo",
+    "conn": "media",
+    "lenguas": ["español", "quechua"],
+    "boost": 0.8
+  },
+  {
+    "id": "cusco",
+    "name": "Cusco",
+    "macro": "sierra",
+    "city": "Cusco",
+    "conn": "media",
+    "lenguas": ["español", "quechua"],
+    "boost": 0.8
+  },
+  {
+    "id": "puno",
+    "name": "Puno",
+    "macro": "sierra",
+    "city": "Puno",
+    "conn": "baja",
+    "lenguas": ["español", "quechua", "aymara"],
+    "boost": 0.7
+  },
+  {
+    "id": "cajamarca",
+    "name": "Cajamarca",
+    "macro": "sierra",
+    "city": "Cajamarca",
+    "conn": "baja",
+    "lenguas": ["español", "quechua"],
+    "boost": 0.7
+  },
+  {
+    "id": "huancavelica",
+    "name": "Huancavelica",
+    "macro": "sierra",
+    "city": "Huancavelica",
+    "conn": "baja",
+    "lenguas": ["español", "quechua"],
+    "boost": 0.7
+  },
+  {
+    "id": "ayacucho",
+    "name": "Ayacucho",
+    "macro": "sierra",
+    "city": "Ayacucho",
+    "conn": "baja",
+    "lenguas": ["español", "quechua"],
+    "boost": 0.7
+  },
+  {
+    "id": "pucallpa",
+    "name": "Pucallpa",
+    "macro": "selva",
+    "city": "Pucallpa",
+    "conn": "media",
+    "lenguas": ["español"],
+    "boost": 0.8
+  },
+  {
+    "id": "iquitos",
+    "name": "Iquitos",
+    "macro": "selva",
+    "city": "Iquitos",
+    "conn": "baja",
+    "lenguas": ["español"],
+    "boost": 0.7
+  },
+  {
+    "id": "tarapoto",
+    "name": "Tarapoto",
+    "macro": "selva",
+    "city": "Tarapoto",
+    "conn": "baja",
+    "lenguas": ["español"],
+    "boost": 0.7
+  },
+  {
+    "id": "maldonado",
+    "name": "Maldonado",
+    "macro": "selva",
+    "city": "Maldonado",
+    "conn": "baja",
+    "lenguas": ["español"],
+    "boost": 0.7
+  }
+]

@@ -1,0 +1,40 @@
+{
+  "reglas": [
+    {
+      "patrones": ["voley", "futbol", "fútbol", "deporte", "equipo"],
+      "codigo": "c_equipo"
+    },
+    {
+      "patrones": ["pollada", "junta vecinal", "vecinal", "liderazgo"],
+      "codigo": "p_liderazgo"
+    },
+    {
+      "patrones": ["cuido", "suegra", "abuela", "niños", "cuidado"],
+      "codigo": "h_cuidado"
+    },
+    {
+      "patrones": ["catalogo", "feria", "venta", "vendo"],
+      "codigo": "h_venta"
+    },
+    {
+      "patrones": ["reparo", "reparación", "mantenimiento", "arreglo"],
+      "codigo": "h_mantenimiento"
+    },
+    {
+      "patrones": ["cocino", "cocina", "preparo", "comida"],
+      "codigo": "h_cocina"
+    },
+    {
+      "patrones": ["aprendo solo", "aprendí solo", "me enseñé", "iniciativa"],
+      "codigo": "c_iniciativa"
+    }
+  ],
+  "opciones_chat": [
+    "Juego voley o fútbol con amigos",
+    "Organizo la pollada o junta vecinal",
+    "Cuido a mis hijos, suegra o abuela",
+    "Vendo en catálogo o en la feria",
+    "Reparo cosas en casa",
+    "Cocino y aprendo recetas nueva"
+  ]
+}

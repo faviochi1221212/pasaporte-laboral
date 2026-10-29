@@ -1,5 +1,5 @@
 import { Link, Navigate } from "react-router";
-import competencias from "../../data/competencias.json";
+import competencias from "../../../data/competencias.json";
 import { fechaCorta } from "../fecha";
 import { useSesion } from "../sesion";
 import { TEXTOS } from "../textos";
