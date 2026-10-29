@@ -1,11 +1,20 @@
 import { Link, Navigate, useParams } from "react-router";
 import { Sello } from "../componentes/Sello";
+import { Trabajador, type Ilustracion } from "../componentes/Trabajador";
 import { fechaCorta } from "../fecha";
 import { useSesion } from "../sesion";
 import { TEXTOS } from "../textos";
 import { useRuta } from "../useRuta";
 
 const T = TEXTOS.destino;
+const ILUSTRACIONES: Record<string, Ilustracion> = {
+  H2452001: "almacen",
+  M2981001: "limpieza",
+  I2555002: "limpieza",
+  G2347002: "cajera",
+  I2555001: "administrativo",
+  I2556002: "vendedor",
+};
 
 /** Destino (HU-07): en orden, lo que ya haces y sirve, qué harías, lo que te falta y avisos (spec 6). */
 export function Destino() {
@@ -33,9 +42,25 @@ export function Destino() {
         ← {T.volver}
       </Link>
       <header className="destino-cabecera">
-        <span className="etiqueta-chica">{T.proxima}</span>
-        <h1>{destino.nombre}</h1>
-        <span>{avisos}</span>
+        <div className="destino-cabecera-fila">
+          <Trabajador tipo={ILUSTRACIONES[destino.codigo] ?? "todo"} tamano={80} />
+          <div className="destino-cabecera-texto">
+            <span className="etiqueta-chica">{T.proxima}</span>
+            <h1>{destino.nombre}</h1>
+            <div className="destino-progreso">
+              <div className="destino-barra-fondo">
+                <div
+                  className="destino-barra-relleno"
+                  style={{ width: `${(destino.tienes.length / (destino.tienes.length + destino.faltan.length)) * 100}%` }}
+                />
+              </div>
+              <span className="destino-barra-texto">
+                {T.tienesSellos(destino.tienes.length, destino.tienes.length + destino.faltan.length)}
+              </span>
+            </div>
+            <span>{avisos}</span>
+          </div>
+        </div>
       </header>
 
       <div className="columnas">
@@ -77,6 +102,7 @@ export function Destino() {
             ) : (
               <>
                 <p className="atenuado">{T.teFaltaDetalle}</p>
+                <p><strong>{T.teFaltaNota}</strong></p>
                 <ul className="faltantes">
                   {destino.faltan.map((f) => (
                     <li key={f.codigo}>

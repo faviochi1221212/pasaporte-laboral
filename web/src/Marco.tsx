@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { Outlet, useOutletContext } from "react-router";
+import { Outlet, useLocation, useOutletContext } from "react-router";
 import { api } from "./api";
 import { TEXTOS } from "./textos";
+import { Pasos } from "./componentes/Pasos";
 
 interface Modo {
   sinConexion: boolean;
@@ -18,12 +19,23 @@ export function Marco() {
       .catch(() => setSinConexion(false));
   }, []);
 
+  const { pathname } = useLocation();
+  const esInicio = pathname === "/";
+
   return (
     <div className="marco">
       {sinConexion && (
         <div className="marca-arriba" role="note">
           <span className="marca-sin-conexion">{TEXTOS.sinConexion}</span>
         </div>
+      )}
+      {!esInicio && (
+        <>
+          <header className="cabecera">
+            <h1 className="cabecera-titulo">{TEXTOS.cabecera}</h1>
+          </header>
+          <Pasos />
+        </>
       )}
       <Outlet context={{ sinConexion } satisfies Modo} />
       <footer className="pie">{TEXTOS.pie}</footer>

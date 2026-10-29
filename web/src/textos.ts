@@ -6,6 +6,8 @@ export const TEXTOS = {
   sinConexion: "modo sin conexión",
   atras: "Atrás",
   errorRed: "No pudimos conectarnos. Inténtalo de nuevo.",
+  cabecera: "Pasaporte Laboral",
+  pasos: ["Cuéntanos", "Tu pasaporte", "Tus caminos", "Postula"],
 
   inicio: {
     titulo: "Sabes más de lo que crees.",
@@ -79,7 +81,7 @@ export const TEXTOS = {
     sinSellos: "No encontramos sellos en lo que contaste. Puedes volver a empezar y contarnos con más detalle.",
     empezar: "Volver a empezar",
     siguiente: "Ver a dónde te lleva",
-    pie: "Sellos según el catálogo de perfiles del MTPE · es lo que contaste que haces",
+    pie: "Esto lo contaste tú y lo respaldan tus propias palabras. Los sellos siguen el catálogo de perfiles del MTPE. No reemplaza la certificación oficial del Ministerio de Trabajo.",
   },
 
   intereses: {
@@ -106,16 +108,24 @@ export const TEXTOS = {
     porQueTitulo: "¿Por qué estos trabajos?",
     porQue:
       "Los ordenamos según cuántos de tus sellos sirven ahí, si es el tipo de trabajo que te gusta y cuántos avisos hay hoy en Lima. Tú eliges.",
+    porQuePrimero: (nombre: string) => `Por qué ${nombre} está primero`,
+    mejorOpcion: "Mejor opción para ti",
+    barraSellos: "Sellos que ya tienes",
+    barraInteres: "Te gusta este tipo de trabajo",
+    barraAvisos: "Avisos en Lima",
+    total: (n: number) => `Total: ${n} de 100`,
     fuentes: "Sellos según el catálogo de perfiles del MTPE · Avisos de Empleos Perú en Lima · Cursos de CAPACITA-T",
   },
 
   destino: {
     proxima: "PRÓXIMA ESTACIÓN",
     volver: "Volver a tu ruta",
+    tienesSellos: (a: number, b: number) => `Ya tienes ${a} de ${b} sellos`,
     yaHaces: "Lo que ya haces y aquí también sirve",
     queHarias: "Qué harías ahí",
     teFalta: "Lo que te falta",
     teFaltaDetalle: "Tu siguiente paso para llegar a este trabajo.",
+    teFaltaNota: "Puedes prepararte sin dejar tu trabajo actual: los cursos son gratuitos, virtuales y en tus horas libres.",
     nadaFalta: "Ya haces todo lo que pide este trabajo",
     semanas: (n: number) => `unas ${n} semanas con tu tiempo`,
     horas: (n: number) => `${n} h · gratis y virtual`,
@@ -137,6 +147,7 @@ export const TEXTOS = {
     ver: "Ver el aviso en Empleos Perú",
     abreEnOtra: "(se abre en otra pestaña)",
     fuente: (fecha: string) => `Avisos reales de Empleos Perú en Lima · vistos el ${fecha}`,
+    otrosPortales: "Busca también en otros portales",
   },
 };
 
@@ -162,4 +173,7 @@ export const TEXTOS_CV = {
   busco: (destino: string) => `Busco: ${destino}`,
   curso: (nombre: string, horas: number) => `Curso: ${nombre} (CAPACITA-T, ${horas} h)`,
   pie: "Competencias declaradas por la persona, basadas en el Catálogo Nacional de Perfiles Ocupacionales del MTPE.",
+  presentacionTitulo: "Tu presentación de 30 segundos",
+  copiar: "Copiar",
+  copiado: "¡Copiado!",
 };

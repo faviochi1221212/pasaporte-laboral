@@ -4,9 +4,11 @@ import { api, type Interes } from "../api";
 import { horasDeRespuesta } from "../horas";
 import { useSesion } from "../sesion";
 import { TEXTOS } from "../textos";
+import { Trabajador, type Ilustracion } from "../componentes/Trabajador";
 
 const T = TEXTOS.intereses;
 const ORDEN: Interes[] = ["gente", "cosas", "papeles"];
+const TIPOS: Record<Interes, Ilustracion> = { gente: "cajera", cosas: "almacen", papeles: "administrativo" };
 
 /** Intereses (HU-05): 3 botones; con las horas de la pregunta 6 se guardan las preferencias. */
 export function Intereses() {
@@ -40,8 +42,11 @@ export function Intereses() {
             const [nombre, ejemplo] = T.opciones[interes];
             return (
               <button key={interes} type="button" className="interes" disabled={ocupado} onClick={() => void elegir(interes)}>
-                <strong>{nombre}</strong>
-                <span>{ejemplo}</span>
+                <Trabajador tipo={TIPOS[interes]} tamano={120} />
+                <div className="interes-texto">
+                  <strong>{nombre}</strong>
+                  <span>{ejemplo}</span>
+                </div>
               </button>
             );
           })}

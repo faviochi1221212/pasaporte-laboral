@@ -71,6 +71,31 @@ export function Avisos() {
         </div>
       )}
       {foto && <p className="nota">{T.fuente(foto)}</p>}
+
+      {destino && (
+        <section className="tarjeta otros-portales">
+          <h2>{T.otrosPortales}</h2>
+          <div className="fila-botones">
+            {(() => {
+              const q = destino.nombre.toLowerCase().replace(/\s+/g, "-");
+              const qEnc = encodeURIComponent(destino.nombre.toLowerCase());
+              return (
+                <>
+                  <a className="boton boton-secundario" href={`https://pe.computrabajo.com/trabajo-de-${q}`} target="_blank" rel="noopener">
+                    Computrabajo
+                  </a>
+                  <a className="boton boton-secundario" href={`https://www.bumeran.com.pe/empleos-busqueda-${q}.html`} target="_blank" rel="noopener">
+                    Bumeran
+                  </a>
+                  <a className="boton boton-secundario" href={`https://www.linkedin.com/jobs/search/?keywords=${qEnc}&location=Lima`} target="_blank" rel="noopener">
+                    LinkedIn
+                  </a>
+                </>
+              );
+            })()}
+          </div>
+        </section>
+      )}
     </main>
   );
 }

@@ -7,6 +7,12 @@ import { TEXTOS } from "../textos";
 
 const T = TEXTOS.pasaporte;
 
+/** Compara dos textos sin mayúsculas, sin espacios al inicio/final y sin punto final. */
+function mismos(a: string, b: string): boolean {
+  const n = (s: string) => s.trim().toLowerCase().replace(/\.$/, "");
+  return n(a) === n(b);
+}
+
 /** Pasaporte (HU-04): sellos agrupados, la frase al tocar, quitar y deshacer con PUT /pasaporte. */
 export function PantallaPasaporte() {
   const { sesion } = useSesion();
@@ -114,7 +120,8 @@ export function PantallaPasaporte() {
                   ) : (
                     <li key={i}>
                       <span>
-                        {f.texto} · <q>{f.evidencia}</q>
+                        {f.texto}
+                        {!mismos(f.texto, f.evidencia) && <> · <q>{f.evidencia}</q></>}
                       </span>
                       <button
                         type="button"

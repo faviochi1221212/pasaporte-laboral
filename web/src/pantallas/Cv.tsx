@@ -99,6 +99,25 @@ export function Cv() {
               {T.faltaNombre}
             </p>
           )}
+          <div className="tarjeta no-imprimir">
+            <h2>{T.presentacionTitulo}</h2>
+            <p>
+              Hola, soy {contacto.nombre.trim() || "tu nombre"}. Tengo {cv.anios || "experiencia"} trabajando como{" "}
+              {cv.puesto || "trabajador"}. Sé {cv.sellos.slice(0, 3).map((s) => s.etiqueta.toLowerCase()).join(", ")}
+              {cv.curso ? ` y estoy por llevar el curso «${cv.curso.nombre}».` : "."} Quiero trabajar en {cv.destino}
+              porque ya hago varias de las cosas que pide el puesto.
+            </p>
+            <button
+              type="button"
+              className="boton boton-secundario"
+              onClick={() => {
+                const texto = `Hola, soy ${contacto.nombre.trim() || "tu nombre"}. Tengo ${cv.anios || "experiencia"} trabajando como ${cv.puesto || "trabajador"}. Sé ${cv.sellos.slice(0, 3).map((s) => s.etiqueta.toLowerCase()).join(", ")}${cv.curso ? ` y estoy por llevar el curso «${cv.curso.nombre}».` : "."} Quiero trabajar en ${cv.destino} porque ya hago varias de las cosas que pide el puesto.`;
+                navigator.clipboard.writeText(texto);
+              }}
+            >
+              {T.copiar}
+            </button>
+          </div>
           <button type="button" className="boton boton-ancho" onClick={imprimir}>
             {T.imprimir}
           </button>
